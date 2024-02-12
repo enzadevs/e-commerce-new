@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.max-width {
+  @apply mx-auto max-w-7xl w-full;
+}
+
+.center {
+  @apply flex items-center justify-center;
+}
+
+.grid-container {
+  @apply grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5 w-full;
+}
+
+.products-container {
+  @apply flex flex-row gap-8 md:gap-16 flex-wrap w-fit;
+}
+
+.flex-row-center {
+  @apply flex flex-row items-center;
+}
+
+.icons-wrapper {
+  @apply border-0 rounded-full cursor-pointer center transition h-8 w-8;
+}
+
+.icons {
+  height: 20px;
+  width: 20px;
+}
+
+.button-primary {
+  @apply bg-calm rounded-md text-white transition hover:bg-calm-700 h-11 w-fit;
+}
+
+.button-outline {
+  @apply bg-white border border-haze-300 rounded-md transition hover:bg-haze-100 h-11 w-fit;
+}
+
+.search-input {
+  @apply bg-white border-2 border-calm rounded-3xl text-haze-600 outline-none transition focus:shadow-md pl-4 h-11 w-full;
+}
+
+.input-primary {
+  @apply bg-white border-2 border-haze-300 rounded-3xl text-haze-600 outline-none transition focus:border-2 focus:border-calm-600 focus:shadow-sm pl-4 h-11 w-full;
+}
+
+.nav-bar-buttons-container {
+  @apply bg-white border-t border-haze-300 fixed flex flex-row items-center justify-between bottom-0 left-0 h-16 w-full md:border-0 md:relative md:flex md:flex-row md:items-center md:gap-4 md:w-fit z-10;
+}
+
+.nav-button {
+  @apply border-r border-haze-200 center transition hover:bg-calm-300 h-16 w-full md:flex md:flex-col md:items-center md:justify-center md:hover:bg-white md:border-0 md:hover:text-calm-700 md:px-2 md:h-11;
+}
+
+.footer-header {
+  @apply text-lg font-bold;
+}
+
+.nav-link {
+  @apply transition hover:text-calm-700;
+}
