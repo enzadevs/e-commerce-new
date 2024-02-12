@@ -32,11 +32,11 @@
 }
 
 .button-primary {
-  @apply bg-calm rounded-md text-white transition hover:bg-calm-700 h-11 w-fit;
+  @apply bg-calm rounded-3xl flex flex-row items-center text-white transition hover:bg-calm-700 h-11 w-fit;
 }
 
 .button-outline {
-  @apply bg-white border border-haze-300 rounded-md transition hover:bg-haze-100 h-11 w-fit;
+  @apply bg-white border border-haze-300 rounded-3xl transition hover:bg-haze-100 h-11 w-fit;
 }
 
 .search-input {
@@ -59,6 +59,10 @@
   @apply text-lg font-bold;
 }
 
+.categories-grid {
+  @apply flex flex-row gap-16 flex-wrap;
+}
+
 .nav-link {
-  @apply transition hover:text-calm-700;
+  @apply transition hover:text-calm-700 hover:border-b hover:border-calm w-fit;
 }

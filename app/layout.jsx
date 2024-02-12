@@ -18,8 +18,8 @@ const globalFont = Nunito_Sans({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={globalFont.className} suppressHydrationWarning>
-      <body className="flex flex-col text-sm min-h-screen w-full">
-        <div className="shadow-md">
+      <body className="flex flex-col gap-4 text-sm min-h-screen w-full">
+        <div className="bg-white shadow-md sticky top-0 z-20">
           <NavBar />
         </div>
         {children}

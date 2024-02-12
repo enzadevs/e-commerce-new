@@ -5,7 +5,9 @@ import withPlaiceholder from "@plaiceholder/next";
  * @type {import('next').NextConfig}
  */
 const config = {
-  // your Next.js config
+  images: {
+    domains: ["img.freepik.com"],
+  },
 };
 
 export default withPlaiceholder(config);

@@ -5,6 +5,7 @@ import SearchBox from "./SearchBox";
 import WishList from "./WishList";
 import ShoppingCart from "./ShoppingCart";
 import ProfileBoard from "./ProfileBoard";
+import CategoriesDropdown from "./CategoriesDropdown";
 import { TbHome } from "react-icons/tb";
 import { TbCategory2 } from "react-icons/tb";
 
@@ -14,6 +15,9 @@ export default function NavBar() {
       <Link href="/" className="hidden md:block">
         <Image src={BrandLogo} height={40} alt="image" sizes="50vw"></Image>
       </Link>
+      <div className="hidden md:block">
+        <CategoriesDropdown />
+      </div>
       <SearchBox />
       <div className="nav-bar-buttons-container">
         <Link href="/" className="nav-button md:hidden">

@@ -13,30 +13,34 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function AdsSwiper() {
   const {
-    data: adsData,
+    data: ads,
     error,
     isLoading,
   } = useSWR(`http://localhost:5000/ads/`, fetcher);
 
   if (isLoading) {
     return (
-      <p className="border bg-grey-100 rounded-[4px] animate-pulse center h-[180px] md:h-[220px] lg:h-[250px] max-width">
-        Loading...
-      </p>
+      <div className="px-3 md:px-0 max-width">
+        <p className="bg-haze-200 rounded-3xl center animate-pulse h-[180px] md:h-[220px] lg:h-[250px] w-full">
+          Загрузка...
+        </p>
+      </div>
     );
   }
 
   if (error) {
     console.error("Error fetching ads:", error);
     return (
-      <p className="border border-red-500 bg-red-200 rounded-[4px] center h-[180px] md:h-[220px] lg:h-[250px] max-width">
-        Error
-      </p>
+      <div className="px-3 md:px-0 max-width">
+        <p className="bg-red-300 rounded-3xl center text-base font-bold text-red-700 h-[180px] md:h-[220px] lg:h-[250px] w-full">
+          Упс! Вышла ошибка.
+        </p>
+      </div>
     );
   }
 
   return (
-    <div className="max-width">
+    <div className="px-3 md:px-0 max-width">
       <div className="border border-grey-100 rounded-lg text-fancy-600 h-[180px] md:h-[220px] lg:h-[250px] w-full">
         <Swiper
           navigation
@@ -49,7 +53,7 @@ export default function AdsSwiper() {
             disableOnInteraction: false,
           }}
         >
-          {adsData.map((item) => {
+          {ads?.map((item) => {
             return (
               <SwiperSlide key={item.id}>
                 <span className="center h-full w-full">
