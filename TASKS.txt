@@ -1,3 +1,3 @@
 -make a reusable Next Image component which will show blurred Base64 image while is being loaded. Or at least skeletoon spinner
--install headless-ui transition and make Categories Dropdown appear smoothly
+-make Categories Dropdown appear smoothly
 -learn bout swr

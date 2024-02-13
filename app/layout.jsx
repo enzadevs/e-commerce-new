@@ -22,8 +22,8 @@ export default function RootLayout({ children }) {
         <div className="bg-white shadow-md sticky top-0 z-20">
           <NavBar />
         </div>
-        <div className="bg-haze-50 h-full w-full">{children}</div>
-        {/* <Footer /> */}
+        <div className="bg-haze-100 min-h-[768px] w-full">{children}</div>
+        <Footer />
       </body>
     </html>
   );

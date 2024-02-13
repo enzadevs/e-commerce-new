@@ -23,7 +23,7 @@ export default function CategoriesDropdown() {
             : "center absolute top-24 left-0 h-auto w-full z-20"
         }
       >
-        <div className="bg-haze-200 rounded-3xl shadow-lg center h-full w-fit max-w-7xl">
+        <div className="bg-haze-100 rounded-3xl shadow-lg center h-full w-fit max-w-7xl">
           <div className="p-4 h-full w-full">
             <div className="categories-grid">
               <ul className="flex flex-col gap-1">

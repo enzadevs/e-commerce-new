@@ -3,5 +3,5 @@ export const metadata = {
 };
 
 export default function ProfileLayout({ children }) {
-  return <div className="max-width">{children}</div>;
+  return <div className="mt-4 max-width">{children}</div>;
 }
