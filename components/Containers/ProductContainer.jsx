@@ -33,7 +33,7 @@ export default function ProductContainer({ productData }) {
           Super cute kitten
         </Link>
         <div className="flex flex-col sm:flex-row sm:gap-2 sm:text-base">
-          {/* <p className="text-red-500 italic line-through">269 man</p> */}
+          <p className="text-red-500 italic line-through">269 man</p>
           <p className="font-bold">199 man.</p>
         </div>
         <button className="button-primary gap-2 px-8">В корзину</button>
