@@ -66,3 +66,19 @@
 .nav-link {
   @apply transition hover:text-calm-700 w-fit;
 }
+
+.info-holder {
+  @apply border-b border-haze-200 flex-row-center justify-between text-base h-11;
+}
+
+.thumbs .swiper-slide {
+  opacity: 0.25;
+}
+
+.thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.swiper-wrapper {
+  justify-content: space-between;
+}

@@ -6,6 +6,11 @@ module.exports = {
         hostname: "img.freepik.com",
         port: "",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "",
+      },
     ],
   },
 };
