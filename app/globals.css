@@ -32,11 +32,11 @@
 }
 
 .button-primary {
-  @apply bg-calm rounded-3xl flex flex-row items-center text-white text-xs sm:text-sm  transition hover:bg-calm-700 h-9 sm:h-11;
+  @apply bg-calm rounded-3xl flex flex-row items-center text-white text-xs sm:text-sm transition hover:bg-calm-700 h-9 sm:h-11;
 }
 
 .button-outline {
-  @apply bg-white border border-haze-300 rounded-3xl transition hover:bg-haze-100 h-11 w-fit;
+  @apply bg-white border border-haze-300 rounded-3xl text-xs sm:text-sm transition hover:bg-haze-100 h-9 sm:h-11 w-fit;
 }
 
 .search-input {

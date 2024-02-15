@@ -50,7 +50,7 @@ export default function ProductViewSwiper({ images }) {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="thumbs mt-2 h-24 lg:h-32 w-full"
+        className="thumbs mt-2 h-20 lg:h-32 w-full"
       >
         {images.map((item) => (
           <SwiperSlide style={{ marginRight: "0px" }} key={undefined}>
