@@ -32,7 +32,7 @@
 }
 
 .button-primary {
-  @apply bg-calm rounded-3xl flex flex-row items-center text-white text-xs sm:text-sm  transition hover:bg-calm-700 h-9 sm:h-11 w-fit;
+  @apply bg-calm rounded-3xl flex flex-row items-center text-white text-xs sm:text-sm  transition hover:bg-calm-700 h-9 sm:h-11;
 }
 
 .button-outline {

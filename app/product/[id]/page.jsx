@@ -4,7 +4,7 @@ import ProductViewSwiper from "components/Containers/ProductViewSwiper";
 
 export default function ProductViewPage({ params }) {
   return (
-    <div className="flex flex-col gap-2 md:flex-row min-h-72">
+    <div className="flex flex-col gap-4 md:flex-row min-h-72">
       <div className="w-full md:flex-[50%] md:max-w-[50%]">
         <div className="flex-row-center md:hidden mb-2 h-6">
           <h3 className="text-base font-semibold line-clamp-1">
@@ -19,6 +19,29 @@ export default function ProductViewPage({ params }) {
             "https://img.freepik.com/free-photo/cute-soft-kittens-with-bright-eyes-lined-up-eager-fun_157027-4369.jpg?w=1380&t=st=1707917124~exp=1707917724~hmac=c5d5b9ed95164177f75fd122b832bdeaada0fb6ce761484a9d03810a8d8bbe08",
           ]}
         />
+      </div>
+      <div className="flex flex-col gap-2 w-full md:flex-[50%] md:max-w-[50%]">
+        <h3 className="text-xl font-bold">Super cute kitten bundle</h3>
+        <div className="text-base">
+          <p className="font-semibold">О товаре:</p>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt
+            adipisci expedita, dolore debitis officia sunt quas est nihil et
+            maxime excepturi id eveniet aperiam iste fuga dolor autem illo
+            provident! Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Nesciunt adipisci expedita, dolore debitis officia sunt quas est
+            nihil et maxime excepturi id eveniet aperiam iste fuga dolor autem
+            illo provident!
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 text-base">
+          <div className="bg-haze-100 rounded-3xl flex-row-center justify-center gap-8 h-11 w-48">
+            <p className="font-semibold">269 ман.</p>
+          </div>
+          <button className="button-primary justify-center px-8 w-48">
+            Купить
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ export default function ProductViewSwiper({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-    <>
+    <div className="container">
       <Swiper
         loop={true}
         spaceBetween={10}
@@ -24,18 +24,19 @@ export default function ProductViewSwiper({ images }) {
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="h-[228px] md:h-[400px]"
+        className="h-96 w-full"
       >
         {images.map((item) => (
           <SwiperSlide key={undefined}>
-            <div className="relative h-full w-full">
+            <div className="flex h-full w-full items-center justify-center">
               <Image
                 // src={"http://localhost:5000/images/" + item}
                 src={item}
                 alt="image of product"
-                className="object-contain"
+                className="block h-full w-full object-contain "
                 sizes="(max-width: 768px) 100vw,50vw"
-                fill
+                width={500}
+                height={500}
               />
             </div>
           </SwiperSlide>
@@ -44,28 +45,29 @@ export default function ProductViewSwiper({ images }) {
       <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}
-        spaceBetween={12}
-        slidesPerView={4}
+        spaceBetween={0}
+        slidesPerView={5}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="thumbs mt-2 h-20 sm:h-28"
+        className="thumbs mt-2 h-24 lg:h-32 w-full"
       >
         {images.map((item) => (
-          <SwiperSlide className="" key={undefined}>
-            <button className="relative h-full w-full">
+          <SwiperSlide style={{ marginRight: "0px" }} key={undefined}>
+            <button className="flex h-full w-full items-center justify-center">
               <Image
                 // src={"http://localhost:5000/images/" + item}
                 src={item}
                 alt="thumbnail of currently selected image"
-                className="object-cover"
+                className="block h-full w-full object-cover"
                 sizes="(max-width: 768px) 100vw,50vw"
-                fill
+                width={100}
+                height={500}
               />
             </button>
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </div>
   );
 }
