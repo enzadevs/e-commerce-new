@@ -1,52 +1,45 @@
 "use client";
 
+import Image from "next/image";
+import { UseFetcher } from "components/Functions/UseFetcher";
+import { Swiper, SwiperSlide } from "swiper/react";
+import LoadingBlock from "components/Functions/LoadingBlock";
+import ErrorBlock from "components/Functions/ErrorBlock";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "styles/ads_swiper.css";
-import Image from "next/image";
-import useSWR from "swr";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function AdsSwiper() {
   const {
     data: ads,
     error,
     isLoading,
-  } = useSWR(`http://localhost:5000/ads/`, fetcher);
+  } = UseFetcher(`http://localhost:5000/ads/all`);
 
-  if (isLoading) {
+  if (isLoading)
     return (
-      <div className="px-3 md:px-0 max-width">
-        <p className="bg-haze-200 rounded-3xl center animate-pulse h-[180px] md:h-[220px] lg:h-[250px] w-full">
-          Загрузка...
-        </p>
+      <div className="center w-full">
+        <LoadingBlock height={"h-20 lg:h-[280px]"} width="w-full max-w-7xl" />
       </div>
     );
-  }
-
-  if (error) {
-    console.error("Error fetching ads:", error);
+  if (error)
     return (
-      <div className="px-3 md:px-0 max-width">
-        <p className="bg-red-300 rounded-3xl center text-base font-bold text-red-700 h-[180px] md:h-[220px] lg:h-[250px] w-full">
-          Упс! Вышла ошибка.
-        </p>
+      <div className="center w-full">
+        <ErrorBlock height={"h-20 lg:h-[280px]"} width="w-full max-w-7xl" />
       </div>
     );
-  }
 
   return (
     <div className="px-3 md:px-0 max-width">
-      <div className="border border-grey-100 rounded-lg text-fancy-600 h-[180px] md:h-[220px] lg:h-[250px] w-full">
+      <div className="rounded-3xl text-fancy-600 center min-h-[10vh] sm:min-h-[20vh] w-full">
         <Swiper
           navigation
           pagination={true}
           modules={[Navigation, Pagination, Autoplay]}
-          className="rounded-[4px] h-full w-full"
+          className="rounded-3xl h-full w-full"
           loop="true"
           autoplay={{
             delay: 5000,
@@ -58,12 +51,13 @@ export default function AdsSwiper() {
               <SwiperSlide key={item.id}>
                 <span className="center h-full w-full">
                   <Image
-                    src={`http://localhost:5000/images/${item.poster_image}`}
+                    className="rounded-3xl"
+                    src={`http://localhost:5000/images/${item.posterImage}`}
                     alt="image"
                     height={0}
                     width={0}
                     style={{ height: "auto", width: "100%" }}
-                    className=""
+                    quality={100}
                     sizes="100v"
                   ></Image>
                 </span>

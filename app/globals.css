@@ -15,7 +15,7 @@
 }
 
 .index-products-grid {
-  @apply grid grid-cols-2 gap-4 lg:grid-cols-4 w-full;
+  @apply grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5;
 }
 
 .flex-row-center {
