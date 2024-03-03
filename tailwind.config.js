@@ -23,7 +23,7 @@ module.exports = {
           900: "#184f24",
           950: "#082b0f",
         },
-        haze: {
+        grey: {
           DEFAULT: "#21a038",
           50: "#f8fafc",
           100: "#f1f5f9",

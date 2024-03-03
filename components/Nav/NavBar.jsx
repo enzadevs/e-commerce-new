@@ -9,11 +9,17 @@ import CategoriesDropdown from "./CategoriesDropdown";
 import { TbHome } from "react-icons/tb";
 import { TbCategory2 } from "react-icons/tb";
 
-export default function NavBar() {
+export default async function NavBar() {
   return (
     <nav className="flex-row-center gap-2 px-3 md:gap-4 md:px-0 h-20 max-width">
       <Link href="/" className="hidden md:block">
-        <Image src={BrandLogo} height={40} alt="image" sizes="50vw"></Image>
+        <Image
+          src={BrandLogo}
+          height={40}
+          alt="image"
+          sizes="50vw"
+          priority
+        ></Image>
       </Link>
       <div className="hidden md:block">
         <CategoriesDropdown />
@@ -32,7 +38,7 @@ export default function NavBar() {
         <Link href="/profile/cart" className="nav-button">
           <ShoppingCart />
         </Link>
-        <Link href="/profile/" className="nav-button">
+        <Link href="/profile" className="nav-button">
           <ProfileBoard />
         </Link>
       </div>

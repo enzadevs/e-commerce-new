@@ -12,7 +12,7 @@ export default function SearchBox() {
         minLength={2}
         maxLength={64}
       ></input>
-      <button className="bg-calm rounded-r-3xl absolute center right-0 h-11 w-11">
+      <button className="bg-calm rounded-r-3xl absolute center right-0 h-9 sm:h-11 w-9 sm:w-11">
         <BiSearch className="text-white h-6 w-6" />
       </button>
     </div>

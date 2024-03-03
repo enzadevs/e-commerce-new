@@ -32,27 +32,27 @@
 }
 
 .button-primary {
-  @apply bg-calm rounded-3xl flex flex-row items-center text-white text-xs sm:text-sm transition hover:bg-calm-700 h-9 sm:h-11;
+  @apply bg-calm rounded-3xl flex flex-row items-center text-white text-xs sm:text-sm focus:outline-none transition hover:bg-calm-700 h-9 sm:h-11;
 }
 
 .button-outline {
-  @apply bg-white border border-haze-300 rounded-3xl text-xs sm:text-sm transition hover:bg-haze-100 h-9 sm:h-11 w-fit;
+  @apply bg-white border border-grey-300 rounded-3xl flex flex-row items-center text-xs sm:text-sm focus:outline-none transition hover:bg-grey-100 h-9 sm:h-11;
 }
 
 .search-input {
-  @apply bg-white border-2 border-calm rounded-3xl text-haze-600 outline-none transition focus:shadow-md pl-4 h-11 w-full;
+  @apply bg-white border-2 border-calm rounded-3xl text-gray-900 focus:outline-none transition focus:shadow-md pl-4 h-9 sm:h-11 w-full;
 }
 
 .input-primary {
-  @apply bg-white border-2 border-haze-300 rounded-3xl text-haze-600 outline-none transition focus:border-2 focus:border-calm focus:shadow-sm pl-4 h-11 w-full;
+  @apply bg-white border border-grey-300 rounded-3xl text-gray-900 focus:outline-none transition focus:border-calm focus:shadow-sm h-9 sm:h-11 w-full;
 }
 
 .nav-bar-buttons-container {
-  @apply bg-white border-t border-haze-300 fixed flex flex-row items-center justify-between bottom-0 left-0 h-16 w-full md:border-0 md:relative md:flex md:flex-row md:items-center md:gap-4 md:w-fit z-10;
+  @apply bg-white border-t border-grey-300 fixed flex flex-row items-center justify-between bottom-0 left-0 h-16 w-full md:border-0 md:relative md:flex md:flex-row md:items-center md:gap-4 md:w-fit z-10;
 }
 
 .nav-button {
-  @apply border-r border-haze-200 center transition hover:text-calm-700 h-16 w-full md:flex md:flex-col md:items-center md:justify-center md:hover:bg-white md:border-0 md:hover:text-calm-700 md:px-2 md:h-11;
+  @apply border-r border-grey-200 center transition hover:text-calm-700 h-16 w-full md:flex md:flex-col md:items-center md:justify-center md:hover:bg-white md:border-0 md:hover:text-calm-700 md:px-2 md:h-11;
 }
 
 .footer-header {
@@ -68,7 +68,7 @@
 }
 
 .info-holder {
-  @apply border-b border-haze-200 flex-row-center justify-between text-base h-11;
+  @apply border-b border-grey-200 flex-row-center justify-between text-base h-11;
 }
 
 .thumbs .swiper-slide {

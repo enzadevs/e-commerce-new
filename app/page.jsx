@@ -1,12 +1,12 @@
 import AdsSwiper from "components/Containers/AdsSwiper";
-import ProductsFromCategories from "components/Containers/ProductsFromCategories";
+import AsyncProductsFromCategories from "components/Containers/AsyncProductsFromCategories";
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
-    <div className="mt-4 flex flex-col pb-4">
+    <div className="mt-4 flex flex-col gap-4">
       <AdsSwiper />
       <div className="max-width">
-        <ProductsFromCategories />
+        <AsyncProductsFromCategories />
       </div>
     </div>
   );
