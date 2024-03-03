@@ -11,14 +11,16 @@ import { TbCategory2 } from "react-icons/tb";
 
 export default async function NavBar() {
   return (
-    <nav className="flex-row-center gap-2 px-3 md:gap-4 md:px-0 h-20 max-width">
+    <nav className="flex-row-center px-3 md:gap-4 md:px-0 h-20 max-width">
       <Link href="/" className="hidden md:block">
         <Image
           src={BrandLogo}
-          height={40}
-          alt="image"
-          sizes="50vw"
+          alt="brand logo"
+          height={0}
+          width={0}
+          style={{ height: "44px", width: "auto" }}
           priority
+          sizes="50vw"
         ></Image>
       </Link>
       <div className="hidden md:block">
