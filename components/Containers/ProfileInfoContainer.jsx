@@ -1,5 +1,6 @@
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
+import { SuccessToast, ErrorToast } from "components/Functions/Toaster";
 import { useState, Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { UseFetcher } from "components/Functions/UseFetcher";
@@ -55,11 +56,12 @@ export default function ProfileInfoContainer() {
       if (response.ok) {
         const user = await response.json();
         updateCurrentUserObject({ user });
+        SuccessToast({ successText: "Вы успешно обновили данные." });
       } else {
         console.error("Failed to update user");
       }
     } catch (error) {
-      console.error("Error updating user:", error);
+      ErrorToast({ errorText: "Вышла Ошибка. Проверьте ваши данные." });
     }
   };
 
