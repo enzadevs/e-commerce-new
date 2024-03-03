@@ -30,27 +30,15 @@ export default function ProfileInfoContainer() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const initialFirstName = firstNameRef.current.value;
-    const initialPhoneNumber = phoneNumberRef.current.value;
-    const initialPassword = passwordRef.current.value;
-    const initialAddress = addressRef.current.value;
-
-    const userFormData = {};
-    if (firstNameRef.current.value !== initialFirstName) {
-      userFormData.firstName = firstNameRef.current.value;
-    }
-
-    if (phoneNumberRef.current.value !== initialPhoneNumber) {
-      userFormData.phoneNumber = "993" + phoneNumberRef.current.value;
-    }
-
-    if (passwordRef.current.value !== initialPassword) {
-      userFormData.password = passwordRef.current.value;
-    }
-
-    if (addressRef.current.value !== initialAddress) {
-      userFormData.address = addressRef.current.value;
-    }
+    const userFormData = {
+      firstName: firstNameRef.current.value,
+      phoneNumber:
+        phoneNumberRef.current.value.trim() === ""
+          ? ""
+          : "993" + phoneNumberRef.current.value,
+      password: passwordRef.current.value,
+      address: addressRef.current.value,
+    };
 
     try {
       const response = await fetch(
@@ -65,9 +53,8 @@ export default function ProfileInfoContainer() {
       );
 
       if (response.ok) {
-        const res = await response.json();
-        const userData = res;
-        updateCurrentUserObject(userData);
+        const user = await response.json();
+        updateCurrentUserObject({ user });
       } else {
         console.error("Failed to update user");
       }
@@ -76,41 +63,8 @@ export default function ProfileInfoContainer() {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const userFormData = {
-  //     firstName: firstNameRef.current.value,
-  //     phoneNumber: "993" + phoneNumberRef.current.value,
-  //     password: passwordRef.current.value,
-  //     address: addressRef.current.value,
-  //   };
-
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:5000/users/update/${currentUserObject.user.id}`,
-  //       {
-  //         method: "PATCH",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(userFormData),
-  //       }
-  //     );
-
-  //     if (response.ok) {
-  //       const res = await response.json();
-  //       const userData = res;
-  //       updateCurrentUserObject(userData);
-  //     } else {
-  //       console.error("Failed to update user");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error updating user:", error);
-  //   }
-  // };
-
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:5000/users/get/` + currentUserObject.user.phoneNumber
+    `http://localhost:5000/users/get/` + currentUserObject.user.id
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -130,7 +84,7 @@ export default function ProfileInfoContainer() {
           </button>
           <button
             onClick={() => {
-              updateCurrentUserObject([]);
+              updateCurrentUserObject({});
               setIsSignedIn(false);
             }}
             className="button-outline gap-2 px-4"
@@ -183,7 +137,6 @@ export default function ProfileInfoContainer() {
           >
             <div className="fixed inset-0 bg-black/25" />
           </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="center min-h-full">
               <Transition.Child
@@ -203,7 +156,7 @@ export default function ProfileInfoContainer() {
                     ref={firstNameRef}
                     name="firstName"
                     type="text"
-                    placeholder={currentUserObject.user.firstName}
+                    placeholder={firstName}
                     className="input-primary pl-4 text-grey-900"
                   ></input>
                   <div className="relative">
@@ -214,7 +167,8 @@ export default function ProfileInfoContainer() {
                       ref={phoneNumberRef}
                       name="phoneNumber"
                       type="text"
-                      placeholder={currentUserObject.user.phoneNumber.slice(3)}
+                      placeholder={phoneNumber.slice(3)}
+                      minLength={8}
                       className="input-primary pl-12 text-grey-900"
                     ></input>
                   </div>
@@ -230,7 +184,7 @@ export default function ProfileInfoContainer() {
                     ref={addressRef}
                     name="address"
                     type="text"
-                    placeholder={currentUserObject.user.address}
+                    placeholder={address}
                     className="input-primary pl-4 text-grey-900"
                   ></input>
                   <button

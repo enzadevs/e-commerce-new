@@ -3,7 +3,7 @@ import toast from "react-simple-toasts";
 export function SuccessToast({ successText }) {
   toast(successText, {
     className:
-      "bg-green-700 rounded-lg shadow-sm text-white text-center text-sm sm:text-base px-8 h-10 z-10",
+      "bg-calm rounded-lg shadow-sm text-white text-center text-sm sm:text-base px-8 h-10 z-10",
     duration: 1750,
   });
 }

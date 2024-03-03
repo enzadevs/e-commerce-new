@@ -1,4 +1,5 @@
 import { Tab } from "@headlessui/react";
+import { SuccessToast, ErrorToast } from "components/Functions/Toaster";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { useState, useRef, Fragment } from "react";
 
@@ -31,8 +32,20 @@ export default function SignUp() {
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
+
+    if (
+      !firstNameRef.current.value ||
+      !phoneNumberRef.current.value ||
+      !passwordRef.current.value ||
+      !passwordConfirmationInputRef.current.value ||
+      !addressRef.current.value
+    ) {
+      alert("Пожалуйста, заполните все поля.");
+      return;
+    }
+
     const userFormData = {
       firstName: firstNameRef.current.value,
       phoneNumber: "993" + phoneNumberRef.current.value,
@@ -41,7 +54,7 @@ export default function SignUp() {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/users/create", {
+      const response = await fetch("http://localhost:5000/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,15 +66,16 @@ export default function SignUp() {
         const res = await response.json();
         updateCurrentUserObject(res);
         setIsSignedIn(true);
+        SuccessToast({ successText: "Вы успешно создали аккаунт." });
       } else {
-        console.error("Failed to create user");
+        ErrorToast({ errorText: "Вышла Ошибка. Проверьте ваши данные." });
       }
     } catch (error) {
-      console.error("Error creating user:", error);
+      ErrorToast({ errorText: "Ошибка сервера." });
     }
   };
 
-  const handleAuth = async (e) => {
+  const handleLogIn = async (e) => {
     e.preventDefault();
     const userFormData = {
       phoneNumber: "993" + phoneNumberRef.current.value,
@@ -90,10 +104,10 @@ export default function SignUp() {
   };
 
   return (
-    <div className="bg-white border rounded-3xl shadow-md flex flex-col gap-4 mt-4 p-4 w-[360px]">
+    <div className="bg-white border border-grey-200 rounded-3xl shadow-md flex flex-col gap-4 mt-4 p-4 w-[360px]">
       <h2 className="text-center text-base">Добро пожаловать!</h2>
       <Tab.Group>
-        <Tab.List className="border rounded-3xl flex gap-4 justify-around p-1 w-full">
+        <Tab.List className="border border-grey-200 rounded-3xl flex gap-4 justify-around p-1 w-full">
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
@@ -124,8 +138,8 @@ export default function SignUp() {
         <Tab.Panels>
           <Tab.Panel as={Fragment}>
             <form
-              className="flex flex-col gap-4 w-full"
-              onSubmit={handleSubmit}
+              className="flex flex-col gap-4 outline-none w-full"
+              onSubmit={handleSignUp}
             >
               <input
                 ref={firstNameRef}
@@ -176,7 +190,7 @@ export default function SignUp() {
                 className="button-primary center w-full"
                 onClick={(e) => {
                   if (validatePasswords()) {
-                    handleSubmit(e);
+                    handleSignUp(e);
                   }
                 }}
               >
@@ -204,9 +218,10 @@ export default function SignUp() {
                 type="password"
                 placeholder="Введите пароль"
                 className="input-primary pl-4"
+                autoComplete="password"
               ></input>
               <button
-                onClick={handleAuth}
+                onClick={handleLogIn}
                 type="button"
                 className="button-primary center w-full"
               >
