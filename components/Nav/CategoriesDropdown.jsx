@@ -21,8 +21,7 @@ export default function CategoriesDropdown() {
         <>Категории</>
       </button>
     );
-  if (error)
-    return <ErrorBlock height={"h-20 lg:h-[280px]"} width="w-full max-w-7xl" />;
+  if (error) return <ErrorBlock height={"h-20 lg:h-[280px]"} width="w-48" />;
 
   return (
     <div>
@@ -42,7 +41,7 @@ export default function CategoriesDropdown() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="bg-white border border-grey-200 rounded-3xl shadow-md absolute left-0 outline-none origin-top-right p-2 mt-4 w-72">
+          <Menu.Items className="bg-white border border-grey-200 rounded-3xl shadow-md absolute left-0 outline-none origin-top-right p-2 mt-4 w-48">
             {categories?.map((category) => (
               <div key={category.id} className="rounded-3xl">
                 <Menu.Item>

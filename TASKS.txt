@@ -1,3 +1,0 @@
--make a reusable Next Image component which will show blurred Base64 image while is being loaded. Or at least skeletoon spinner
--Edit profile info has to be modal popup which will update profile info
--checkout the size of ProductContainer when there is no discount and other one has discount
