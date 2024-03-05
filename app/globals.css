@@ -15,7 +15,7 @@
 }
 
 .index-products-grid {
-  @apply grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5;
+  @apply grid grid-cols-2 gap-2 sm:gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5;
 }
 
 .flex-row-center {
@@ -23,7 +23,7 @@
 }
 
 .icons-wrapper {
-  @apply border-0 rounded-full cursor-pointer center transition h-8 w-8 md:h-11 md:w-11;
+  @apply bg-white shadow-sm rounded-full cursor-pointer center transition h-8 w-8 md:h-11 md:w-11;
 }
 
 .icons {
@@ -81,4 +81,8 @@
 
 .swiper-wrapper {
   justify-content: space-between;
+}
+
+.product-container {
+  @apply bg-white border border-grey-200 rounded-3xl shadow-md flex flex-col gap-2 transition hover:border-calm hover:shadow-lg hover:shadow-calm-200 pb-2 sm:pb-4 h-auto w-full;
 }

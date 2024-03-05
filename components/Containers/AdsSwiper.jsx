@@ -41,6 +41,7 @@ export default function AdsSwiper() {
   return (
     <div className="px-3 md:px-0 max-width">
       <Swiper
+        className="rounded-3xl"
         navigation
         pagination={true}
         modules={[Navigation, Pagination, Autoplay]}
@@ -59,6 +60,7 @@ export default function AdsSwiper() {
                 alt="image"
                 height={0}
                 width={0}
+                priority
                 style={{ height: "auto", width: "100%" }}
                 quality={100}
                 sizes="100v"

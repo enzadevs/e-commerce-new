@@ -2,14 +2,42 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { IsSignedInStore } from "utils/IsSignedIn";
+import { handleAddToWishlist } from "components/Functions/PostRequests";
 import { AiOutlineHeart } from "react-icons/ai";
 
 export default function ProductContainer({ productData }) {
+  const { status, id, title, sellPrice, wishedBy } = productData;
+  const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
+
+  const [isWished, setIsWished] = useState(
+    wishedBy?.id !== currentUserObject.user?.id
+  );
+
   return (
-    <div className="bg-white border border-haze-200 rounded-3xl flex flex-col gap-2 transition hover:shadow-xl hover:shadow-calm-100 pb-2 sm:pb-4 h-auto w-full">
+    <div className="product-container">
       <div className="border-b border-haze-200 relative pb-2">
-        <div className="center absolute top-1 right-1 z-[4]">
-          <button className="bg-white icons-wrapper hover:text-red-500">
+        <div className="rounded-t-3xl flex-row-center absolute top-1 right-1 z-[4] w-full">
+          {status.id !== 1 && (
+            <p className="bg-calm rounded-full center text-white text-xs ml-2 px-2 h-8 sm:h-11 w-fit">
+              {status.title}
+            </p>
+          )}
+          <button
+            onClick={() => {
+              handleAddToWishlist({
+                userId: currentUserObject.user.id,
+                productId: id,
+              });
+              setIsWished(!isWished);
+            }}
+            className={
+              isWished
+                ? "icons-wrapper text-red-500 ml-auto"
+                : "icons-wrapper hover:text-red-500 ml-auto"
+            }
+          >
             <AiOutlineHeart className="icons" />
           </button>
         </div>
@@ -25,12 +53,14 @@ export default function ProductContainer({ productData }) {
       </div>
       <div className="flex flex-col items-start gap-2 px-2 h-full">
         <Link
-          href={"/product/" + productData.id}
+          href={"/product/" + id}
           className="nav-link text-sm sm:text-base text-start line-clamp-2"
         >
-          {productData.title}
+          {title}
         </Link>
-        <p className="font-bold mt-auto">{productData.sellPrice} ман.</p>
+        <p className="text-sm sm:text-base font-bold mt-auto">
+          {sellPrice} ман.
+        </p>
         <button className="button-primary center gap-2 px-8 w-full">
           В корзину
         </button>
