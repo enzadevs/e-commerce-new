@@ -25,7 +25,7 @@ export default async function AsyncProductsFromCategories() {
                 Показать все
               </Link>
             </div>
-            <div className="index-products-grid">
+            <div className="products-grid">
               {item.products?.slice(0, 5).map((item) => (
                 <ProductContainer key={item.id} productData={item} />
               ))}

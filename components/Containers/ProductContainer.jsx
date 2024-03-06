@@ -2,18 +2,26 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import { IsSignedInStore } from "utils/IsSignedIn";
-import { handleAddToWishlist } from "components/Functions/PostRequests";
+import {
+  handleAddToWishlist,
+  handleAddToCart,
+} from "components/Functions/PostRequests";
 import { AiFillHeart } from "react-icons/ai";
 
 export default function ProductContainer({ productData }) {
   const { status, id, title, sellPrice, wishedBy } = productData;
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
-
   const [isWished, setIsWished] = useState(
-    wishedBy?.id !== currentUserObject.user?.id
+    () => wishedBy?.id !== currentUserObject.user?.id
   );
+
+  useLayoutEffect(() => {
+    if (wishedBy) {
+      setIsWished(wishedBy.id !== currentUserObject.user?.id);
+    }
+  }, [wishedBy, currentUserObject]);
 
   return (
     <div className="product-container">
@@ -35,7 +43,7 @@ export default function ProductContainer({ productData }) {
             className={
               isWished
                 ? "icons-wrapper text-red-500 ml-auto"
-                : "icons-wrapper hover:text-red-500 ml-auto"
+                : "icons-wrapper text-gray-400 hover:text-red-500 ml-auto"
             }
           >
             <AiFillHeart className="icons" />
@@ -61,7 +69,15 @@ export default function ProductContainer({ productData }) {
         <p className="text-sm sm:text-base font-bold mt-auto">
           {sellPrice} ман.
         </p>
-        <button className="button-primary center gap-2 px-8 w-full">
+        <button
+          onClick={() => {
+            handleAddToCart({
+              customerId: currentUserObject.user.id,
+              productId: id,
+            });
+          }}
+          className="button-primary center gap-2 px-8 w-full"
+        >
           В корзину
         </button>
       </div>

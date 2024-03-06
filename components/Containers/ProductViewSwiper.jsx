@@ -24,14 +24,13 @@ export default function ProductViewSwiper({ images }) {
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="h-96 w-full"
+        className="h-72 md:h-96 w-full"
       >
         {images.map((item) => (
           <SwiperSlide key={undefined}>
-            <div className="flex h-full w-full items-center justify-center">
+            <div className="center h-full w-full">
               <Image
-                // src={"http://localhost:5000/images/" + item}
-                src={item}
+                src={"http://localhost:5000/images/" + item}
                 alt="image of product"
                 className="block h-full w-full object-contain "
                 sizes="(max-width: 768px) 100vw,50vw"
@@ -50,16 +49,15 @@ export default function ProductViewSwiper({ images }) {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="thumbs mt-2 h-20 lg:h-32 w-full"
+        className="thumbs h-20 lg:h-32 w-full"
       >
         {images.map((item) => (
           <SwiperSlide style={{ marginRight: "0px" }} key={undefined}>
-            <button className="flex h-full w-full items-center justify-center">
+            <button className="center h-full w-full">
               <Image
-                // src={"http://localhost:5000/images/" + item}
-                src={item}
+                src={"http://localhost:5000/images/" + item}
                 alt="thumbnail of currently selected image"
-                className="block h-full w-full object-cover"
+                className="block border border-grey-200 rounded-3xl object-cover h-full w-full"
                 sizes="(max-width: 768px) 100vw,50vw"
                 width={100}
                 height={500}
