@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { handleAddToWishlist } from "components/Functions/PostRequests";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 
 export default function ProductContainer({ productData }) {
   const { status, id, title, sellPrice, wishedBy } = productData;
@@ -38,7 +38,7 @@ export default function ProductContainer({ productData }) {
                 : "icons-wrapper hover:text-red-500 ml-auto"
             }
           >
-            <AiOutlineHeart className="icons" />
+            <AiFillHeart className="icons" />
           </button>
         </div>
         <div className="relative rounded-t-3xl h-40 sm:h-56">

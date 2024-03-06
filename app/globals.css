@@ -23,7 +23,7 @@
 }
 
 .icons-wrapper {
-  @apply bg-white shadow-sm rounded-full cursor-pointer center transition h-8 w-8 md:h-11 md:w-11;
+  @apply bg-white border border-grey-200 rounded-full cursor-pointer center transition hover:shadow-md h-8 w-8 md:h-11 md:w-11;
 }
 
 .icons {
@@ -84,5 +84,5 @@
 }
 
 .product-container {
-  @apply bg-white border border-grey-200 rounded-3xl shadow-md flex flex-col gap-2 transition hover:border-calm hover:shadow-lg hover:shadow-calm-200 pb-2 sm:pb-4 h-auto w-full;
+  @apply bg-white border-2 border-grey-200 rounded-3xl shadow-md flex flex-col gap-2 transition hover:border-calm hover:shadow-lg hover:shadow-calm-200 pb-2 sm:pb-4 h-auto w-full;
 }
