@@ -9,7 +9,6 @@ import { IsSignedInStore } from "utils/IsSignedIn";
 
 export default function ShoppingCartPage() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
-  const [counter, setCounter] = useState(0);
 
   const { data, isLoading, error } = UseFetcher(
     `http://localhost:5000/users/get/` + currentUserObject?.user?.id
@@ -19,6 +18,12 @@ export default function ShoppingCartPage() {
   if (error) return <ErrorBlock height={"h-20"} width="w-full" />;
 
   const { shoppingCart } = data;
+  const totalSum = shoppingCart?.reduce((sum, cartItem) => {
+    const parsedQuantity = Number(cartItem.productsList[0].quantity);
+    const parsedSellPrice = Number(cartItem.productsList[0].product.sellPrice);
+
+    return sum + parsedQuantity * parsedSellPrice;
+  }, 0);
 
   return (
     <div className="flex flex-col gap-4 mt-4">
@@ -26,7 +31,7 @@ export default function ShoppingCartPage() {
         {shoppingCart ? (
           shoppingCart.length > 0 ? (
             <>
-              {shoppingCart?.map((cartItem) => (
+              {shoppingCart.map((cartItem) => (
                 <CartProductContainer
                   key={cartItem.id}
                   productData={cartItem.productsList[0].product}
@@ -44,7 +49,7 @@ export default function ShoppingCartPage() {
           </p>
         )}
       </div>
-      {shoppingCart?.length > 0 && <PostOrder />}
+      {shoppingCart?.length > 0 && <PostOrder orderInfo={{ totalSum }} />}
     </div>
   );
 }

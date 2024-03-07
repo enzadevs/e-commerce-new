@@ -1,11 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
 export default function CartProductContainer({ productData, quantity }) {
-  const [count, setCount] = useState(quantity || 0);
+  const [count, setCount] = useState(Number(quantity) || 0);
   const { id, title, sellPrice, images } = productData;
 
   return (
@@ -21,7 +23,7 @@ export default function CartProductContainer({ productData, quantity }) {
           sizes="50vw"
         ></Image>
       </div>
-      <div className="flex-row-center justify-between gap-2">
+      <div className="flex-row-center justify-between gap-2 grow">
         <div className="flex flex-col h-full">
           Имя
           <Link
@@ -31,7 +33,7 @@ export default function CartProductContainer({ productData, quantity }) {
             {title}
           </Link>
         </div>
-        <div className="w-24">
+        <div className="ml-auto w-24">
           Цена
           <p className="md:text-base font-bold">{sellPrice} ман.</p>
         </div>

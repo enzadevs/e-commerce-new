@@ -35,7 +35,7 @@ export default function PostOrder({ orderInfo }) {
       <div className="info-holder">
         <p className="text-sm">Сумма</p>
         <p className="bg-white rounded-3xl center font-bold px-4 h-9">
-          549 ман.
+          {orderInfo.totalSum} ман.
         </p>
       </div>
       <div className="flex flex-col sm:flex-row items-center sm:justify-around gap-2 sm:gap-16">
