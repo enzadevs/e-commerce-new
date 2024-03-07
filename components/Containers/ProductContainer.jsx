@@ -43,7 +43,7 @@ export default function ProductContainer({ productData }) {
             className={
               isWished
                 ? "icons-wrapper text-red-500 ml-auto"
-                : "icons-wrapper text-gray-400 hover:text-red-500 ml-auto"
+                : "icons-wrapper text-gray-200 hover:text-red-500 ml-auto"
             }
           >
             <AiFillHeart className="icons" />

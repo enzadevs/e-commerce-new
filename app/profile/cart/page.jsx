@@ -1,43 +1,50 @@
-// "use client";
+"use client";
 
-// import LoadingBlock from "components/Functions/LoadingBlock";
-// import ErrorBlock from "components/Functions/ErrorBlock";
+import LoadingBlock from "components/Functions/LoadingBlock";
+import ErrorBlock from "components/Functions/ErrorBlock";
 import CartProductContainer from "components/Containers/CartProductContainer";
-// import { IsSignedInStore } from "utils/IsSignedIn";
-// import { UseFetcher } from "components/Functions/UseFetcher";
+import PostOrder from "components/Containers/PostOrder";
+import { UseFetcher } from "components/Functions/UseFetcher";
+import { IsSignedInStore } from "utils/IsSignedIn";
 
-export default async function ShoppingCartPage() {
-  // const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
+export default function ShoppingCartPage() {
+  const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
+  const [counter, setCounter] = useState(0);
 
-  // const { data, isLoading, error } = UseFetcher(
-  //   `http://localhost:5000/users/get/` + currentUserObject.user.id
-  // );
+  const { data, isLoading, error } = UseFetcher(
+    `http://localhost:5000/users/get/` + currentUserObject?.user?.id
+  );
 
-  // if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
-  // if (error) return <ErrorBlock height={"h-20"} width="" />;
+  if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
+  if (error) return <ErrorBlock height={"h-20"} width="w-full" />;
 
-  // const { shoppingCart } = data;
-
-  const response = await fetch("http://localhost:5000/products/all");
-  const data = await response.json();
+  const { shoppingCart } = data;
 
   return (
-    <div className="flex flex-col gap-4 mt-2">
-      {/* {shoppingCart?.map((cartItem) => {
-        const productData = cartItem.productsList[0].product;
-        return (
-          <>
-            <CartProductContainer productData={productData} />
-          </>
-        );
-      })} */}
-      {data.slice(0, 5).map((item) => {
-        return (
-          <>
-            <CartProductContainer productData={item} />
-          </>
-        );
-      })}
+    <div className="flex flex-col gap-4 mt-4">
+      <div className="flex flex-col gap-4">
+        {shoppingCart ? (
+          shoppingCart.length > 0 ? (
+            <>
+              {shoppingCart?.map((cartItem) => (
+                <CartProductContainer
+                  key={cartItem.id}
+                  productData={cartItem.productsList[0].product}
+                  quantity={cartItem.productsList[0].quantity}
+                />
+              ))}
+            </>
+          ) : (
+            <p>Добавьте продукты В Корзину и они появятся тут.</p>
+          )
+        ) : (
+          <p>
+            Пожалуйста создайте или войдите в аккаунт чтобы добавлять сюда
+            продуты.
+          </p>
+        )}
+      </div>
+      {shoppingCart?.length > 0 && <PostOrder />}
     </div>
   );
 }
