@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import {
   handleAddToWishlist,
@@ -10,14 +10,14 @@ import {
 } from "components/Functions/PostRequests";
 import { AiFillHeart } from "react-icons/ai";
 
-export default function ProductContainer({ productData }) {
-  const { status, id, title, sellPrice, wishedBy } = productData;
+export default function WishlistProductContainer({ productData }) {
+  const { id, title, sellPrice, wishedBy } = productData;
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const [isWished, setIsWished] = useState(
     () => wishedBy?.id !== currentUserObject.user?.id
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (wishedBy) {
       setIsWished(wishedBy.id !== currentUserObject.user?.id);
     }
@@ -27,11 +27,6 @@ export default function ProductContainer({ productData }) {
     <div className="product-container">
       <div className="border-b border-haze-200 relative pb-2">
         <div className="rounded-t-3xl flex-row-center absolute top-1 right-1 z-[4] w-full">
-          {status.id !== 1 && (
-            <p className="bg-calm rounded-full center text-white text-xs ml-2 px-2 h-8 sm:h-11 w-fit">
-              {status.title}
-            </p>
-          )}
           <button
             onClick={() => {
               handleAddToWishlist({

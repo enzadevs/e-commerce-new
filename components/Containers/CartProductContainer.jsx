@@ -46,7 +46,7 @@ export default function CartProductContainer({ productData, quantity }) {
           >
             <FiMinus className="icons nav-link" />
           </button>
-          <p>{count}</p>
+          <p>{quantity}</p>
           <button
             onClick={() => setCount((current) => current + 1)}
             className="rounded-full center transition hover:bg-white h-9 w-9"

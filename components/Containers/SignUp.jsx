@@ -35,6 +35,10 @@ export default function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
+    if (!validatePasswords()) {
+      return;
+    }
+
     if (
       !firstNameRef.current.value ||
       !phoneNumberRef.current.value ||

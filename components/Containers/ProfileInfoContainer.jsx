@@ -66,7 +66,7 @@ export default function ProfileInfoContainer() {
   };
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:5000/users/get/` + currentUserObject.user.id
+    `http://localhost:5000/users/get/` + currentUserObject?.user?.id
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -118,7 +118,7 @@ export default function ProfileInfoContainer() {
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Корзина:</>
-            <p className="font-bold">{shoppingCart?.length}</p>
+            <p className="font-bold">{shoppingCart[0]?.productsList?.length}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Заказы:</>

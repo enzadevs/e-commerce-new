@@ -47,7 +47,7 @@ export default function CategoriesDropdown() {
                 <Menu.Item>
                   {({ active }) => (
                     <Link
-                      href={"/category/" + category.id}
+                      href={"/categories/" + category.id}
                       className={`${
                         active ? "bg-calm text-white" : ""
                       } group flex-row-center text-start transition rounded-3xl py-2 px-3 w-full`}

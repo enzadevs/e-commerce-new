@@ -9,6 +9,7 @@ import { handleAddToCart } from "components/Functions/PostRequests";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { FiPlus, FiMinus } from "react-icons/fi";
+import { AiFillHeart } from "react-icons/ai";
 
 export default function ProductViewPage({ params }) {
   const [count, setCount] = useState(0);
@@ -71,7 +72,7 @@ export default function ProductViewPage({ params }) {
           </div>
         </div>
         <div className="flex flex-row justify-between gap-2 sm:text-base mt-4">
-          <p className="bg-grey-200 rounded-3xl center h-9 sm:h-11 w-48">
+          <p className="bg-grey-200 rounded-3xl font-bold center h-9 sm:h-11 w-48">
             {sellPrice} ман.
           </p>
           <div className="bg-grey-200 rounded-3xl flex-row-center justify-between px-4 h-9 sm:h-11 w-48">
