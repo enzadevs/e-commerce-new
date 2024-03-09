@@ -25,6 +25,7 @@ export default function SearchResultsPage({ params }) {
               ))}
             </div>
           </>
+        ) : (
           <h2 className="text-lg font-bold">
             Нет продуктов, найденных по запросу {params.query}.
           </h2>

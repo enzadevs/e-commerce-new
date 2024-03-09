@@ -4,7 +4,6 @@ import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import PostOrder from "components/Containers/PostOrder";
 import CartProductContainer from "components/Containers/CartProductContainer";
-import { useEffect } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { IsSignedInStore } from "utils/IsSignedIn";
 
