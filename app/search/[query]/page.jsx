@@ -15,12 +15,16 @@ export default function SearchResultsPage({ params }) {
 
   return (
     <div className="flex flex-col gap-4">
+      {console.log(data)}
       {data ? (
-        data.products?.length > 0 ? (
+        data.length > 0 ? (
           <>
+            <h2 className="text-lg font-bold">
+              Результаты по запросу {params.query}.
+            </h2>
             {data.message && <p>{data.message}</p>}
             <div className="products-grid">
-              {data.products.map((item) => (
+              {data.map((item) => (
                 <ProductContainer key={item.id} productData={item} />
               ))}
             </div>

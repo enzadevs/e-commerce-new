@@ -152,7 +152,7 @@ export const handleOrderRequest = async ({
         comment,
         deliveryTypeId,
         paymentTypeId,
-        orderStatusId: 1,
+        orderStatusId: 4,
       }),
     });
     console.log(products);
