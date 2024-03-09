@@ -7,9 +7,8 @@ import { handleOrderRequest } from "components/Functions/PostRequests";
 
 export default function PostOrder({
   customerId,
-  products,
   shoppingCartId,
-  totalSum,
+  shoppingCartData,
 }) {
   const [selectedDeliveryType, setSelectedDeliveryType] = useState(null);
   const [selectedPaymentType, setSelectedPaymentType] = useState(null);
@@ -28,6 +27,19 @@ export default function PostOrder({
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
   if (error) return <ErrorBlock height={"h-20"} width="" />;
+
+  let totalSum = 0;
+
+  shoppingCartData[0]?.productsList?.forEach((product) => {
+    const quantity = parseFloat(product.quantity);
+    const sellPrice = parseFloat(product.product.sellPrice);
+    const productTotal = quantity * sellPrice;
+    totalSum += productTotal;
+  });
+
+  const products = shoppingCartData?.productsList?.map(
+    (item) => item?.product?.id
+  );
 
   const handleDeliveryChange = (event) => {
     setSelectedDeliveryType(event.target.value);
