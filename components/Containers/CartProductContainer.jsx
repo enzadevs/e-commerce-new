@@ -2,12 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import {
+  handleQuantityChange,
+  handleRemoveProductFromCart,
+} from "components/Functions/PostRequests";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
-export default function CartProductContainer({ productData, quantity }) {
-  const [count, setCount] = useState(Number(quantity) || 0);
+export default function CartProductContainer({
+  customerId,
+  productData,
+  quantity,
+}) {
   const { id, title, sellPrice, images } = productData;
 
   return (
@@ -41,20 +47,40 @@ export default function CartProductContainer({ productData, quantity }) {
       <div className="flex-row-center gap-2 ml-auto">
         <div className="bg-grey-200 rounded-3xl flex-row-center justify-between px-4 h-9 sm:h-11 w-44">
           <button
-            onClick={() => setCount((current) => Math.max(current - 1, 0))}
+            onClick={() => {
+              handleQuantityChange({
+                customerId: customerId,
+                productId: id,
+                quantity: Number(quantity) - Number(1),
+              });
+            }}
             className="rounded-full center transition hover:bg-white h-9 w-9"
           >
             <FiMinus className="icons nav-link" />
           </button>
           <p>{quantity}</p>
           <button
-            onClick={() => setCount((current) => current + 1)}
+            onClick={() => {
+              handleQuantityChange({
+                customerId: customerId,
+                productId: id,
+                quantity: Number(quantity) + Number(1),
+              });
+            }}
             className="rounded-full center transition hover:bg-white h-9 w-9"
           >
             <FiPlus className="icons nav-link" />
           </button>
         </div>
-        <button className="icons-wrapper hover:text-red-500">
+        <button
+          onClick={() => {
+            handleRemoveProductFromCart({
+              customerId: customerId,
+              productId: id,
+            });
+          }}
+          className="icons-wrapper hover:text-red-500"
+        >
           <RiDeleteBin6Line className="h-5 w-5" />
         </button>
       </div>

@@ -1,7 +1,3 @@
-export const metadata = {
-  title: "Все категории",
-};
-
 export default function CategoriesLayout({ children }) {
   return (
     <div className="px-3 md:px-0 max-width">

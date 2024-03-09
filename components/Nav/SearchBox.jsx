@@ -8,7 +8,7 @@ export default function SearchBox() {
       <input
         type="text"
         className="search-input w-full"
-        placeholder="Gözleg sözi"
+        placeholder="Поиск..."
         minLength={2}
         maxLength={64}
       ></input>

@@ -14,8 +14,8 @@ export default function CategoryProductsPage({ params }) {
   if (error) return <ErrorBlock height={"h-72"} width="" />;
 
   return (
-    <div>
-      <h2></h2>
+    <div className="flex flex-col gap-4">
+      <h2 className="text-lg font-bold">{data.title}</h2>
       <div className="products-grid">
         {data.products?.map((item) => (
           <ProductContainer key={item.id} productData={item} />

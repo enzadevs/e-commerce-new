@@ -59,49 +59,9 @@ export default function ShoppingCartPage() {
     totalSum += productTotal;
   });
 
-  const handleOrderRequest = async () => {
-    const products = shoppingCart[0].productsList.map(
-      (item) => item.product.id
-    );
-    try {
-      const response = await fetch(`http://localhost:5000/orders/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          customerId: currentUserObject.user.id,
-          shoppingCartId: shoppingCart[0].id,
-          products: products,
-          address: "hello world",
-          sum: totalSum,
-          comment: "okayokay",
-          deliveryTypeId: selectedDeliveryType,
-          paymentTypeId: selectedPaymentType,
-          orderStatusId: 1,
-        }),
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        SuccessToast({ successText: responseData.message });
-      } else {
-        const errorData = await response.json();
-        ErrorToast({
-          errorText: errorData.message || "Вышла Ошибка. Попробуйте снова.",
-        });
-      }
-    } catch (error) {
-      console.error("Ошибка добавления продукта в избранное:", error);
-      ErrorToast({
-        errorText: "Ошибка сетевого соединения. Попробуйте снова позже.",
-      });
-    }
-  };
-
   return (
     <div className="flex flex-col gap-4 mt-4">
-      {console.log(shoppingCart[0].productsList)}
+      {/* {console.log(shoppingCart[0].productsList)} */}
       <div className="flex flex-col gap-4">
         {shoppingCart[0] ? (
           shoppingCart[0]?.productsList?.length > 0 ? (

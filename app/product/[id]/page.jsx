@@ -93,7 +93,7 @@ export default function ProductViewPage({ params }) {
           <button
             onClick={() => {
               handleAddToCart({
-                customerId: currentUserObject.user.id,
+                customerId: currentUserObject?.user?.id,
                 productId: id,
                 quantity: count,
               });

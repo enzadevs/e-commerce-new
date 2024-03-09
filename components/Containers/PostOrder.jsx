@@ -1,11 +1,20 @@
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { RadioGroup } from "@headlessui/react";
 import { UseFetcher } from "components/Functions/UseFetcher";
+import { handleOrderRequest } from "components/Functions/PostRequests";
 
-export default function PostOrder({ orderInfo }) {
+export default function PostOrder({
+  customerId,
+  products,
+  shoppingCartId,
+  totalSum,
+}) {
   const [selectedDeliveryType, setSelectedDeliveryType] = useState(null);
   const [selectedPaymentType, setSelectedPaymentType] = useState(null);
+  const addressRef = useRef();
+  const commentRef = useRef();
 
   const { data: paymentTypes } = UseFetcher(
     "http://localhost:5000/manage/payment_type/all"
@@ -22,7 +31,6 @@ export default function PostOrder({ orderInfo }) {
 
   const handleDeliveryChange = (event) => {
     setSelectedDeliveryType(event.target.value);
-    console.log(true);
   };
 
   const handlePaymentChange = (event) => {
@@ -30,56 +38,104 @@ export default function PostOrder({ orderInfo }) {
   };
 
   return (
-    <div className="bg-grey-100 rounded-3xl flex flex-col shadow-sm transition hover:shadow-md p-4 h-full w-full">
+    <div className="bg-grey-100 rounded-3xl flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
       <h2 className="text-base font-bold">Оформить заказ</h2>
-      <div className="info-holder">
-        <p className="text-sm">Сумма</p>
-        <p className="bg-white rounded-3xl center font-bold px-4 h-9">
-          {orderInfo.totalSum} ман.
-        </p>
+      <div className="flex flex-col md:flex-row items-center sm:justify-around gap-2 md:gap-8">
+        <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center gap-2 sm:gap-4 p-2 w-full">
+          <p className="flex-[20%]">Адрес:</p>
+          <input
+            ref={addressRef}
+            name="address"
+            type="text"
+            className="input-primary px-4"
+            placeholder="Адрес"
+          ></input>
+        </div>
       </div>
-      <div className="flex flex-col sm:flex-row items-center sm:justify-around gap-2 sm:gap-16">
-        <div className="border-b border-grey-200 flex flex-col mt-2 w-full">
-          <label htmlFor="deliveryType">Способ доставки :</label>
-          <div className="font-bold flex-row-center justify-between h-9">
+      <div className="flex flex-col md:flex-row items-center sm:justify-around gap-2 md:gap-8">
+        <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center gap-2 sm:gap-4 p-2 w-full">
+          <p className="flex-[20%]">Коментарий:</p>
+          <input
+            ref={commentRef}
+            name="comment"
+            type="text"
+            className="input-primary px-4"
+            placeholder="Коментарий"
+          ></input>
+        </div>
+      </div>
+      <div className="flex flex-col md:flex-row items-center sm:justify-around gap-2 md:gap-8">
+        <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center gap-4 p-2 w-full">
+          <p>Способ доставки:</p>
+          <RadioGroup className="flex-row-center justify-between gap-4 grow">
             {deliveryTypes?.map((item) => (
-              <label key={item.id} className="flex gap-2">
-                <input
-                  type="radio"
-                  id={item.id}
-                  name="deliveryType"
-                  value={item.id}
-                  checked={item.id}
-                  onChange={handleDeliveryChange}
-                />
-                {item.title}
-              </label>
+              <RadioGroup.Option value={item.id} key={item.id}>
+                {({ checked }) => (
+                  <button
+                    onClick={handleDeliveryChange}
+                    key={item.id}
+                    value={item.id}
+                    className={
+                      checked
+                        ? "button-primary center px-4 sm:px-8 w-full"
+                        : "button-outline center px-4 sm:px-8 w-full"
+                    }
+                  >
+                    {item.title}
+                  </button>
+                )}
+              </RadioGroup.Option>
             ))}
-          </div>
+          </RadioGroup>
         </div>
-        <div className="border-b border-grey-200 flex flex-col mt-2 w-full">
-          <label htmlFor="paymentType">Способ оплаты :</label>
-          <div className="font-bold flex-row-center justify-between h-9">
+        <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center gap-4 p-2 w-full">
+          <p>Способ оплаты:</p>
+          <RadioGroup className="flex-row-center justify-between gap-4 grow">
             {paymentTypes?.map((item) => (
-              <label key={item.id} className="flex gap-2">
-                <input
-                  type="radio"
-                  id={item.id}
-                  name="paymentType"
-                  value={item.id}
-                  checked={item.id}
-                  onChange={handlePaymentChange}
-                />
-                {item.title}
-              </label>
+              <RadioGroup.Option value={item.id} key={item.id}>
+                {({ checked }) => (
+                  <button
+                    onClick={handlePaymentChange}
+                    key={item.id}
+                    value={item.id}
+                    className={
+                      checked
+                        ? "button-primary center px-4 sm:px-8 w-full"
+                        : "button-outline center px-4 sm:px-8 w-full"
+                    }
+                  >
+                    {item.title}
+                  </button>
+                )}
+              </RadioGroup.Option>
             ))}
-          </div>
+          </RadioGroup>
         </div>
       </div>
-      <div className="w-full">
-        <button className="button-primary center ml-auto mt-2 px-8 w-fit">
-          Заказать
-        </button>
+      <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 p-2 w-full">
+        <p className="text-sm">Сумма :</p>
+        <div className="flex-row-center gap-2">
+          <p className="button-outline center font-bold px-4">
+            {totalSum} ман.
+          </p>
+          <button
+            onClick={() => {
+              handleOrderRequest({
+                customerId: customerId,
+                productsList: products,
+                shoppingCartId: shoppingCartId,
+                totalSum: totalSum,
+                address: addressRef.current.value,
+                comment: commentRef.current.value,
+                deliveryTypeId: selectedDeliveryType,
+                paymentTypeId: selectedPaymentType,
+              });
+            }}
+            className="button-primary center px-4 sm:px-8 w-fit"
+          >
+            Заказать
+          </button>
+        </div>
       </div>
     </div>
   );
