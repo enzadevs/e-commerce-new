@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        transparent: "tranparent",
+        transparent: "transparent",
         current: "currentColor",
         calm: {
           DEFAULT: "#21a038",
