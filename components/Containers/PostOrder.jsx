@@ -5,11 +5,7 @@ import { RadioGroup } from "@headlessui/react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { handleOrderRequest } from "components/Functions/PostRequests";
 
-export default function PostOrder({
-  customerId,
-  shoppingCartId,
-  shoppingCartData,
-}) {
+export default function PostOrder({ customerId, shoppingCartData }) {
   const [selectedDeliveryType, setSelectedDeliveryType] = useState(null);
   const [selectedPaymentType, setSelectedPaymentType] = useState(null);
   const addressRef = useRef();
@@ -37,9 +33,10 @@ export default function PostOrder({
     totalSum += productTotal;
   });
 
-  const products = shoppingCartData?.productsList?.map(
-    (item) => item?.product?.id
-  );
+  const products = shoppingCartData?.productsList?.map((item) => ({
+    productId: item?.product?.id,
+    quantity: parseFloat(item.quantity),
+  }));
 
   const handleDeliveryChange = (event) => {
     setSelectedDeliveryType(event.target.value);
@@ -133,13 +130,13 @@ export default function PostOrder({
           onClick={() => {
             handleOrderRequest({
               customerId: customerId,
-              productsList: products,
-              shoppingCartId: shoppingCartId,
-              totalSum: totalSum,
               address: addressRef.current.value,
               comment: commentRef.current.value,
-              deliveryTypeId: selectedDeliveryType,
+              sum: totalSum,
+              productsList: products,
               paymentTypeId: selectedPaymentType,
+              deliveryTypeId: selectedDeliveryType,
+              shoppingCartId: shoppingCartData.id,
             });
           }}
           className="button-primary center px-4"

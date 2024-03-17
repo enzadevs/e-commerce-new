@@ -129,34 +129,46 @@ export const handleQuantityChange = async ({
 
 export const handleOrderRequest = async ({
   customerId,
-  productsList,
-  shoppingCartId,
-  totalSum,
   address,
   comment,
-  deliveryTypeId,
+  sum,
+  productsList,
   paymentTypeId,
+  deliveryTypeId,
+  shoppingCartId,
 }) => {
-  const products = productsList;
   try {
-    const response = await fetch(`http://localhost:3001/orders/create`, {
+    if (!address) {
+      SuccessToast({ successText: "Пожалуйста, укажите адрес доставки." });
+      return;
+    }
+    if (!paymentTypeId) {
+      SuccessToast({ successText: "Пожалуйста, выберите способ оплаты." });
+      return;
+    }
+    if (!deliveryTypeId) {
+      SuccessToast({ successText: "Пожалуйста, выберите способ доставки." });
+      return;
+    }
+
+    const response = await fetch(`http://localhost:3001/orders/new/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         customerId,
-        shoppingCartId,
-        products: products,
+        productsList,
         address,
-        sum: totalSum,
+        sum,
         comment,
         deliveryTypeId,
         paymentTypeId,
-        orderStatusId: 4,
+        shoppingCartId,
+        orderStatusId: 1,
       }),
     });
-    console.log(products);
+    console.log(productsList);
 
     if (response.ok) {
       const responseData = await response.json();

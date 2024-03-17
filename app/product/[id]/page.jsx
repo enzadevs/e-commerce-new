@@ -16,7 +16,7 @@ export default function ProductViewPage({ params }) {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:5000/products/fetch/` + params.id
+    `http://localhost:3001/products/fetch/` + params.id
   );
 
   if (isLoading) return <LoadingBlock height={"h-72"} width="w-full" />;
@@ -24,7 +24,7 @@ export default function ProductViewPage({ params }) {
 
   const {
     id,
-    title,
+    titleRu,
     sellPrice,
     description,
     images,
@@ -36,56 +36,59 @@ export default function ProductViewPage({ params }) {
 
   return (
     <div className="flex flex-col gap-4 md:flex-row">
-      <div className="rounded-3xl md:flex-[50%] md:max-w-[50%] w-full">
+      <div className="rounded-md md:flex-[50%] md:max-w-[50%] w-full">
         <ProductViewSwiper images={images} />
       </div>
       <div className="flex flex-col gap-2 md:text-base md:flex-[50%] md:max-w-[50%] w-full">
-        <h2 className="text-lg font-bold">{title}</h2>
+        <h2 className="text-lg font-bold">{titleRu}</h2>
         <p>{description}</p>
         <div className="flex flex-col gap-2">
           <div className="info-holder">
             Бренд :
-            <p className="bg-grey-200 rounded-3xl flex-row-center px-4 h-8">
+            <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
               {brand.title}
             </p>
           </div>
           <div className="info-holder">
             Ед. измерения :
-            <p className="bg-grey-200 rounded-3xl flex-row-center px-4 h-8">
-              {unitType.title}
+            <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
+              {unitType.titleRu}
             </p>
           </div>
           <div className="info-holder">
             Категория :
             <Link
               href={`/category/` + category.id}
-              className="nav-link bg-grey-200 rounded-3xl center px-4 h-8"
+              className="nav-link bg-gallery rounded-md center px-4 h-8"
             >
-              {category.title}
+              {category.titleRu}
             </Link>
           </div>
           <div className="info-holder">
             Под категория :
-            <p className="bg-grey-200 rounded-3xl center px-4 h-8">
-              {subCategory.title}
-            </p>
+            <Link
+              href={`/subcategory/` + subCategory.id}
+              className="bg-gallery rounded-md center px-4 h-8"
+            >
+              {subCategory.titleRu}
+            </Link>
           </div>
         </div>
         <div className="flex flex-row justify-between gap-2 sm:text-base mt-4">
-          <p className="bg-grey-200 rounded-3xl font-bold center h-9 sm:h-11 w-48">
-            {sellPrice} ман.
+          <p className="bg-gallery-100 rounded-md font-bold center h-10 w-48">
+            {sellPrice} М
           </p>
-          <div className="bg-grey-200 rounded-3xl flex-row-center justify-between px-4 h-9 sm:h-11 w-48">
+          <div className="bg-gallery-100 rounded-md flex-row-center justify-between px-4 h-10 w-48">
             <button
               onClick={() => setCount((current) => Math.max(current - 1, 0))}
-              className="rounded-full center transition hover:bg-white h-9 w-9"
+              className="rounded-full center transition hover:bg-white h-8 w-8"
             >
               <FiMinus className="icons nav-link" />
             </button>
             <p>{count}</p>
             <button
               onClick={() => setCount((current) => current + 1)}
-              className="rounded-full center transition hover:bg-white h-9 w-9"
+              className="rounded-full center transition hover:bg-white h-8 w-8"
             >
               <FiPlus className="icons nav-link" />
             </button>

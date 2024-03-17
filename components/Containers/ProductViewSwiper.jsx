@@ -28,9 +28,9 @@ export default function ProductViewSwiper({ images }) {
       >
         {images.map((item) => (
           <SwiperSlide key={undefined}>
-            <div className="border border-grey-200 rounded-3xl center h-full w-full">
+            <div className="border border-gallery-200 rounded-md center h-full w-full">
               <Image
-                src={"http://localhost:5000/images/" + item}
+                src={"http://localhost:3001/images/" + item}
                 alt="image of product"
                 className="block h-full w-full object-contain "
                 sizes="(max-width: 768px) 100vw,50vw"
@@ -53,16 +53,16 @@ export default function ProductViewSwiper({ images }) {
       >
         {images.map((item) => (
           <SwiperSlide style={{ marginRight: "0px" }} key={undefined}>
-            <button className="center h-full w-full">
+            <div className="center h-full w-full">
               <Image
-                src={"http://localhost:5000/images/" + item}
+                src={"http://localhost:3001/images/" + item}
                 alt="thumbnail of currently selected image"
-                className="block border border-grey-200 rounded-3xl object-cover h-full w-full"
+                className="block border border-gallery-200 rounded-md object-cover h-full w-full"
                 sizes="(max-width: 768px) 100vw,50vw"
                 width={100}
                 height={500}
               />
-            </button>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

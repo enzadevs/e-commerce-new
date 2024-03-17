@@ -34,7 +34,6 @@ export default function ShoppingCartPage() {
             ))}
             <PostOrder
               customerId={currentUserObject?.user?.id}
-              shoppingCartId={shoppingCart?.id}
               shoppingCartData={shoppingCart}
             />
           </>

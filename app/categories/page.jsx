@@ -5,23 +5,21 @@ export const metadata = {
 import Link from "next/link";
 
 export default async function CategoriesPage() {
-  const response = await fetch(
-    "http://localhost:5000/manage/category/withsubcategories"
-  );
+  const response = await fetch("http://localhost:3001/manage/categories/all");
   const categories = await response.json();
 
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-lg font-bold">Все категории</h2>
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-2 w-fit">
         {categories.map((item) => {
           return (
             <Link
               key={item.id}
               href={"/categories/" + item.id}
-              className="button-outline center px-8"
+              className="button-outline px-4 w-fit"
             >
-              {item.title}
+              {item.titleRu}
             </Link>
           );
         })}
