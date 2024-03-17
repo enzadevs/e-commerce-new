@@ -6,8 +6,10 @@ import ProductContainer from "components/Containers/ProductContainer";
 import { UseFetcher } from "components/Functions/UseFetcher";
 
 export default function SearchResultsPage({ params }) {
+  const decodedQuery = decodeURIComponent(params.query);
+
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:5000/manage/utils/search/` + params.query
+    `http://localhost:3001/manage/utils/search/` + params.query
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -20,7 +22,7 @@ export default function SearchResultsPage({ params }) {
         data.length > 0 ? (
           <>
             <h2 className="text-lg font-bold">
-              Результаты по запросу {params.query}.
+              Результаты по запросу : {decodedQuery}
             </h2>
             {data.message && <p>{data.message}</p>}
             <div className="products-grid">
@@ -31,7 +33,7 @@ export default function SearchResultsPage({ params }) {
           </>
         ) : (
           <h2 className="text-lg font-bold">
-            Нет продуктов, найденных по запросу {params.query}.
+            Нет продуктов, найденных по запросу : {decodedQuery}
           </h2>
         )
       ) : (

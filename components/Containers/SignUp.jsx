@@ -58,7 +58,7 @@ export default function SignUp() {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/auth/signup", {
+      const response = await fetch("http://localhost:3001/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export default function SignUp() {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/auth/signin", {
+      const response = await fetch("http://localhost:3001/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,10 +108,10 @@ export default function SignUp() {
   };
 
   return (
-    <div className="bg-white border border-grey-200 rounded-3xl shadow-md flex flex-col gap-4 mt-4 p-4 w-[360px]">
+    <div className="bg-white border border-gallery-100 rounded-md shadow-md flex flex-col gap-4 mt-4 p-4 w-[380px]">
       <h2 className="text-center text-base">Добро пожаловать!</h2>
       <Tab.Group>
-        <Tab.List className="border border-grey-200 rounded-3xl flex gap-4 justify-around p-1 w-full">
+        <Tab.List className="border border-gallery-100 rounded-md flex gap-4 justify-around p-1 w-full">
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
@@ -157,9 +157,11 @@ export default function SignUp() {
                 <input
                   ref={phoneNumberRef}
                   name="phoneNumber"
-                  type="text"
+                  type="number"
                   placeholder="Номер телефона"
                   className="input-primary pl-14"
+                  minLength={8}
+                  maxLength={8}
                 ></input>
               </div>
               <input
@@ -209,9 +211,11 @@ export default function SignUp() {
                 <input
                   ref={phoneNumberRef}
                   name="phoneNumber"
-                  type="text"
+                  type="number"
                   placeholder="Номер телефона"
                   className="input-primary pl-14"
+                  minLength={8}
+                  maxLength={8}
                 ></input>
               </div>
               <input

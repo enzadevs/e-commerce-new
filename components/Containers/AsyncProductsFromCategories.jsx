@@ -3,7 +3,7 @@ import ProductContainer from "./ProductContainer";
 
 export default async function AsyncProductsFromCategories() {
   const response = await fetch(
-    "http://localhost:5000/manage/category/withproducts",
+    "http://localhost:3001/manage/categories/withproducts",
     { cache: "no-cache" }
   );
   const products = await response.json();
@@ -15,13 +15,13 @@ export default async function AsyncProductsFromCategories() {
           return (
             <div
               key={item.id}
-              className="bg-white rounded-3xl shadow-md flex flex-col gap-4 p-3"
+              className="bg-white rounded-md shadow-md flex flex-col gap-4 p-2"
             >
               <div className="flex-row-center justify-between">
-                <h2 className="text-lg font-bold">{item.title}</h2>
+                <h2 className="text-lg font-bold">{item.titleRu}</h2>
                 <Link
                   href={"/categories/" + item.id}
-                  className="nav-link text-sm w-fit"
+                  className="nav-link w-fit"
                 >
                   Показать все
                 </Link>

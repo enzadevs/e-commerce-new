@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import ErrorBlock from "components/Functions/ErrorBlock";
+import { Fragment } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 import { MdFormatListBulleted } from "react-icons/md";
 
 export default function CategoriesDropdown() {
@@ -12,26 +12,25 @@ export default function CategoriesDropdown() {
     data: categories,
     isLoading,
     error,
-  } = UseFetcher("http://localhost:5000/manage/category/withsubcategories");
+  } = UseFetcher("http://localhost:3001/manage/categories/all");
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <button className="button-primary dropdown gap-1 px-4">
-        <MdFormatListBulleted className="icons" />
+        <smFormatListBulleted className="icons" />
         <>Категории</>
       </button>
     );
+  }
   if (error) return <ErrorBlock height={"h-20 lg:h-[280px]"} width="w-48" />;
 
   return (
     <div>
       <Menu as="div" className="relative inline-block">
-        <div>
-          <Menu.Button className="button-primary dropdown gap-1 px-4">
-            <MdFormatListBulleted className="icons" />
-            <>Категории</>
-          </Menu.Button>
-        </div>
+        <Menu.Button className="button-primary dropdown gap-1 px-4">
+          <MdFormatListBulleted className="icons" />
+          <>Категории</>
+        </Menu.Button>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -41,21 +40,34 @@ export default function CategoriesDropdown() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="bg-white border border-grey-200 rounded-3xl shadow-md absolute left-0 outline-none origin-top-right p-2 mt-4 w-48">
+          <Menu.Items className="bg-white border border-gallery-200 rounded-md shadow-sm flex flex-row gap-2 absolute left-0 outline-none origin-top-right p-2 mt-2">
             {categories?.map((category) => (
-              <div key={category.id} className="rounded-3xl">
-                <Menu.Item>
+              <div key={category.id} className="w-full">
+                <Menu.Item className="flex-row items-center">
                   {({ active }) => (
                     <Link
                       href={"/categories/" + category.id}
                       className={`${
-                        active ? "bg-calm text-white" : ""
-                      } group flex-row-center text-start transition rounded-3xl py-2 px-3 w-full`}
+                        active ? "bg-blueviolet-700 text-white" : ""
+                      } w-28 flex items-center text-start transition rounded-md p-2`}
                     >
-                      {category.title}
+                      {category.titleRu}
                     </Link>
                   )}
                 </Menu.Item>
+                {category.subCategories?.length > 0 && (
+                  <ul className="flex flex-col">
+                    {category.subCategories.map((subCategory) => (
+                      <Link
+                        href={"/subcategories/" + subCategory.id}
+                        key={subCategory.id}
+                        className="text-gray-700 hover:text-blueviolet-700 p-2"
+                      >
+                        {subCategory.titleRu}
+                      </Link>
+                    ))}
+                  </ul>
+                )}
               </div>
             ))}
           </Menu.Items>

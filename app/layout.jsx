@@ -4,8 +4,8 @@ import Footer from "components/Nav/Footer";
 import "./globals.css";
 
 export const metadata = {
-  title: "E-Commerce",
-  description: "E-Commerce",
+  title: "Super Market",
+  description: "Super Market",
   name: "viewport",
   content: "width=device-width, initial-scale=1",
 };
@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         <div className="bg-white shadow-md sticky top-0 z-20">
           <NavBar />
         </div>
-        <div className="bg-grey-100 min-h-[768px] w-full">{children}</div>
+        <div className="bg-gallery min-h-[768px] w-full">{children}</div>
         <Footer />
       </body>
     </html>

@@ -23,11 +23,13 @@ export default function SearchBox() {
       ></input>
       <button
         onClick={() => {
-          window.location.href = `/search/` + queryRef.current.value;
+          if (queryRef.current.value.length >= 2) {
+            window.location.href = `/search/` + queryRef.current.value;
+          }
         }}
-        className="bg-calm rounded-r-3xl absolute center right-0 h-9 sm:h-11 w-9 sm:w-11"
+        className="rounded-md absolute center right-0 h-9 w-9 sm:h-11 sm:w-11"
       >
-        <BiSearch className="text-white h-6 w-6" />
+        <BiSearch className="text-blueviolet-700 h-6 w-6" />
       </button>
     </div>
   );

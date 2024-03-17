@@ -1,4 +1,3 @@
-import BrandLogo from "assets/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBox from "./SearchBox";
@@ -12,8 +11,9 @@ import { TbCategory2 } from "react-icons/tb";
 export default async function NavBar() {
   return (
     <nav className="flex-row-center px-3 md:gap-4 md:px-0 h-20 max-width">
-      <Link href="/" className="hidden md:block">
-        <Image
+      <Link href="/" className="hidden md:block font-bold text-xl">
+        Super Market
+        {/* <Image
           src={BrandLogo}
           alt="brand logo"
           height={0}
@@ -21,7 +21,7 @@ export default async function NavBar() {
           style={{ height: "44px", width: "auto" }}
           priority
           sizes="50vw"
-        ></Image>
+        ></Image> */}
       </Link>
       <div className="hidden md:block">
         <CategoriesDropdown />

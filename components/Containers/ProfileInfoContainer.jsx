@@ -43,7 +43,7 @@ export default function ProfileInfoContainer() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/users/update/${currentUserObject.user.id}`,
+        `http://localhost:3001/users/update/${currentUserObject.user.id}`,
         {
           method: "PATCH",
           headers: {
@@ -66,7 +66,7 @@ export default function ProfileInfoContainer() {
   };
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:5000/users/get/` + currentUserObject?.user?.id
+    `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -97,7 +97,7 @@ export default function ProfileInfoContainer() {
         </div>
       </div>
       <div className="flex flex-col sm:flex-row gap-4">
-        <div className="border rounded-3xl shadow-md flex flex-col gap-4 p-4 w-full sm:w-[50%]">
+        <div className="border rounded-md shadow-md flex flex-col gap-4 p-4 w-full sm:w-[50%]">
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Имя:</>
             <p className="font-bold line-clamp-1">{firstName}</p>
@@ -110,20 +110,21 @@ export default function ProfileInfoContainer() {
             <>Адрес:</>
             <p className="font-bold line-clamp-1">{address}</p>
           </div>
-        </div>
-        <div className="border rounded-3xl shadow-md flex flex-col gap-4 p-4 w-full sm:w-[50%]">
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Избранные:</>
             <p className="font-bold">{wishList?.length}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Корзина:</>
-            <p className="font-bold">{shoppingCart[0]?.productsList?.length}</p>
+            <p className="font-bold">{shoppingCart?.productsList?.length}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Заказы:</>
             <p className="font-bold">{orders?.length}</p>
           </div>
+        </div>
+        <div className="border rounded-md shadow-md flex flex-col gap-4 p-4 w-full sm:w-[50%]">
+          Here will go orders info
         </div>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -150,7 +151,7 @@ export default function ProfileInfoContainer() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="bg-white rounded-3xl shadow-md flex flex-col gap-4 overflow-hidden transform  transition p-4 w-[360px]">
+                <Dialog.Panel className="bg-white rounded-md shadow-md flex flex-col gap-4 overflow-hidden transform transition p-4 w-[360px]">
                   <h2 className="text-lg text-center font-bold">
                     Изменить данные аккаунта
                   </h2>
@@ -159,10 +160,10 @@ export default function ProfileInfoContainer() {
                     name="firstName"
                     type="text"
                     placeholder={firstName}
-                    className="input-primary pl-4 text-grey-900"
+                    className="input-primary pl-4 text-gallery-800"
                   ></input>
                   <div className="relative">
-                    <p className="center absolute text-grey-900 left-0 px-3 h-full">
+                    <p className="center absolute text-gallery-800 left-0 px-3 h-full">
                       +993
                     </p>
                     <input
@@ -171,7 +172,7 @@ export default function ProfileInfoContainer() {
                       type="text"
                       placeholder={phoneNumber.slice(3)}
                       minLength={8}
-                      className="input-primary pl-12 text-grey-900"
+                      className="input-primary pl-12 text-gallery-800"
                     ></input>
                   </div>
                   <input
@@ -180,14 +181,14 @@ export default function ProfileInfoContainer() {
                     type="password"
                     placeholder="Введите новый пароль"
                     minLength={8}
-                    className="input-primary pl-4 text-grey-900"
+                    className="input-primary pl-4 text-gallery-800"
                   ></input>
                   <input
                     ref={addressRef}
                     name="address"
                     type="text"
                     placeholder={address}
-                    className="input-primary pl-4 text-grey-900"
+                    className="input-primary pl-4 text-gallery-800"
                   ></input>
                   <button
                     className="button-primary center w-full"

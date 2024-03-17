@@ -1,6 +1,6 @@
 .swiper-button-next,
 .swiper-button-prev {
-  color: #089363 !important;
+  color: #6450b5 !important;
 }
 
 .swiper-button-next:after,
@@ -15,11 +15,11 @@
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #089363 !important;
+  background-color: #6450b5 !important;
 }
 
 .swiper-pagination-bullet {
-  background-color: #60e1a9;
+  background-color: #cfd2f6;
 }
 
 @media screen and (max-width: 768px) {

@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="flex flex-col gap-4 sm:flex-row sm:justify-between pt-6 pb-16 max-width">
         <div className="flex flex-col items-center sm:items-start gap-4">
           <Link href="/" className="text-fancy-700 text-xl font-bold">
-            E-Commerce
+            Super Market
           </Link>
           <p>
             Разработано в{" "}

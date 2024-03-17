@@ -17,11 +17,11 @@ export default function AdsSwiper() {
     data: ads = [],
     error,
     isLoading,
-  } = UseFetcher(`http://localhost:5000/ads/all`);
+  } = UseFetcher(`http://localhost:3001/ads/all`);
 
   if (isLoading)
     return (
-      <div className="px-3 md:px-0 max-width">
+      <div className="px-2 md:px-0 max-width">
         <LoadingBlock
           height={"h-20 sm:h-32 lg:h-[265px]"}
           width="w-full max-w-7xl"
@@ -30,7 +30,7 @@ export default function AdsSwiper() {
     );
   if (error)
     return (
-      <div className="px-3 md:px-0 max-width">
+      <div className="px-2 md:px-0 max-width">
         <ErrorBlock
           height={"h-20 sm:h-32 lg:h-[265px]"}
           width="w-full max-w-7xl"
@@ -39,9 +39,9 @@ export default function AdsSwiper() {
     );
 
   return (
-    <div className="px-3 md:px-0 max-width">
+    <div className="px-2 md:px-0 max-width">
       <Swiper
-        className="rounded-3xl"
+        className="rounded-md"
         navigation
         pagination={true}
         modules={[Navigation, Pagination, Autoplay]}
@@ -55,9 +55,9 @@ export default function AdsSwiper() {
           return (
             <SwiperSlide key={item.id}>
               <Image
-                className="rounded-3xl"
-                src={`http://localhost:5000/images/${item.posterImage}`}
-                alt="image"
+                className="rounded-md"
+                src={`http://localhost:3001/images/${item.posterImage}`}
+                alt="image of current ad"
                 height={0}
                 width={0}
                 priority

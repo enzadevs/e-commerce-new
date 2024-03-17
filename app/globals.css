@@ -23,7 +23,7 @@
 }
 
 .icons-wrapper {
-  @apply bg-white border border-grey-200 rounded-full cursor-pointer center outline-none transition hover:shadow-md h-8 w-8 md:h-11 md:w-11;
+  @apply bg-white border border-gallery-100 rounded-md cursor-pointer center outline-none transition hover:shadow-md h-8 w-8 md:h-10 md:w-10;
 }
 
 .icons {
@@ -32,27 +32,27 @@
 }
 
 .button-primary {
-  @apply bg-calm border border-calm rounded-3xl flex flex-row items-center text-white text-xs sm:text-sm focus:outline-none transition hover:bg-calm-700 hover:border-calm-700 h-9 sm:h-11;
+  @apply bg-blueviolet border border-blueviolet rounded-md flex flex-row items-center text-white text-xs sm:text-sm focus:outline-none transition hover:bg-blueviolet-700 hover:border-blueviolet-700 h-10;
 }
 
 .button-outline {
-  @apply bg-white border border-grey-200 rounded-3xl flex flex-row items-center text-xs sm:text-sm focus:outline-none transition hover:bg-grey-100 h-9 sm:h-11;
+  @apply bg-white border border-gallery-200 rounded-md flex flex-row items-center text-xs sm:text-sm focus:outline-none transition hover:bg-gallery-100 h-10;
 }
 
 .search-input {
-  @apply bg-white border-2 border-calm rounded-3xl text-gray-900 focus:outline-none transition focus:shadow-md pl-4 h-9 sm:h-11 w-full;
+  @apply bg-white border-2 border-blueviolet rounded-md text-gray-900 focus:outline-none transition focus:shadow-md pl-4 h-10 w-full;
 }
 
 .input-primary {
-  @apply bg-white border border-grey-200 rounded-3xl text-gray-900 focus:outline-none transition focus:border-calm focus:shadow-sm h-9 sm:h-11 w-full;
+  @apply bg-white border border-gallery-200 rounded-md text-gray-900 focus:outline-none transition focus:border-blueviolet focus:shadow-sm h-10 w-full;
 }
 
 .nav-bar-buttons-container {
-  @apply bg-white border-t border-grey-200 fixed flex flex-row items-center justify-between bottom-0 left-0 h-16 w-full md:border-0 md:relative md:flex md:flex-row md:items-center md:gap-4 md:w-fit z-10;
+  @apply bg-white border-t border-gallery-200 fixed flex flex-row items-center justify-between bottom-0 left-0 h-16 w-full md:border-0 md:relative md:flex md:flex-row md:items-center md:gap-4 md:w-fit z-10;
 }
 
 .nav-button {
-  @apply border-r border-grey-200 center transition hover:text-calm-700 h-16 w-full md:flex md:flex-col md:items-center md:justify-center md:hover:bg-white md:border-0 md:hover:text-calm-700 md:px-2 md:h-11;
+  @apply border-r border-gallery-200 center transition hover:text-blueviolet-700 h-16 w-full md:flex md:flex-col md:items-center md:justify-center md:hover:bg-white md:border-0 md:hover:text-blueviolet-700 md:px-2 md:h-10;
 }
 
 .footer-header {
@@ -64,11 +64,11 @@
 }
 
 .nav-link {
-  @apply transition hover:text-calm-700 w-fit;
+  @apply transition hover:text-blueviolet-700 w-fit;
 }
 
 .info-holder {
-  @apply border-b border-grey-200 flex-row-center justify-between text-base h-11;
+  @apply border-b border-gallery-200 flex-row-center justify-between text-base h-10;
 }
 
 .thumbs .swiper-slide {
@@ -84,5 +84,5 @@
 }
 
 .product-container {
-  @apply bg-white border border-grey-200 rounded-3xl shadow-md flex flex-col gap-2 transition hover:border-calm hover:shadow-lg hover:shadow-calm-200 pb-2 sm:pb-4 h-auto w-full;
+  @apply bg-white border border-gallery-100 rounded-md shadow-md flex flex-col gap-2 transition hover:shadow-blueviolet-200 pb-2 sm:pb-4 h-auto w-full;
 }
