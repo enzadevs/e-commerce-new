@@ -3,7 +3,7 @@ import { SuccessToast, ErrorToast } from "./Toaster";
 export const handleAddToWishlist = async ({ userId, productId }) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/manage/utils/addtowishlist`,
+      `http://localhost:3001/manage/utils/addtowishlist`,
       {
         method: "POST",
         headers: {
@@ -33,7 +33,7 @@ export const handleAddToWishlist = async ({ userId, productId }) => {
 export const handleAddToCart = async ({ customerId, productId, quantity }) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/manage/utils/addproducttocart`,
+      `http://localhost:3001/manage/utils/addproducttocart`,
       {
         method: "POST",
         headers: {
@@ -60,19 +60,20 @@ export const handleAddToCart = async ({ customerId, productId, quantity }) => {
   }
 };
 
+// ! This code doesnt work
 export const handleRemoveProductFromCart = async ({
   customerId,
-  productId,
+  shoppingCartItemId,
 }) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/manage/utils/removeproductfromcart`,
+      `http://localhost:3001/manage/utils/removeproductfromcart`,
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ customerId, productId }),
+        body: JSON.stringify({ customerId, shoppingCartItemId }),
       }
     );
 
@@ -100,7 +101,7 @@ export const handleQuantityChange = async ({
 }) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/manage/utils/handlequantitychange`,
+      `http://localhost:3001/manage/utils/handlequantitychange`,
       {
         method: "PATCH",
         headers: {
@@ -138,7 +139,7 @@ export const handleOrderRequest = async ({
 }) => {
   const products = productsList;
   try {
-    const response = await fetch(`http://localhost:5000/orders/create`, {
+    const response = await fetch(`http://localhost:3001/orders/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

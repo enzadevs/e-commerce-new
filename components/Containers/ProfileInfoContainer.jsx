@@ -72,7 +72,7 @@ export default function ProfileInfoContainer() {
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
   if (error) return <ErrorBlock height={"h-20"} width="" />;
 
-  const { firstName, phoneNumber, address, wishList, shoppingCart, orders } =
+  const { firstName, phoneNumber, address, wishlist, shoppingCart, orders } =
     data;
 
   return (
@@ -112,7 +112,7 @@ export default function ProfileInfoContainer() {
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Избранные:</>
-            <p className="font-bold">{wishList?.length}</p>
+            <p className="font-bold">{wishlist?.productsArray?.length || 0}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Корзина:</>

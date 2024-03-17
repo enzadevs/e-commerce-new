@@ -14,38 +14,34 @@ export default function CartProductContainer({
   productData,
   quantity,
 }) {
-  const { id, title, sellPrice, images } = productData;
+  const { id, titleRu, sellPrice, images } = productData;
+
+  let sum = quantity * sellPrice;
 
   return (
-    <div className="bg-grey-100 rounded-3xl shadow-sm flex-row-center gap-4 transition hover:shadow-md px-2 h-24 w-full">
-      <div className="center h-16 w-16">
-        <Image
-          src={`http://localhost:5000/images/${images[0]}`}
-          alt="image"
-          height={0}
-          width={0}
-          style={{ height: "auto", width: "100%" }}
-          className="rounded-3xl"
-          sizes="50vw"
-        ></Image>
-      </div>
-      <div className="flex-row-center justify-between gap-2 grow">
-        <div className="flex flex-col h-full">
-          Имя
-          <Link
-            href={"/product/" + id}
-            className="nav-link md:text-base font-bold line-clamp-1"
-          >
-            {title}
-          </Link>
+    <div className="bg-gallery rounded-md shadow-md flex flex-col sm:flex-row items-center gap-2 sm:gap-4 p-2 h-fit sm:h-24 w-full">
+      <div className="flex-row-center gap-2 grow w-full">
+        <div className="center h-16 w-16">
+          <Image
+            src={`http://localhost:3001/images/${images[0]}`}
+            alt="image"
+            height={0}
+            width={0}
+            style={{ height: "auto", width: "100%" }}
+            className="rounded-md"
+            sizes="50vw"
+          ></Image>
         </div>
-        <div className="ml-auto w-24">
-          Цена
-          <p className="md:text-base font-bold">{sellPrice} ман.</p>
-        </div>
+        <Link
+          href={"/product/" + id}
+          className="nav-link sm:text-base font-bold line-clamp-1"
+        >
+          {titleRu}
+        </Link>
+        <p className="font-bold ml-auto">{sellPrice} М</p>
       </div>
-      <div className="flex-row-center gap-2 ml-auto">
-        <div className="bg-grey-200 rounded-3xl flex-row-center justify-between px-4 h-9 sm:h-11 w-44">
+      <div className="flex-row-center justify-between w-full sm:justify-normal sm:w-auto gap-2 ml-auto">
+        <div className="bg-gallery-100 rounded-md flex-row-center justify-between gap-4 px-4 h-8 sm:h-10">
           <button
             onClick={() => {
               handleQuantityChange({
@@ -54,7 +50,7 @@ export default function CartProductContainer({
                 quantity: Number(quantity) - Number(1),
               });
             }}
-            className="rounded-full center transition hover:bg-white h-9 w-9"
+            className="rounded-full center transition hover:bg-white h-8 w-8"
           >
             <FiMinus className="icons nav-link" />
           </button>
@@ -67,17 +63,20 @@ export default function CartProductContainer({
                 quantity: Number(quantity) + Number(1),
               });
             }}
-            className="rounded-full center transition hover:bg-white h-9 w-9"
+            className="rounded-full center transition hover:bg-white h-8 w-8"
           >
             <FiPlus className="icons nav-link" />
           </button>
         </div>
+        <p className="bg-white rounded-md shadow-sm center font-bold h-8 sm:h-10 w-20">
+          {sum} М
+        </p>
         <button
           onClick={() => {
-            handleRemoveProductFromCart({
-              customerId: customerId,
-              productId: id,
-            });
+            // handleRemoveProductFromCart({
+            //   customerId: customerId,
+            //   shoppingCartItemId: shoppingCartItemId,
+            // });
           }}
           className="icons-wrapper hover:text-red-500"
         >

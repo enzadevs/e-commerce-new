@@ -11,7 +11,7 @@ export default function ShoppingCartPage() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:5000/users/get/` + currentUserObject?.user?.id
+    `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -22,9 +22,9 @@ export default function ShoppingCartPage() {
   return (
     <div className="flex flex-col gap-4 mt-4">
       {shoppingCart ? (
-        shoppingCart[0].productsList?.length > 0 ? (
+        shoppingCart.productsList?.length > 0 ? (
           <>
-            {shoppingCart[0]?.productsList?.map((cartItem) => (
+            {shoppingCart?.productsList?.map((cartItem) => (
               <CartProductContainer
                 key={cartItem.id}
                 customerId={currentUserObject?.user?.id}
@@ -34,7 +34,7 @@ export default function ShoppingCartPage() {
             ))}
             <PostOrder
               customerId={currentUserObject?.user?.id}
-              shoppingCartId={shoppingCart[0]?.id}
+              shoppingCartId={shoppingCart?.id}
               shoppingCartData={shoppingCart}
             />
           </>

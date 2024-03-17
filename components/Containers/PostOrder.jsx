@@ -16,21 +16,21 @@ export default function PostOrder({
   const commentRef = useRef();
 
   const { data: paymentTypes } = UseFetcher(
-    "http://localhost:5000/manage/payment_type/all"
+    "http://localhost:3001/manage/payment_types/all"
   );
 
   const {
     data: deliveryTypes,
     isLoading,
     error,
-  } = UseFetcher("http://localhost:5000/manage/delivery_type/all");
+  } = UseFetcher("http://localhost:3001/manage/delivery_types/all");
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
   if (error) return <ErrorBlock height={"h-20"} width="" />;
 
   let totalSum = 0;
 
-  shoppingCartData[0]?.productsList?.forEach((product) => {
+  shoppingCartData?.productsList?.forEach((product) => {
     const quantity = parseFloat(product.quantity);
     const sellPrice = parseFloat(product.product.sellPrice);
     const productTotal = quantity * sellPrice;
@@ -50,36 +50,37 @@ export default function PostOrder({
   };
 
   return (
-    <div className="bg-grey-100 rounded-3xl flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
-      <h2 className="text-base font-bold">Оформить заказ</h2>
-      <div className="flex flex-col md:flex-row items-center sm:justify-around gap-2 md:gap-8">
-        <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center gap-2 sm:gap-4 p-2 w-full">
-          <p className="flex-[20%]">Адрес:</p>
-          <input
-            ref={addressRef}
-            name="address"
-            type="text"
-            className="input-primary px-4"
-            placeholder="Адрес"
-          ></input>
-        </div>
+    <div className="bg-gallery rounded-md flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
+      <div className="border-b border-gallery-200 flex-row-center justify-between gap-4 p-2 w-full">
+        Сумма :
+        <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
+          {totalSum} М
+        </p>
       </div>
-      <div className="flex flex-col md:flex-row items-center sm:justify-around gap-2 md:gap-8">
-        <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center gap-2 sm:gap-4 p-2 w-full">
-          <p className="flex-[20%]">Коментарий:</p>
-          <input
-            ref={commentRef}
-            name="comment"
-            type="text"
-            className="input-primary px-4"
-            placeholder="Коментарий"
-          ></input>
-        </div>
+      <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
+        Адрес:
+        <input
+          ref={addressRef}
+          name="address"
+          type="text"
+          className="input-primary px-4 sm:flex-[50%] sm:max-w-[50%]"
+          placeholder="Адрес"
+        ></input>
       </div>
-      <div className="flex flex-col md:flex-row items-center sm:justify-around gap-2 md:gap-8">
-        <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center gap-4 p-2 w-full">
-          <p>Способ доставки:</p>
-          <RadioGroup className="flex-row-center justify-between gap-4 grow">
+      <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
+        Коментарий:
+        <input
+          ref={commentRef}
+          name="comment"
+          type="text"
+          className="input-primary px-4 sm:flex-[50%] sm:max-w-[50%]"
+          placeholder="Коментарий"
+        ></input>
+      </div>
+      <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
+        Способ доставки:
+        <div className="sm:flex-[50%] sm:max-w-[50%]">
+          <RadioGroup className="flex flex-col sm:flex-row justify-between gap-2 w-full">
             {deliveryTypes?.map((item) => (
               <RadioGroup.Option value={item.id} key={item.id}>
                 {({ checked }) => (
@@ -89,20 +90,22 @@ export default function PostOrder({
                     value={item.id}
                     className={
                       checked
-                        ? "button-primary center px-4 sm:px-8 w-full"
-                        : "button-outline center px-4 sm:px-8 w-full"
+                        ? "button-primary center px-4"
+                        : "button-outline center px-4"
                     }
                   >
-                    {item.title}
+                    {item.titleRu}
                   </button>
                 )}
               </RadioGroup.Option>
             ))}
           </RadioGroup>
         </div>
-        <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center gap-4 p-2 w-full">
-          <p>Способ оплаты:</p>
-          <RadioGroup className="flex-row-center justify-between gap-4 grow">
+      </div>
+      <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
+        Способ оплаты:
+        <div className="sm:flex-[50%] sm:max-w-[50%]">
+          <RadioGroup className="flex flex-col sm:flex-row justify-between gap-2 w-full">
             {paymentTypes?.map((item) => (
               <RadioGroup.Option value={item.id} key={item.id}>
                 {({ checked }) => (
@@ -112,11 +115,11 @@ export default function PostOrder({
                     value={item.id}
                     className={
                       checked
-                        ? "button-primary center px-4 sm:px-8 w-full"
-                        : "button-outline center px-4 sm:px-8 w-full"
+                        ? "button-primary center px-4"
+                        : "button-outline center px-4"
                     }
                   >
-                    {item.title}
+                    {item.titleRu}
                   </button>
                 )}
               </RadioGroup.Option>
@@ -124,30 +127,25 @@ export default function PostOrder({
           </RadioGroup>
         </div>
       </div>
-      <div className="bg-white rounded-3xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 p-2 w-full">
-        <p className="text-sm">Сумма :</p>
-        <div className="flex-row-center gap-2">
-          <p className="button-outline center font-bold px-4">
-            {totalSum} ман.
-          </p>
-          <button
-            onClick={() => {
-              handleOrderRequest({
-                customerId: customerId,
-                productsList: products,
-                shoppingCartId: shoppingCartId,
-                totalSum: totalSum,
-                address: addressRef.current.value,
-                comment: commentRef.current.value,
-                deliveryTypeId: selectedDeliveryType,
-                paymentTypeId: selectedPaymentType,
-              });
-            }}
-            className="button-primary center px-4 sm:px-8 w-fit"
-          >
-            Заказать
-          </button>
-        </div>
+      <div className="border-b border-gallery-200 flex-row-center justify-between p-2 w-full">
+        Оформить заказ
+        <button
+          onClick={() => {
+            handleOrderRequest({
+              customerId: customerId,
+              productsList: products,
+              shoppingCartId: shoppingCartId,
+              totalSum: totalSum,
+              address: addressRef.current.value,
+              comment: commentRef.current.value,
+              deliveryTypeId: selectedDeliveryType,
+              paymentTypeId: selectedPaymentType,
+            });
+          }}
+          className="button-primary center px-4"
+        >
+          Заказать
+        </button>
       </div>
     </div>
   );

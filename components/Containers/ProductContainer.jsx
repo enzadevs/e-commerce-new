@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { SuccessToast } from "components/Functions/Toaster";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { useState, useEffect } from "react";
 import {
@@ -11,17 +12,20 @@ import {
 import { AiFillHeart } from "react-icons/ai";
 
 export default function ProductContainer({ productData }) {
-  const { status, id, titleRu, sellPrice, wishedBy } = productData;
+  const { status, id, titleRu, sellPrice, wishlist } = productData;
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
-  const [isWished, setIsWished] = useState(
-    () => wishedBy?.id !== currentUserObject.user?.id
-  );
+  const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
+  const [isWished, setIsWished] = useState(false);
 
   useEffect(() => {
-    if (wishedBy) {
-      setIsWished(wishedBy.id !== currentUserObject.user?.id);
+    if (wishlist) {
+      setIsWished(
+        wishlist.some((item) => item.user?.id === currentUserObject.user?.id)
+      );
+    } else {
+      setIsWished(false);
     }
-  }, [wishedBy, currentUserObject]);
+  }, [wishlist, currentUserObject]);
 
   return (
     <div className="product-container">
@@ -34,6 +38,10 @@ export default function ProductContainer({ productData }) {
           )}
           <button
             onClick={() => {
+              if (isSignedIn === false) {
+                SuccessToast({ successText: "Войдите или создайте аккаунт." });
+                return;
+              }
               handleAddToWishlist({
                 userId: currentUserObject.user.id,
                 productId: id,
@@ -43,7 +51,7 @@ export default function ProductContainer({ productData }) {
             className={
               isWished
                 ? "icons-wrapper text-red-500 ml-auto"
-                : "icons-wrapper text-gray-200 hover:text-red-500 ml-auto"
+                : "icons-wrapper text-gallery-200 hover:text-red-500 ml-auto"
             }
           >
             <AiFillHeart className="icons" />

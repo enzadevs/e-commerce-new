@@ -23,7 +23,7 @@
 }
 
 .icons-wrapper {
-  @apply bg-white border border-gallery-100 rounded-md cursor-pointer center outline-none transition hover:shadow-md h-8 w-8 md:h-10 md:w-10;
+  @apply bg-white border border-gallery-100 rounded-md cursor-pointer center transition focus:outline-none hover:shadow-md h-8 w-8 md:h-10 md:w-10;
 }
 
 .icons {
@@ -84,5 +84,5 @@
 }
 
 .product-container {
-  @apply bg-white border border-gallery-100 rounded-md shadow-md flex flex-col gap-2 transition hover:shadow-blueviolet-200 pb-2 sm:pb-4 h-auto w-full;
+  @apply bg-white border border-gallery-100 rounded-md shadow-md flex flex-col gap-2 transition hover:shadow-blueviolet-200 pb-2 h-auto w-full;
 }
