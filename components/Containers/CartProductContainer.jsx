@@ -10,9 +10,10 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
 export default function CartProductContainer({
-  customerId,
+  userId,
   productData,
   quantity,
+  shoppingCartItemId,
 }) {
   const { id, titleRu, sellPrice, images } = productData;
 
@@ -45,7 +46,7 @@ export default function CartProductContainer({
           <button
             onClick={() => {
               handleQuantityChange({
-                customerId: customerId,
+                customerId: userId,
                 productId: id,
                 quantity: Number(quantity) - Number(1),
               });
@@ -58,7 +59,7 @@ export default function CartProductContainer({
           <button
             onClick={() => {
               handleQuantityChange({
-                customerId: customerId,
+                customerId: userId,
                 productId: id,
                 quantity: Number(quantity) + Number(1),
               });
@@ -73,10 +74,10 @@ export default function CartProductContainer({
         </p>
         <button
           onClick={() => {
-            // handleRemoveProductFromCart({
-            //   customerId: customerId,
-            //   shoppingCartItemId: shoppingCartItemId,
-            // });
+            handleRemoveProductFromCart({
+              shoppingCartItemId: shoppingCartItemId,
+              userId: userId,
+            });
           }}
           className="icons-wrapper hover:text-red-500"
         >

@@ -17,7 +17,7 @@ export default function CategoriesDropdown() {
   if (isLoading) {
     return (
       <button className="button-primary dropdown gap-1 px-4">
-        <smFormatListBulleted className="icons" />
+        <MdFormatListBulleted className="icons" />
         <>Категории</>
       </button>
     );

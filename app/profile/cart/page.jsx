@@ -27,7 +27,8 @@ export default function ShoppingCartPage() {
             {shoppingCart?.productsList?.map((cartItem) => (
               <CartProductContainer
                 key={cartItem.id}
-                customerId={currentUserObject?.user?.id}
+                userId={currentUserObject?.user?.id}
+                shoppingCartItemId={cartItem.id}
                 productData={cartItem.product}
                 quantity={cartItem.quantity}
               />

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import { SuccessToast, ErrorToast } from "components/Functions/Toaster";
@@ -96,8 +97,8 @@ export default function ProfileInfoContainer() {
           </button>
         </div>
       </div>
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="border rounded-md shadow-md flex flex-col gap-4 p-4 w-full sm:w-[50%]">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="border rounded-md shadow-md flex flex-col gap-4 p-4 w-full md:w-[50%]">
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Имя:</>
             <p className="font-bold line-clamp-1">{firstName}</p>
@@ -123,8 +124,29 @@ export default function ProfileInfoContainer() {
             <p className="font-bold">{orders?.length}</p>
           </div>
         </div>
-        <div className="border rounded-md shadow-md flex flex-col gap-4 p-4 w-full sm:w-[50%]">
-          Here will go orders info
+        <div className="border rounded-md shadow-md flex flex-col gap-2 p-4 w-full md:w-[50%]">
+          <h2 className="font-bold flex-row-center px-2 h-8">Заказы:</h2>
+          {orders.map((item) => {
+            return (
+              <Link
+                href={`/profile/orders/` + item.id}
+                key={item.id}
+                className="border border-gallery-200 rounded-md flex-row-center justify-between gap-2 transition hover:bg-gallery h-10"
+              >
+                <div className="border-r flex-row-center justify-between flex-[50%] max-w-[50%] px-2 h-full">
+                  Номер заказа:
+                  <p className="font-bold">{item.id}</p>
+                </div>
+                <div className="border-r center flex-[50%] max-w-[50%] px-2 h-full">
+                  <p className="font-bold">{item.orderStatus?.titleRu}</p>
+                </div>
+                <div className="flex-row-center justify-between flex-[50%] max-w-[50%] px-2">
+                  Сумма:
+                  <p className="font-bold">{item.sum} М</p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
       <Transition appear show={isOpen} as={Fragment}>

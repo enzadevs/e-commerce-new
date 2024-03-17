@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import SearchBox from "./SearchBox";
 import WishList from "./WishList";
@@ -11,18 +10,11 @@ import { TbCategory2 } from "react-icons/tb";
 export default async function NavBar() {
   return (
     <nav className="flex-row-center px-3 md:gap-4 md:px-0 h-20 max-width">
-      <Link href="/" className="hidden md:block font-bold text-xl">
-        Super Market
-        {/* <Image
-          src={BrandLogo}
-          alt="brand logo"
-          height={0}
-          width={0}
-          style={{ height: "44px", width: "auto" }}
-          priority
-          sizes="50vw"
-        ></Image> */}
-      </Link>
+      <div className="hidden md:block">
+        <Link href="/" className="button-primary px-4">
+          <h1 className="text-base">Супер Маркет</h1>
+        </Link>
+      </div>
       <div className="hidden md:block">
         <CategoriesDropdown />
       </div>

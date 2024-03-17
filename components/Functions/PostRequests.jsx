@@ -60,9 +60,8 @@ export const handleAddToCart = async ({ customerId, productId, quantity }) => {
   }
 };
 
-// ! This code doesnt work
 export const handleRemoveProductFromCart = async ({
-  customerId,
+  userId,
   shoppingCartItemId,
 }) => {
   try {
@@ -73,7 +72,7 @@ export const handleRemoveProductFromCart = async ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ customerId, shoppingCartItemId }),
+        body: JSON.stringify({ userId, shoppingCartItemId }),
       }
     );
 
@@ -169,6 +168,37 @@ export const handleOrderRequest = async ({
       }),
     });
     console.log(productsList);
+
+    if (response.ok) {
+      const responseData = await response.json();
+      SuccessToast({ successText: responseData.message });
+    } else {
+      const errorData = await response.json();
+      ErrorToast({
+        errorText: errorData.message || "Вышла Ошибка. Попробуйте снова.",
+      });
+    }
+  } catch (error) {
+    console.error("Ошибка добавления продукта в избранное:", error);
+    ErrorToast({
+      errorText: "Ошибка сетевого соединения. Попробуйте снова позже.",
+    });
+  }
+};
+
+export const cancelOrder = async ({ customerId, orderId }) => {
+  try {
+    const response = await fetch(`http://localhost:3001/orders/new/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customerId,
+        orderId,
+        orderStatusId: 4,
+      }),
+    });
 
     if (response.ok) {
       const responseData = await response.json();

@@ -48,6 +48,7 @@ export default function PostOrder({ customerId, shoppingCartData }) {
 
   return (
     <div className="bg-gallery rounded-md flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
+      {console.log(products)}
       <div className="border-b border-gallery-200 flex-row-center justify-between gap-4 p-2 w-full">
         Сумма :
         <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
