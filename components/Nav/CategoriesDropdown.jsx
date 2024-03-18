@@ -49,7 +49,7 @@ export default function CategoriesDropdown() {
                       href={"/categories/" + category.id}
                       className={`${
                         active ? "bg-blueviolet-700 text-white" : ""
-                      } w-28 flex items-center text-start transition rounded-md p-2`}
+                      } w-28 flex items-center text-start font-bold transition rounded-md p-2`}
                     >
                       {category.titleRu}
                     </Link>
