@@ -77,6 +77,10 @@ export default function ProductContainer({ productData }) {
         <p className="sm:text-base font-bold mt-auto">{sellPrice} М</p>
         <button
           onClick={() => {
+            if (isSignedIn === false) {
+              SuccessToast({ successText: "Войдите или создайте аккаунт." });
+              return;
+            }
             handleAddToCart({
               customerId: currentUserObject.user.id,
               productId: id,
