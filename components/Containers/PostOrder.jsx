@@ -63,7 +63,7 @@ export default function PostOrder({ customerId, shoppingCartData }) {
           type="text"
           className="input-primary px-4 sm:flex-[50%] sm:max-w-[50%]"
           placeholder="Адрес"
-        ></input>
+        />
       </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
         Коментарий:

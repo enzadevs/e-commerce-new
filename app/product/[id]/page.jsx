@@ -5,11 +5,11 @@ import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import ProductViewSwiper from "components/Containers/ProductViewSwiper";
 import { useState } from "react";
-import { handleAddToCart } from "components/Functions/PostRequests";
 import { UseFetcher } from "components/Functions/UseFetcher";
+import { SuccessToast } from "components/Functions/Toaster";
+import { handleAddToCart } from "components/Functions/PostRequests";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { FiPlus, FiMinus } from "react-icons/fi";
-import { AiFillHeart } from "react-icons/ai";
 
 export default function ProductViewPage({ params }) {
   const [count, setCount] = useState(0);
@@ -29,6 +29,7 @@ export default function ProductViewPage({ params }) {
     description,
     images,
     brand,
+    stock,
     unitType,
     category,
     subCategory,
@@ -56,9 +57,15 @@ export default function ProductViewPage({ params }) {
             </p>
           </div>
           <div className="info-holder">
+            Доступно :
+            <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
+              {stock}
+            </p>
+          </div>
+          <div className="info-holder">
             Категория :
             <Link
-              href={`/category/` + category.id}
+              href={`/categories/` + category.id}
               className="nav-link bg-gallery rounded-md center px-4 h-8"
             >
               {category.titleRu}
@@ -67,7 +74,7 @@ export default function ProductViewPage({ params }) {
           <div className="info-holder">
             Под категория :
             <Link
-              href={`/subcategory/` + subCategory.id}
+              href={`/subcategories/` + subCategory.id}
               className="bg-gallery rounded-md center px-4 h-8"
             >
               {subCategory.titleRu}
@@ -87,7 +94,16 @@ export default function ProductViewPage({ params }) {
             </button>
             <p>{count}</p>
             <button
-              onClick={() => setCount((current) => current + 1)}
+              onClick={() => {
+                if (count < Number(stock)) {
+                  setCount((current) => current + 1);
+                } else {
+                  SuccessToast({
+                    successText:
+                      "Вы не можете купить больше продуктов чем есть в складе.",
+                  });
+                }
+              }}
               className="rounded-full center transition hover:bg-white h-8 w-8"
             >
               <FiPlus className="icons nav-link" />
