@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import ErrorBlock from "components/Functions/ErrorBlock";
+import { Link } from "../../navigation.js";
 import { Fragment } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { Menu, Transition } from "@headlessui/react";

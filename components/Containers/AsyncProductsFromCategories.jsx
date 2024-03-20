@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "../../navigation.js";
 import ProductContainer from "./ProductContainer";
 
 export default async function AsyncProductsFromCategories() {

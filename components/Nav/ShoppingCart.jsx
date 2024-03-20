@@ -7,19 +7,19 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 
 export default function ShoppingCart() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
+
   const { data, isLoading, error } = UseFetcher(
     `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
   );
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center">
-        <HiOutlineShoppingCart className="h-6 w-6 md:icons" />
-        <p className="text-sm hidden lg:block">Корзина</p>
+      <div className="center">
+        <HiOutlineShoppingCart className="h-6 w-6" />
       </div>
     );
   }
-  if (error) return <ErrorBlock height={"h-20 lg:h-[280px]"} width="w-48" />;
+  if (error) return <ErrorBlock height={"h-6"} width="w-6" />;
 
   const { shoppingCart } = data;
 
@@ -39,7 +39,6 @@ export default function ShoppingCart() {
       ) : (
         <div className="center font-bold h-6 w-fit">{totalSum} М</div>
       )}
-      <p className="text-sm hidden lg:block">Корзина</p>
     </div>
   );
 }

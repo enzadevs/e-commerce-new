@@ -26,11 +26,6 @@
   @apply bg-white border border-gallery-100 rounded-md cursor-pointer center transition focus:outline-none hover:shadow-md h-8 w-8 md:h-10 md:w-10;
 }
 
-.icons {
-  height: 24px;
-  width: 24px;
-}
-
 .button-primary {
   @apply bg-blueviolet border border-blueviolet rounded-md flex flex-row items-center text-white text-xs sm:text-sm focus:outline-none transition hover:bg-blueviolet-700 hover:border-blueviolet-700 h-10;
 }

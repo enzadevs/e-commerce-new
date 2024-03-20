@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import { Link } from "../../navigation.js";
 import { SuccessToast } from "components/Functions/Toaster";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { useState, useEffect } from "react";
@@ -54,7 +54,7 @@ export default function ProductContainer({ productData }) {
                 : "icons-wrapper text-gallery-200 hover:text-red-500 ml-auto"
             }
           >
-            <AiFillHeart className="icons" />
+            <AiFillHeart className="h-6 w-6" />
           </button>
         </div>
         <div className="relative rounded-t-md h-40 sm:h-56">

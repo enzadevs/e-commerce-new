@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
+import { Link } from "navigation";
 import { UseFetcher } from "components/Functions/UseFetcher";
 
 export default function OrdersPage({ params }) {

@@ -15,9 +15,13 @@ const globalFont = Nunito_Sans({
   display: "swap",
 });
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, params: { locale } }) {
   return (
-    <html lang="ru" className={globalFont.className} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={globalFont.className}
+      suppressHydrationWarning
+    >
       <body className="flex flex-col text-sm min-h-screen w-full">
         <div className="bg-white shadow-md sticky top-0 z-20">
           <NavBar />

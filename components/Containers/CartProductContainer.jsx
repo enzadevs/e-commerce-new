@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import {
   handleQuantityChange,
   handleRemoveProductFromCart,
 } from "components/Functions/PostRequests";
+import { Link } from "../../navigation.js";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiPlus, FiMinus } from "react-icons/fi";
 

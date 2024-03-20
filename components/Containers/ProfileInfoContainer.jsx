@@ -1,6 +1,6 @@
-import Link from "next/link";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
+import { Link } from "../../navigation.js";
 import { SuccessToast, ErrorToast } from "components/Functions/Toaster";
 import { useState, Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";

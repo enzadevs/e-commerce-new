@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import ProductViewSwiper from "components/Containers/ProductViewSwiper";
+import { Link } from "../../../../navigation.js";
 import { useState } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { SuccessToast } from "components/Functions/Toaster";
@@ -90,7 +90,7 @@ export default function ProductViewPage({ params }) {
               onClick={() => setCount((current) => Math.max(current - 1, 0))}
               className="rounded-full center transition hover:bg-white h-8 w-8"
             >
-              <FiMinus className="icons nav-link" />
+              <FiMinus className="h-6 w-6 nav-link" />
             </button>
             <p>{count}</p>
             <button
@@ -106,7 +106,7 @@ export default function ProductViewPage({ params }) {
               }}
               className="rounded-full center transition hover:bg-white h-8 w-8"
             >
-              <FiPlus className="icons nav-link" />
+              <FiPlus className="h-6 w-6 nav-link" />
             </button>
           </div>
           <button

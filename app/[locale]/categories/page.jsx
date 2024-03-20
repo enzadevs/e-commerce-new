@@ -2,7 +2,7 @@ export const metadata = {
   title: "Все категории",
 };
 
-import Link from "next/link";
+import { Link } from "navigation";
 
 export default async function CategoriesPage() {
   const response = await fetch("http://localhost:3001/manage/categories/all");

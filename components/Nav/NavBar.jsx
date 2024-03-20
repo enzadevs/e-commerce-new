@@ -1,9 +1,9 @@
-import Link from "next/link";
 import SearchBox from "./SearchBox";
 import WishList from "./WishList";
-import ShoppingCart from "./ShoppingCart";
+import ShoppingCartPlaceholder from "./ShoppingCartPlaceholder";
 import ProfileBoard from "./ProfileBoard";
 import CategoriesDropdown from "./CategoriesDropdown";
+import { Link } from "../../navigation.js";
 import { TbHome } from "react-icons/tb";
 import { TbCategory2 } from "react-icons/tb";
 
@@ -30,7 +30,7 @@ export default async function NavBar() {
           <WishList />
         </Link>
         <Link href="/profile/cart" className="nav-button">
-          <ShoppingCart />
+          <ShoppingCartPlaceholder />
         </Link>
         <Link href="/profile" className="nav-button">
           <ProfileBoard />

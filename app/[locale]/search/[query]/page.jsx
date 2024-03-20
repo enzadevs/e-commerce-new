@@ -17,7 +17,6 @@ export default function SearchResultsPage({ params }) {
 
   return (
     <div className="flex flex-col gap-4">
-      {console.log(data)}
       {data ? (
         data.length > 0 ? (
           <>

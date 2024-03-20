@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import ProductContainer from "components/Containers/ProductContainer";
+import { Link } from "navigation";
 import { useState } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 
