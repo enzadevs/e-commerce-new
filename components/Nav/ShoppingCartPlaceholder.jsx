@@ -14,7 +14,7 @@ export default function ShoppingCartPlaceholder() {
       ) : (
         <HiOutlineShoppingCart className="h-6 w-6" />
       )}
-      <p className="text-sm hidden lg:block">Корзина</p>
+      <p className="hidden lg:block">Корзина</p>
     </div>
   );
 }

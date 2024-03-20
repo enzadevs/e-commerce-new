@@ -3,6 +3,7 @@ import WishList from "./WishList";
 import ShoppingCartPlaceholder from "./ShoppingCartPlaceholder";
 import ProfileBoard from "./ProfileBoard";
 import CategoriesDropdown from "./CategoriesDropdown";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { Link } from "../../navigation.js";
 import { TbHome } from "react-icons/tb";
 import { TbCategory2 } from "react-icons/tb";
@@ -35,6 +36,9 @@ export default async function NavBar() {
         <Link href="/profile" className="nav-button">
           <ProfileBoard />
         </Link>
+        <div className="nav-button">
+          <LanguageSwitcher />
+        </div>
       </div>
     </nav>
   );

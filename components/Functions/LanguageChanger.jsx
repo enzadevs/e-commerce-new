@@ -12,10 +12,8 @@ export default function LanguageChanger({ locale }) {
 
   return (
     <select value={locale} onChange={handleChange}>
-      <option value="en">English</option>
-      <option value="de">Deutsch</option>
-      <option value="es">Español</option>
-      <option value="ja">日本語</option>
+      <option value="ru">Язык</option>
+      <option value="tm">Dil</option>
     </select>
   );
 }

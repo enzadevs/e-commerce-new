@@ -26,7 +26,7 @@ export default function CategoriesDropdown() {
 
   return (
     <div>
-      <Menu as="div" className="relative inline-block">
+      <Menu as="div" className="inline-block">
         <Menu.Button className="button-primary dropdown gap-1 px-4">
           <MdFormatListBulleted className="icons" />
           <>Категории</>
@@ -40,36 +40,38 @@ export default function CategoriesDropdown() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="bg-white border border-gallery-200 rounded-md shadow-sm flex flex-row gap-2 absolute left-0 outline-none origin-top-right p-2 mt-2">
-            {categories?.map((category) => (
-              <div key={category.id} className="w-full">
-                <Menu.Item className="flex-row items-center">
-                  {({ active }) => (
-                    <Link
-                      href={"/categories/" + category.id}
-                      className={`${
-                        active ? "bg-blueviolet-700 text-white" : ""
-                      } w-28 flex items-center text-start font-bold transition rounded-md p-2`}
-                    >
-                      {category.titleRu}
-                    </Link>
-                  )}
-                </Menu.Item>
-                {category.subCategories?.length > 0 && (
-                  <ul className="flex flex-col">
-                    {category.subCategories.map((subCategory) => (
+          <Menu.Items className="absolute left-[460px] outline-none origin-top-right p-2 mt-2">
+            <div className="bg-white border border-gallery-200 rounded-md shadow-sm flex flex-row gap-2 p-4 w-fit">
+              {categories?.map((category) => (
+                <div key={category.id}>
+                  <Menu.Item className="flex-row items-center">
+                    {({ active }) => (
                       <Link
-                        href={"/subcategories/" + subCategory.id}
-                        key={subCategory.id}
-                        className="text-gray-700 hover:text-blueviolet-700 p-2"
+                        href={"/categories/" + category.id}
+                        className={`${
+                          active ? "bg-blueviolet-700 text-white" : ""
+                        } flex items-center text-start font-bold transition rounded-md p-2`}
                       >
-                        {subCategory.titleRu}
+                        {category.titleRu}
                       </Link>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
+                    )}
+                  </Menu.Item>
+                  {category.subCategories?.length > 0 && (
+                    <ul className="flex flex-col">
+                      {category.subCategories.map((subCategory) => (
+                        <Link
+                          href={"/subcategories/" + subCategory.id}
+                          key={subCategory.id}
+                          className="text-gray-700 hover:text-blueviolet-700 p-2"
+                        >
+                          {subCategory.titleRu}
+                        </Link>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
           </Menu.Items>
         </Transition>
       </Menu>
