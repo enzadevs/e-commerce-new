@@ -17,10 +17,10 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <button className="flex flex-col items-center" onClick={toggleLocale}>
+    <button className="button-primary px-4" onClick={toggleLocale}>
       <LiaGlobeEuropeSolid className="h-6 w-6" />
       <p className="hidden lg:block">
-        {currentLocale === "ru" ? "Язык" : "Dil"}
+        {currentLocale === "ru" ? "Русский" : "Türkmen"}
       </p>
     </button>
   );

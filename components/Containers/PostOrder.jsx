@@ -48,8 +48,7 @@ export default function PostOrder({ customerId, shoppingCartData }) {
 
   return (
     <div className="bg-gallery rounded-md flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
-      {console.log(products)}
-      <div className="border-b border-gallery-200 flex-row-center justify-between gap-4 p-2 w-full">
+      <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
         Сумма :
         <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
           {totalSum} М
@@ -78,7 +77,7 @@ export default function PostOrder({ customerId, shoppingCartData }) {
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
         Способ доставки:
         <div className="sm:flex-[50%] sm:max-w-[50%]">
-          <RadioGroup className="flex flex-col sm:flex-row justify-between gap-2 w-full">
+          <RadioGroup className="flex flex-col sm:flex-row justify-end gap-2 w-full">
             {deliveryTypes?.map((item) => (
               <RadioGroup.Option value={item.id} key={item.id}>
                 {({ checked }) => (
@@ -103,7 +102,7 @@ export default function PostOrder({ customerId, shoppingCartData }) {
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
         Способ оплаты:
         <div className="sm:flex-[50%] sm:max-w-[50%]">
-          <RadioGroup className="flex flex-col sm:flex-row justify-between gap-2 w-full">
+          <RadioGroup className="flex flex-col sm:flex-row justify-end gap-2 w-full">
             {paymentTypes?.map((item) => (
               <RadioGroup.Option value={item.id} key={item.id}>
                 {({ checked }) => (
@@ -125,8 +124,8 @@ export default function PostOrder({ customerId, shoppingCartData }) {
           </RadioGroup>
         </div>
       </div>
-      <div className="border-b border-gallery-200 flex-row-center justify-between p-2 w-full">
-        Оформить заказ
+      <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
+        Оформить заказ :
         <button
           onClick={() => {
             handleOrderRequest({

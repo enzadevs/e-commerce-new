@@ -55,7 +55,7 @@ export default function CartProductContainer({
           >
             <FiMinus className="icons nav-link" />
           </button>
-          <p>{quantity}</p>
+          <p>{productData.id}</p>
           <button
             onClick={() => {
               handleQuantityChange({

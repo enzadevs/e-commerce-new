@@ -17,7 +17,7 @@ export default function AdsSwiper() {
     data: ads = [],
     error,
     isLoading,
-  } = UseFetcher(`http://localhost:3001/ads/all`);
+  } = UseFetcher(`http://localhost:3001/ads/frontend`);
 
   if (isLoading)
     return (

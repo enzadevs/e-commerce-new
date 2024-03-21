@@ -117,7 +117,9 @@ export default function ProfileInfoContainer() {
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Корзина:</>
-            <p className="font-bold">{shoppingCart?.productsList?.length}</p>
+            <p className="font-bold">
+              {shoppingCart?.productsList?.length || 0}
+            </p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>Заказы:</>
@@ -126,7 +128,7 @@ export default function ProfileInfoContainer() {
         </div>
         <div className="border rounded-md shadow-md flex flex-col gap-2 p-4 w-full md:w-[50%]">
           <h2 className="font-bold flex-row-center px-2 h-8">Заказы:</h2>
-          {orders.map((item) => {
+          {orders?.map((item) => {
             return (
               <Link
                 href={`/profile/orders/` + item.id}

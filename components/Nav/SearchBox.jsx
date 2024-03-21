@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "../../navigation.js";
 import { BiSearch } from "react-icons/bi";
 
-export default function SearchBox() {
+export default function SearchBox({ placeholder }) {
   const queryRef = useRef();
   const router = useRouter();
 
@@ -14,12 +14,11 @@ export default function SearchBox() {
         type="text"
         ref={queryRef}
         className="search-input w-full"
-        placeholder="Поиск...Gozleg..."
+        placeholder={placeholder}
         minLength={2}
         maxLength={64}
         onKeyDown={(event) => {
           if (event.key === "Enter" && queryRef.current.value.length >= 2) {
-            // window.location.href = `/search/` + queryRef.current.value;
             router.push(`/search/` + queryRef.current.value);
           }
         }}
@@ -27,7 +26,6 @@ export default function SearchBox() {
       <button
         onClick={() => {
           if (queryRef.current.value.length >= 2) {
-            // window.location.href = `/search/` + queryRef.current.value;
             router.push(`/search/` + queryRef.current.value);
           }
         }}

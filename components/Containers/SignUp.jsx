@@ -6,11 +6,9 @@ import { useState, useRef, Fragment } from "react";
 export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const firstNameRef = useRef();
-  const phoneNumberRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmationInputRef = useRef();
-  const addressRef = useRef();
+  const [firstName, setFirstName] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const updateCurrentUserObject = IsSignedInStore(
     (state) => state.updateCurrentUserObject
   );
@@ -40,21 +38,21 @@ export default function SignUp() {
     }
 
     if (
-      !firstNameRef.current.value ||
-      !phoneNumberRef.current.value ||
-      !passwordRef.current.value ||
-      !passwordConfirmationInputRef.current.value ||
-      !addressRef.current.value
+      !firstName ||
+      !phoneNumber ||
+      !password ||
+      !passwordConfirmation ||
+      !address
     ) {
       alert("Пожалуйста, заполните все поля.");
       return;
     }
 
     const userFormData = {
-      firstName: firstNameRef.current.value,
-      phoneNumber: "993" + phoneNumberRef.current.value,
-      password: passwordRef.current.value,
-      address: addressRef.current.value,
+      firstName: firstName,
+      phoneNumber: "993" + phoneNumber,
+      password: password,
+      address: address,
     };
 
     try {
@@ -82,8 +80,8 @@ export default function SignUp() {
   const handleLogIn = async (e) => {
     e.preventDefault();
     const userFormData = {
-      phoneNumber: "993" + phoneNumberRef.current.value,
-      password: passwordRef.current.value,
+      phoneNumber: "993" + phoneNumber,
+      password: password,
     };
 
     try {
@@ -146,50 +144,71 @@ export default function SignUp() {
               onSubmit={handleSignUp}
             >
               <input
-                ref={firstNameRef}
                 name="firstName"
                 type="text"
                 placeholder="Ваше имя"
-                className="input-primary pl-4"
-              ></input>
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className={`${
+                  firstName.length >= 3
+                    ? "input-primary pl-4"
+                    : "input-caution pl-4"
+                }`}
+              />
               <div className="relative">
                 <p className="center absolute left-0 px-3 h-full">+993</p>
                 <input
-                  ref={phoneNumberRef}
                   name="phoneNumber"
                   type="number"
                   placeholder="Номер телефона"
-                  className="input-primary pl-14"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  className={`${
+                    phoneNumber.length >= 8
+                      ? "input-primary pl-12"
+                      : "input-caution pl-12"
+                  }`}
                   minLength={8}
                   maxLength={8}
                 ></input>
               </div>
               <input
-                ref={passwordRef}
                 value={password}
                 onChange={handlePasswordChange}
                 name="password"
                 type="password"
                 placeholder="Создайте пароль"
                 minLength={8}
-                className="input-primary pl-4"
+                className={`${
+                  password.length >= 8
+                    ? "input-primary pl-4"
+                    : "input-caution pl-4"
+                }`}
               ></input>
               <input
-                ref={passwordConfirmationInputRef}
                 value={passwordConfirmation}
                 onChange={handlePasswordConfirmationChange}
                 name="password"
                 type="password"
                 placeholder="Подтвердите пароль"
                 minLength={8}
-                className="input-primary pl-4"
+                className={`${
+                  passwordConfirmation.length >= 8
+                    ? "input-primary pl-4"
+                    : "input-caution pl-4"
+                }`}
               ></input>
               <input
-                ref={addressRef}
                 name="address"
                 type="text"
                 placeholder="Адрес"
-                className="input-primary pl-4"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className={`${
+                  address.length >= 3
+                    ? "input-primary pl-4"
+                    : "input-caution pl-4"
+                }`}
               ></input>
               <button
                 type="submit"
@@ -209,24 +228,32 @@ export default function SignUp() {
               <div className="relative">
                 <p className="center absolute left-0 px-3 h-full">+993</p>
                 <input
-                  ref={phoneNumberRef}
                   name="phoneNumber"
                   type="number"
                   placeholder="Номер телефона"
-                  className="input-primary pl-14"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  className={`${
+                    phoneNumber.length >= 8
+                      ? "input-primary pl-12"
+                      : "input-caution pl-12"
+                  }`}
                   minLength={8}
                   maxLength={8}
                 ></input>
               </div>
               <input
-                ref={passwordRef}
                 value={password}
                 onChange={handlePasswordChange}
                 name="password"
                 type="password"
                 placeholder="Введите пароль"
-                className="input-primary pl-4"
-                autoComplete="password"
+                minLength={8}
+                className={`${
+                  password.length >= 8
+                    ? "input-primary pl-4"
+                    : "input-caution pl-4"
+                }`}
               ></input>
               <button
                 onClick={handleLogIn}

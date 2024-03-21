@@ -37,7 +37,7 @@ export default function ShoppingCart() {
       {totalSum === 0 ? (
         <HiOutlineShoppingCart className="h-6 w-6" />
       ) : (
-        <div className="center font-bold h-6 w-fit">{totalSum} М</div>
+        <div className="center font-bold h-6 w-fit">{totalSum}m</div>
       )}
     </div>
   );

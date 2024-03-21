@@ -1,50 +1,18 @@
 "use client";
 
-import LoadingBlock from "components/Functions/LoadingBlock";
-import ErrorBlock from "components/Functions/ErrorBlock";
-import PostOrder from "components/Containers/PostOrder";
-import CartProductContainer from "components/Containers/CartProductContainer";
-import { UseFetcher } from "components/Functions/UseFetcher";
+import SignedUserCartContainer from "components/Containers/SignedUserCartContainer";
 import { IsSignedInStore } from "utils/IsSignedIn";
 
 export default function ShoppingCartPage() {
-  const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
-
-  const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
-  );
-
-  if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
-  if (error) return <ErrorBlock height={"h-20"} width="w-full" />;
-
-  const { shoppingCart } = data;
+  const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
 
   return (
-    <div className="flex flex-col gap-4 mt-4">
-      {shoppingCart ? (
-        shoppingCart.productsList?.length > 0 ? (
-          <>
-            {shoppingCart?.productsList?.map((cartItem) => (
-              <CartProductContainer
-                key={cartItem.id}
-                userId={currentUserObject?.user?.id}
-                shoppingCartItemId={cartItem.id}
-                productData={cartItem.product}
-                quantity={cartItem.quantity}
-              />
-            ))}
-            <PostOrder
-              customerId={currentUserObject?.user?.id}
-              shoppingCartData={shoppingCart}
-            />
-          </>
-        ) : (
-          <p>Добавьте продукты В Корзину и они появятся тут.</p>
-        )
+    <div className="flex flex-col gap-4">
+      {isSignedIn ? (
+        <SignedUserCartContainer />
       ) : (
-        <p>
-          Пожалуйста создайте или войдите в аккаунт чтобы добавлять сюда
-          продуты.
+        <p className="mt-4">
+          Войдите или создайте аккаунт чтобы добавлять сюда продукты.
         </p>
       )}
     </div>

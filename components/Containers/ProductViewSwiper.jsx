@@ -44,7 +44,7 @@ export default function ProductViewSwiper({ images }) {
       <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}
-        spaceBetween={0}
+        spaceBetween={10}
         slidesPerView={5}
         freeMode={true}
         watchSlidesProgress={true}
