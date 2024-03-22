@@ -75,7 +75,7 @@ export default function OrdersPage({ params }) {
             return (
               <div
                 key={item.id}
-                className="bg-white rounded-md flex-row-center gap-2 px-2 h-10"
+                className="bg-white border border-gallery-200 rounded-md flex-row-center gap-2 p-2"
               >
                 <div className="relative h-10 w-10">
                   <Image

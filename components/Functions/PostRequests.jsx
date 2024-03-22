@@ -93,7 +93,7 @@ export const handleRemoveProductFromCart = async ({
 };
 
 export const handleQuantityChange = async ({
-  customerId,
+  shoppingCartId,
   productId,
   quantity,
 }) => {
@@ -105,7 +105,7 @@ export const handleQuantityChange = async ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ customerId, productId, quantity }),
+        body: JSON.stringify({ shoppingCartId, productId, quantity }),
       }
     );
 

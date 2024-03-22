@@ -14,6 +14,7 @@ export default function CartProductContainer({
   productData,
   quantity,
   shoppingCartItemId,
+  shoppingCartId,
 }) {
   const { id, titleRu, sellPrice, images } = productData;
 
@@ -54,7 +55,7 @@ export default function CartProductContainer({
             <button
               onClick={() => {
                 handleQuantityChange({
-                  customerId: userId,
+                  shoppingCartId: shoppingCartId,
                   productId: id,
                   quantity: Number(quantity) - Number(1),
                 });
@@ -67,7 +68,7 @@ export default function CartProductContainer({
             <button
               onClick={() => {
                 handleQuantityChange({
-                  customerId: userId,
+                  shoppingCartId: shoppingCartId,
                   productId: id,
                   quantity: Number(quantity) + Number(1),
                 });

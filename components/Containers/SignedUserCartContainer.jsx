@@ -32,6 +32,7 @@ export default function SignedUserCartContainer() {
               key={cartItem.id}
               userId={currentUserObject?.user?.id}
               shoppingCartItemId={cartItem.id}
+              shoppingCartId={shoppingCart.id}
               productData={cartItem.product}
               quantity={cartItem.quantity}
             />
