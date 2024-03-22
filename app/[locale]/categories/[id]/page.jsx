@@ -6,8 +6,11 @@ import ProductContainer from "components/Containers/ProductContainer";
 import { Link } from "../../../../navigation.js";
 import { useState } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
+import { usePathname } from "next/navigation.js";
 
 export default function CategoryProductsPage({ params }) {
+  const pathname = usePathname();
+
   const { data, isLoading, error } = UseFetcher(
     `http://localhost:3001/manage/categories/fetch/` + params.id
   );
@@ -23,9 +26,13 @@ export default function CategoryProductsPage({ params }) {
         )
       : data.products;
 
+  const useTmTitles = pathname.includes("/tm");
+
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-bold">{data.titleRu}</h2>
+      <h2 className="text-lg font-bold">
+        {useTmTitles ? data.titleTm : data.titleRu}
+      </h2>
       <div className="flex-row-center gap-4">
         {data.subCategories?.map((item) => (
           <Link
@@ -34,7 +41,7 @@ export default function CategoryProductsPage({ params }) {
             onClick={() => setSelectedSubcategory(item.id)}
             className="button-outline px-4"
           >
-            {item.titleRu}
+            {useTmTitles ? item.titleTm : item.titleRu}
           </Link>
         ))}
       </div>

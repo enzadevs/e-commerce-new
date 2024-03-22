@@ -20,10 +20,12 @@ export default function NavBar() {
         </Link>
       </div>
       <div className="flex-row-center justify-between h-10 w-full md:hidden">
-        <Link href="/" className="button-primary px-4">
-          <h1>Super Market</h1>
+        <Link href="/" className="button-primary center px-4 w-36">
+          Super Market
         </Link>
-        <LanguageSwitcher />
+        <div className="center ml-auto h-10 w-10">
+          <LanguageSwitcher text={t("lang")} />
+        </div>
       </div>
       <div className="hidden md:block">
         <CategoriesDropdown title={t("categories")} />

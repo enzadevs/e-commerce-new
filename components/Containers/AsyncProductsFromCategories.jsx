@@ -1,7 +1,7 @@
 import { Link } from "../../navigation.js";
 import ProductContainer from "./ProductContainer";
 
-export default async function AsyncProductsFromCategories() {
+export default async function AsyncProductsFromCategories({ text }) {
   const response = await fetch(
     "http://localhost:3001/manage/categories/withproducts",
     { cache: "no-cache" }
@@ -23,7 +23,7 @@ export default async function AsyncProductsFromCategories() {
                   href={"/categories/" + item.id}
                   className="nav-link w-fit"
                 >
-                  Показать все
+                  {text}
                 </Link>
               </div>
               <div className="products-grid">

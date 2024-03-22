@@ -4,8 +4,8 @@ export const metadata = {
 
 export default function SearchLayout({ children }) {
   return (
-    <div className="px-3 md:px-0 max-width">
-      <div className="bg-white rounded-3xl shadow-md mt-4 p-4">{children}</div>
+    <div className="max-width">
+      <div className="bg-white rounded-md shadow-md mt-4 p-4">{children}</div>
     </div>
   );
 }

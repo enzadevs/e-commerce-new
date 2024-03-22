@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "../../navigation.js";
 import { RadioGroup } from "@headlessui/react";
 import { UseFetcher } from "components/Functions/UseFetcher";
+import { useTranslations } from "next-intl";
 
 export default function PostOrder({ customerData, shoppingCartData }) {
   const [selectedDeliveryType, setSelectedDeliveryType] = useState(null);
@@ -13,6 +14,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
   const [phoneNumber, setPhoneNumber] = useState(customerData.phoneNumber);
   const commentRef = useRef();
   const router = useRouter();
+  const t = useTranslations("Order");
 
   const { data: paymentTypes } = UseFetcher(
     "http://localhost:3001/manage/payment_types/all"
@@ -114,7 +116,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
   return (
     <div className="bg-gallery rounded-md flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
       <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
-        Сумма заказа :
+        {t("orderSum")}
         <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
           {totalSum} М
         </p>
@@ -122,16 +124,16 @@ export default function PostOrder({ customerData, shoppingCartData }) {
       <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
         <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
           {totalSum >= 250 ? (
-            "Доставка бесплатная!"
+            <>{t("orderIsFree")}</>
           ) : (
             <div className="flex-row-center justify-end gap-4 p-2">
-              Цена доставки 15 ман.
+              {t("orderPrice")}
             </div>
           )}
         </p>
       </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
-        Номер телефона:
+        {t("phoneNumber")}
         <input
           name="phoneNumber"
           type="number"
@@ -148,7 +150,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         />
       </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
-        Адрес:
+        {t("address")}
         <input
           name="address"
           type="text"
@@ -163,7 +165,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         />
       </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
-        Коментарий:
+        {t("commentary")}
         <input
           ref={commentRef}
           name="comment"
@@ -173,7 +175,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         ></input>
       </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
-        Способ доставки:
+        {t("deliveryType")}
         <div className="sm:flex-[50%] sm:max-w-[50%]">
           <RadioGroup className="flex flex-col sm:flex-row justify-end gap-2 w-full">
             {deliveryTypes?.map((item) => (
@@ -198,7 +200,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         </div>
       </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
-        Способ оплаты:
+        {t("paymentType")}
         <div className="sm:flex-[50%] sm:max-w-[50%]">
           <RadioGroup className="flex flex-col sm:flex-row justify-end gap-2 w-full">
             {paymentTypes?.map((item) => (
@@ -223,7 +225,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         </div>
       </div>
       <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
-        Оформить заказ :
+        {t("makeOrder")}
         <button
           onClick={() => {
             handleOrderRequest({
@@ -240,7 +242,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
           }}
           className="button-primary center px-4"
         >
-          Заказать
+          {t("postOrder")}
         </button>
       </div>
     </div>

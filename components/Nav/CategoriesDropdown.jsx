@@ -5,9 +5,12 @@ import { Link } from "../../navigation.js";
 import { Fragment } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { Menu, Transition } from "@headlessui/react";
+import { usePathname } from "next/navigation.js";
 import { MdFormatListBulleted } from "react-icons/md";
 
 export default function CategoriesDropdown({ title }) {
+  const pathname = usePathname();
+
   const {
     data: categories,
     isLoading,
@@ -23,6 +26,8 @@ export default function CategoriesDropdown({ title }) {
     );
   }
   if (error) return <ErrorBlock height={"h-20 lg:h-[280px]"} width="w-48" />;
+
+  const useTmTitles = pathname.includes("/tm");
 
   return (
     <Menu as="div" className="inline-block">
@@ -51,7 +56,7 @@ export default function CategoriesDropdown({ title }) {
                         active ? "bg-blueviolet-700 text-white" : ""
                       } flex items-center text-start font-bold transition rounded-md p-2`}
                     >
-                      {category.titleRu}
+                      {useTmTitles ? category.titleTm : category.titleRu}
                     </Link>
                   )}
                 </Menu.Item>
@@ -63,7 +68,9 @@ export default function CategoriesDropdown({ title }) {
                         key={subCategory.id}
                         className="text-gray-700 hover:text-blueviolet-700 p-2"
                       >
-                        {subCategory.titleRu}
+                        {useTmTitles
+                          ? subCategory.titleTm
+                          : subCategory.titleRu}
                       </Link>
                     ))}
                   </ul>

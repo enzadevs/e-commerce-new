@@ -6,6 +6,7 @@ import { useState, Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { IsSignedInStore } from "utils/IsSignedIn";
+import { useTranslations } from "next-intl";
 import { SlPencil } from "react-icons/sl";
 import { BiExit } from "react-icons/bi";
 
@@ -20,6 +21,7 @@ export default function ProfileInfoContainer() {
     (state) => state.updateCurrentUserObject
   );
   const setIsSignedIn = IsSignedInStore((state) => state.setIsSignedIn);
+  const t = useTranslations("SignedUserOrderPage");
 
   function closeModal() {
     setIsOpen(false);
@@ -57,7 +59,7 @@ export default function ProfileInfoContainer() {
       if (response.ok) {
         const user = await response.json();
         updateCurrentUserObject({ user });
-        SuccessToast({ successText: "Вы успешно обновили данные." });
+        SuccessToast({ successText: t("successFullUpdate") });
       } else {
         console.error("Failed to update user");
       }
@@ -79,11 +81,11 @@ export default function ProfileInfoContainer() {
   return (
     <>
       <div className="flex-row-center justify-between">
-        <h2 className="text-lg font-bold">Профиль</h2>
+        <h2 className="text-lg font-bold">{t("profileHeader")}</h2>
         <div className="flex-row-center gap-2">
           <button onClick={openModal} className="button-outline gap-2 px-4">
             <SlPencil className="h-4 w-4" />
-            <p className="hidden sm:block">Изменить</p>
+            <p className="hidden sm:block">{t("change")}</p>
           </button>
           <button
             onClick={() => {
@@ -93,41 +95,41 @@ export default function ProfileInfoContainer() {
             className="button-outline gap-2 px-4"
           >
             <BiExit className="h-4 w-4" />
-            <p className="hidden sm:block">Выйти</p>
+            <p className="hidden sm:block">{t("logOut")}</p>
           </button>
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="border rounded-md shadow-md flex flex-col gap-4 p-4 w-full md:w-[50%]">
           <div className="border-b flex-row-center justify-between gap-2 h-8">
-            <>Имя:</>
+            <>{t("firstName")}</>
             <p className="font-bold line-clamp-1">{firstName}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
-            <>Номер телефона:</>
+            <>{t("phoneNumber")}</>
             <p className="font-bold line-clamp-1">{phoneNumber}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
-            <>Адрес:</>
+            <>{t("address")}</>
             <p className="font-bold line-clamp-1">{address}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
-            <>Избранные:</>
+            <>{t("wishlist")}</>
             <p className="font-bold">{wishlist?.productsArray?.length || 0}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
-            <>Корзина:</>
+            <>{t("shoppingCart")}</>
             <p className="font-bold">
               {shoppingCart?.productsList?.length || 0}
             </p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
-            <>Заказы:</>
+            <>{t("ordersCount")}</>
             <p className="font-bold">{orders?.length}</p>
           </div>
         </div>
         <div className="border rounded-md shadow-md flex flex-col gap-2 p-4 w-full md:w-[50%]">
-          <h2 className="font-bold flex-row-center px-2 h-8">Заказы:</h2>
+          <h2 className="font-bold flex-row-center px-2 h-8">{t("orders")}</h2>
           {orders?.map((item) => {
             return (
               <Link
@@ -136,14 +138,14 @@ export default function ProfileInfoContainer() {
                 className="border border-gallery-200 rounded-md flex-row-center justify-between gap-2 transition hover:bg-gallery h-10"
               >
                 <div className="border-r flex-row-center justify-between flex-[50%] max-w-[50%] px-2 h-full">
-                  Номер заказа:
+                  {t("orderId")}
                   <p className="font-bold">{item.id}</p>
                 </div>
                 <div className="border-r center flex-[50%] max-w-[50%] px-2 h-full">
                   <p className="font-bold">{item.orderStatus?.titleRu}</p>
                 </div>
                 <div className="flex-row-center justify-between flex-[50%] max-w-[50%] px-2">
-                  Сумма:
+                  {t("orderSum")}
                   <p className="font-bold">{item.sum} М</p>
                 </div>
               </Link>
@@ -177,7 +179,7 @@ export default function ProfileInfoContainer() {
               >
                 <Dialog.Panel className="bg-white rounded-md shadow-md flex flex-col gap-4 overflow-hidden transform transition p-4 w-[360px]">
                   <h2 className="text-lg text-center font-bold">
-                    Изменить данные аккаунта
+                    {t("changeAccountData")}
                   </h2>
                   <input
                     ref={firstNameRef}
@@ -203,7 +205,7 @@ export default function ProfileInfoContainer() {
                     ref={passwordRef}
                     name="password"
                     type="password"
-                    placeholder="Введите новый пароль"
+                    placeholder={t("enterNewPassword")}
                     minLength={8}
                     className="input-primary pl-4 text-gallery-800"
                   ></input>
@@ -221,7 +223,7 @@ export default function ProfileInfoContainer() {
                       closeModal();
                     }}
                   >
-                    Сохранить
+                    {t("saveButton")}
                   </button>
                 </Dialog.Panel>
               </Transition.Child>

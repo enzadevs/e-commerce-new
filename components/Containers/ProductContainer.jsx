@@ -10,12 +10,14 @@ import {
   handleAddToCart,
 } from "components/Functions/PostRequests";
 import { AiFillHeart } from "react-icons/ai";
+import { useTranslations } from "next-intl";
 
 export default function ProductContainer({ productData }) {
   const { status, id, titleRu, sellPrice, wishlist } = productData;
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
   const [isWished, setIsWished] = useState(false);
+  const t = useTranslations("Product");
 
   useEffect(() => {
     if (wishlist) {
@@ -39,7 +41,7 @@ export default function ProductContainer({ productData }) {
           <button
             onClick={() => {
               if (isSignedIn === false) {
-                SuccessToast({ successText: "Войдите или создайте аккаунт." });
+                SuccessToast({ successText: t("signupAlert") });
                 return;
               }
               handleAddToWishlist({
@@ -78,7 +80,7 @@ export default function ProductContainer({ productData }) {
         <button
           onClick={() => {
             if (isSignedIn === false) {
-              SuccessToast({ successText: "Войдите или создайте аккаунт." });
+              SuccessToast({ successText: t("signupAlert") });
               return;
             }
             handleAddToCart({
@@ -88,7 +90,7 @@ export default function ProductContainer({ productData }) {
           }}
           className="button-primary center gap-2 px-8 w-full"
         >
-          В корзину
+          {t("addToCart")}
         </button>
       </div>
     </div>

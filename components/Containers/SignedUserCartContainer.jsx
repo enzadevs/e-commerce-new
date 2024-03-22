@@ -6,9 +6,11 @@ import PostOrder from "components/Containers/PostOrder";
 import CartProductContainer from "components/Containers/CartProductContainer";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { IsSignedInStore } from "utils/IsSignedIn";
+import { useTranslations } from "next-intl";
 
 export default function SignedUserCartContainer() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
+  const t = useTranslations("Pages");
 
   const { data, isLoading, error } = UseFetcher(
     `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
@@ -22,9 +24,7 @@ export default function SignedUserCartContainer() {
   return (
     <div className="flex flex-col gap-4">
       {shoppingCart?.productsList.length <= 0 ? (
-        <p className="mt-4">
-          Добавляйте продукты в корзину и они появятся тут.
-        </p>
+        <p className="mt-4">{t("signedUserShoppingCartText")}</p>
       ) : (
         <>
           {shoppingCart?.productsList?.map((cartItem) => (

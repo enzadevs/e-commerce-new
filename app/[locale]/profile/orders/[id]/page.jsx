@@ -5,8 +5,11 @@ import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import { Link } from "../../../../../navigation.js";
 import { UseFetcher } from "components/Functions/UseFetcher";
+import { useTranslations } from "next-intl";
 
 export default function OrdersPage({ params }) {
+  const t = useTranslations("UsersOrderPage");
+
   const { data, isLoading, error } = UseFetcher(
     `http://localhost:3001/orders/fetch/` + params.id
   );
@@ -23,52 +26,53 @@ export default function OrdersPage({ params }) {
     orderStatus,
     createdAt,
     updatedAt,
-    customer,
     productsList,
   } = data;
   return (
     <div className="flex flex-col gap-4">
       <div className="flex-row-center justify-between h-10">
-        <h2 className="text-lg font-bold">Заказ номер: {params.id}</h2>
+        <h2 className="text-lg font-bold">
+          {t("orderNumber")} {params.id}
+        </h2>
       </div>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="bg-gallery rounded-md shadow-md flex flex-col gap-2 w-full">
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            Адрес доставки:
+            {t("address")}
             <p className="font-bold">{address}</p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            Комментарий:
+            {t("comment")}
             <p className="font-bold">{comment ? comment : "Нет"}</p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            Способ оплаты:
+            {t("paymentType")}
             <p className="font-bold">{paymentType?.titleRu}</p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            Способ доставки:
+            {t("deliveryType")}
             <p className="font-bold">{deliveryType?.titleRu}</p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            Создано:
+            {t("createdAt")}
             <p className="font-bold">{createdAt}</p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            Обновлено:
+            {t("updatedAt")}
             <p className="font-bold">{updatedAt}</p>
           </div>
           <div className="flex-row-center justify-between px-2 h-10">
-            Сумма:
+            {t("orderSum")}
             <p className="font-bold">{sum}М</p>
           </div>
         </div>
         <div className="bg-gallery rounded-md shadow-md flex flex-col gap-2 w-full">
           <div className="border-b border-gallery-200 flex-row-center justify-between text-base px-2 h-10">
-            Статус заказа:
+            {t("orderStatus")}
             <p>{orderStatus?.titleRu}</p>
           </div>
           <div className="border-gallery-200 flex-row-center justify-between px-2 h-10">
-            Продукты :
+            {t("products")}
           </div>
           {productsList.map((item) => {
             let sum = item.quantity * item.product?.sellPrice;
@@ -89,7 +93,7 @@ export default function OrdersPage({ params }) {
                   ></Image>
                 </div>
                 <div className="flex flex-col">
-                  Имя
+                  {t("productName")}
                   <Link
                     href={`/product/` + item.product?.id}
                     className="nav-link font-bold"
@@ -99,15 +103,15 @@ export default function OrdersPage({ params }) {
                 </div>
                 <div className="ml-auto flex-row-center gap-4">
                   <div className="flex flex-col">
-                    Цена
+                    {t("productSellPrice")}
                     <p className="font-bold">{item.product?.sellPrice}М</p>
                   </div>
                   <div className="flex flex-col">
-                    Количество
+                    {t("productQuantity")}
                     <p className="font-bold">{item.quantity} шт.</p>
                   </div>
                   <div className="flex flex-col">
-                    Сумма
+                    {t("productSum")}
                     <p className="font-bold">{sum}М</p>
                   </div>
                 </div>

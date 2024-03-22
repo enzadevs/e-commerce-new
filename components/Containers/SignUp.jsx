@@ -1,7 +1,8 @@
 import { Tab } from "@headlessui/react";
 import { SuccessToast, ErrorToast } from "components/Functions/Toaster";
 import { IsSignedInStore } from "utils/IsSignedIn";
-import { useState, useRef, Fragment } from "react";
+import { useState, Fragment } from "react";
+import { useTranslations } from "next-intl";
 
 export default function SignUp() {
   const [password, setPassword] = useState("");
@@ -9,6 +10,7 @@ export default function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const t = useTranslations("UnSignedUser");
 
   const updateCurrentUserObject = IsSignedInStore(
     (state) => state.updateCurrentUserObject
@@ -25,7 +27,7 @@ export default function SignUp() {
 
   const validatePasswords = () => {
     if (password !== passwordConfirmation) {
-      alert("Пароли не совпадают.");
+      alert(t("passwordMismatch"));
       return false;
     }
     return true;
@@ -45,7 +47,7 @@ export default function SignUp() {
       !passwordConfirmation ||
       !address
     ) {
-      alert("Пожалуйста, заполните все поля.");
+      alert(t("fillOutAllFields"));
       return;
     }
 
@@ -99,7 +101,7 @@ export default function SignUp() {
         updateCurrentUserObject(res);
         setIsSignedIn(true);
       } else {
-        alert("Неправильные данные.");
+        alert(t("badCredentials"));
       }
     } catch (error) {
       console.error("Error signing in :", error);
@@ -108,7 +110,7 @@ export default function SignUp() {
 
   return (
     <div className="bg-white border border-gallery-100 rounded-md shadow-md flex flex-col gap-4 mt-4 p-4 w-[380px]">
-      <h2 className="text-center text-base">Добро пожаловать!</h2>
+      <h2 className="text-center text-base">{t("welcomeHeader")}</h2>
       <Tab.Group>
         <Tab.List className="border border-gallery-100 rounded-md flex gap-4 justify-around p-1 w-full">
           <Tab as={Fragment}>
@@ -120,7 +122,7 @@ export default function SignUp() {
                     : "button-primary center w-full"
                 }
               >
-                Создать аккаунт
+                {t("signUp")}
               </button>
             )}
           </Tab>
@@ -133,7 +135,7 @@ export default function SignUp() {
                     : "button-primary center w-full"
                 }
               >
-                Войти
+                {t("signIn")}
               </button>
             )}
           </Tab>
@@ -147,7 +149,7 @@ export default function SignUp() {
               <input
                 name="firstName"
                 type="text"
-                placeholder="Ваше имя"
+                placeholder={t("firstName")}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className={`${
@@ -161,7 +163,7 @@ export default function SignUp() {
                 <input
                   name="phoneNumber"
                   type="number"
-                  placeholder="Номер телефона"
+                  placeholder={t("phoneNumber")}
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   className={`${
@@ -178,7 +180,7 @@ export default function SignUp() {
                 onChange={handlePasswordChange}
                 name="password"
                 type="password"
-                placeholder="Создайте пароль"
+                placeholder={t("createPassword")}
                 minLength={8}
                 className={`${
                   password.length >= 8
@@ -191,7 +193,7 @@ export default function SignUp() {
                 onChange={handlePasswordConfirmationChange}
                 name="password"
                 type="password"
-                placeholder="Подтвердите пароль"
+                placeholder={t("confirmPassword")}
                 minLength={8}
                 className={`${
                   passwordConfirmation.length >= 8
@@ -202,7 +204,7 @@ export default function SignUp() {
               <input
                 name="address"
                 type="text"
-                placeholder="Адрес"
+                placeholder={t("address")}
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className={`${
@@ -220,7 +222,7 @@ export default function SignUp() {
                   }
                 }}
               >
-                Создать аккаунт
+                {t("createAccount")}
               </button>
             </form>
           </Tab.Panel>
@@ -231,7 +233,7 @@ export default function SignUp() {
                 <input
                   name="phoneNumber"
                   type="number"
-                  placeholder="Номер телефона"
+                  placeholder={t("phoneNumber")}
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   className={`${
@@ -248,7 +250,7 @@ export default function SignUp() {
                 onChange={handlePasswordChange}
                 name="password"
                 type="password"
-                placeholder="Введите пароль"
+                placeholder={t("inputPassword")}
                 minLength={8}
                 className={`${
                   password.length >= 8
@@ -261,7 +263,7 @@ export default function SignUp() {
                 type="button"
                 className="button-primary center w-full"
               >
-                Войти
+                {t("logIn")}
               </button>
             </div>
           </Tab.Panel>

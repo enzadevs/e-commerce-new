@@ -20,7 +20,10 @@ export default function LanguageSwitcher({ text }) {
   }
 
   return (
-    <div className="cursor-pointer nav-button" onClick={openModal}>
+    <div
+      className="border border-gallery-200 rounded-md cursor-pointer center transition hover:text-blueviolet-700 h-10 w-10 sm:border-0 sm:h-full sm:w-full"
+      onClick={openModal}
+    >
       <div className="flex flex-col items-center">
         <LiaGlobeEuropeSolid className="h-6 w-6" />
         <p className="hidden lg:block">{text}</p>
