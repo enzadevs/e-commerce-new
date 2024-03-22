@@ -3,7 +3,7 @@
 import Image from "next/image";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
-import { Link } from "navigation";
+import { Link } from "../../../../../navigation.js";
 import { UseFetcher } from "components/Functions/UseFetcher";
 
 export default function OrdersPage({ params }) {
@@ -30,7 +30,6 @@ export default function OrdersPage({ params }) {
     <div className="flex flex-col gap-4">
       <div className="flex-row-center justify-between h-10">
         <h2 className="text-lg font-bold">Заказ номер: {params.id}</h2>
-        {/* <button className="button-outline px-2">Отменить</button> */}
       </div>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="bg-gallery rounded-md shadow-md flex flex-col gap-2 w-full">
@@ -51,22 +50,25 @@ export default function OrdersPage({ params }) {
             <p className="font-bold">{deliveryType?.titleRu}</p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            Статус заказа:
-            <p className="font-bold">{orderStatus?.titleRu}</p>
-          </div>
-          <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
             Создано:
             <p className="font-bold">{createdAt}</p>
           </div>
-          <div className="border-gallery-200 flex-row-center justify-between px-2 h-10">
+          <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
             Обновлено:
             <p className="font-bold">{updatedAt}</p>
           </div>
+          <div className="flex-row-center justify-between px-2 h-10">
+            Сумма:
+            <p className="font-bold">{sum}М</p>
+          </div>
         </div>
         <div className="bg-gallery rounded-md shadow-md flex flex-col gap-2 w-full">
-          <div className="flex-row-center justify-between px-2 h-10">
-            Сумма
-            <p className="text-base font-bold">{sum} М</p>
+          <div className="border-b border-gallery-200 flex-row-center justify-between text-base px-2 h-10">
+            Статус заказа:
+            <p>{orderStatus?.titleRu}</p>
+          </div>
+          <div className="border-gallery-200 flex-row-center justify-between px-2 h-10">
+            Продукты :
           </div>
           {productsList.map((item) => {
             let sum = item.quantity * item.product?.sellPrice;
@@ -77,22 +79,37 @@ export default function OrdersPage({ params }) {
               >
                 <div className="relative h-10 w-10">
                   <Image
-                    src={`http://localhost:3001/images/` + item.product?.images}
+                    src={
+                      `http://localhost:3001/images/` + item.product?.images[0]
+                    }
                     alt="image"
                     className="object-contain"
                     sizes="20vw"
                     fill
                   ></Image>
                 </div>
-                <Link
-                  href={`/product/` + item.product?.id}
-                  className="nav-link"
-                >
-                  {item.product?.titleRu}
-                </Link>
-                <div className="ml-auto flex-row-center gap-2">
-                  <p className="text-end font-bold w-16">{item.quantity} шт.</p>
-                  <p className="text-end font-bold w-16">{sum} М</p>
+                <div className="flex flex-col">
+                  Имя
+                  <Link
+                    href={`/product/` + item.product?.id}
+                    className="nav-link font-bold"
+                  >
+                    {item.product?.titleRu}
+                  </Link>
+                </div>
+                <div className="ml-auto flex-row-center gap-4">
+                  <div className="flex flex-col">
+                    Цена
+                    <p className="font-bold">{item.product?.sellPrice}М</p>
+                  </div>
+                  <div className="flex flex-col">
+                    Количество
+                    <p className="font-bold">{item.quantity} шт.</p>
+                  </div>
+                  <div className="flex flex-col">
+                    Сумма
+                    <p className="font-bold">{sum}М</p>
+                  </div>
                 </div>
               </div>
             );

@@ -9,6 +9,7 @@ export default function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
   const updateCurrentUserObject = IsSignedInStore(
     (state) => state.updateCurrentUserObject
   );

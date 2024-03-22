@@ -37,7 +37,7 @@ export default function SignedUserCartContainer() {
             />
           ))}
           <PostOrder
-            customerId={currentUserObject?.user?.id}
+            customerData={currentUserObject?.user}
             shoppingCartData={shoppingCart}
           />
         </>
