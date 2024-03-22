@@ -37,17 +37,17 @@ export default function NavBar() {
           <TbCategory2 className="h-6 w-6" />
         </Link>
         <Link href="/profile/wishlist" className="nav-button">
-          <WishList />
+          <WishList text={t("wishlist")} />
         </Link>
         <Link href="/profile/cart" className="nav-button">
-          <ShoppingCartPlaceholder />
+          <ShoppingCartPlaceholder text={t("shoppingcart")} />
         </Link>
         <Link href="/profile" className="nav-button">
-          <ProfileBoard />
+          <ProfileBoard text={t("profile")} />
         </Link>
-        {/* <div className="hidden md:block md:nav-button">
-          <LanguageSwitcher />
-        </div> */}
+        <div className="hidden md:block md:nav-button">
+          <LanguageSwitcher text={t("lang")} />
+        </div>
       </div>
     </nav>
   );

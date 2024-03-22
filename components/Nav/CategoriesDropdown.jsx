@@ -39,8 +39,8 @@ export default function CategoriesDropdown({ title }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute left-[460px] outline-none origin-top-right p-2 mt-2">
-          <div className="bg-white border border-gallery-200 rounded-md shadow-sm flex flex-row gap-2 p-4 w-fit">
+        <Menu.Items className="absolute outline-none origin-top-right mt-2">
+          <div className="bg-white border border-gallery-200 rounded-md shadow-sm flex flex-row gap-2 p-2 w-fit">
             {categories?.map((category) => (
               <div key={category.id}>
                 <Menu.Item className="flex-row items-center">

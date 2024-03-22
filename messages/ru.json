@@ -1,6 +1,38 @@
 {
   "Navbar": {
     "categories": "Категории",
-    "searchPlaceholder": "Поиск..."
+    "searchPlaceholder": "Поиск...",
+    "wishlist": "Избранные",
+    "shoppingcart": "Корзина",
+    "profile": "Профиль",
+    "lang": "Русский"
+  },
+  "Footer": {
+    "developedby": "Разработано в",
+    "options": "Сотрудничество",
+    "ads": "Реклама",
+    "marketing": "Маркетинг",
+    "offerproduct": "Предложить товар",
+    "about": "О нас",
+    "vaccancy": "Вакансии",
+    "address": "Адрес",
+    "contact": "Связаться с нам",
+    "rules": "Правила",
+    "faq": "ЧАВО",
+    "policy": "Политка конфиденциальности"
+  },
+  "Pages": {
+    "wishlistTitle": "Избранные",
+    "wishlist": "Войдите или создайте аккаунт чтобы добавлять сюда продукты.",
+    "signedUserWishlist": "Добавляйте продукты в избранные и они появятся тут.",
+    "marketing": "Маркетинг",
+    "addToCart": "В корзину",
+    "about": "О нас",
+    "vaccancy": "Вакансии",
+    "address": "Адрес",
+    "contact": "Связаться с нам",
+    "rules": "Правила",
+    "faq": "ЧАВО",
+    "help": "Политка конфиденциальности"
   }
 }

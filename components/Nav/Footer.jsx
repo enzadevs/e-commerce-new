@@ -1,6 +1,9 @@
 import { Link } from "../../navigation.js";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
+  const t = useTranslations("Footer");
+
   return (
     <footer className="border-t border-haze-200 bg-white mt-auto px-3 pb-4 md:px-0">
       <div className="flex flex-col gap-4 sm:flex-row sm:justify-between pt-6 pb-16 max-width">
@@ -9,7 +12,7 @@ export default function Footer() {
             Super Market
           </Link>
           <p>
-            Разработано в{" "}
+            {t("developedby")}{" "}
             <Link
               href="https://alemtilsimat.com/"
               className="nav-link font-mono font-bold"
@@ -21,36 +24,36 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex flex-col items-center sm:items-start gap-4">
-          <h2 className="footer-header">Услуги</h2>
+          <h2 className="footer-header">{t("options")}</h2>
           <Link href="/advertisement" className="nav-link">
-            Реклама
+            {t("ads")}
           </Link>
           <Link href="/advertisement#marketing" className="nav-link">
-            Маркетинг
+            {t("marketing")}
           </Link>
           <Link href="/contact#support" className="nav-link">
-            Предложить товар
+            {t("offerproduct")}
           </Link>
         </div>
         <div className="flex flex-col items-center sm:items-start gap-4">
-          <h2 className="footer-header">О нас</h2>
+          <h2 className="footer-header">{t("about")}</h2>
           <Link href="/vacancy" className="nav-link">
-            Вакансии
+            {t("vaccancy")}
           </Link>
           <Link href="/contact#address" className="nav-link">
-            Адрес
+            {t("address")}
           </Link>
           <Link href="/contact" className="nav-link">
-            Связаться с нами
+            {t("contact")}
           </Link>
         </div>
         <div className="flex flex-col items-center sm:items-start gap-4">
-          <h2 className="footer-header">Правила</h2>
+          <h2 className="footer-header">{t("rules")}</h2>
           <Link href="/faq" className="nav-link">
-            ЧАВО
+            {t("faq")}
           </Link>
           <Link href="/privacy" className="nav-link">
-            Политика конфиденциальности
+            {t("policy")}
           </Link>
         </div>
       </div>
