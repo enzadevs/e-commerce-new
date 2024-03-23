@@ -60,7 +60,10 @@
     "deliveryType": "Способ доставки:",
     "paymentType": "Способ оплаты:",
     "makeOrder": "Оформить заказ :",
-    "postOrder": "Заказать"
+    "postOrder": "Заказать",
+    "addressInput": "Адрес",
+    "commentInput": "Коментарий",
+    "ordersUnAvailable": "Заказы не принимаются."
   },
   "SignedUserOrderPage": {
     "profileHeader": "Профиль",

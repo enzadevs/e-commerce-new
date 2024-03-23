@@ -1,14 +1,29 @@
 "use client";
 
-import { useState, Fragment } from "react";
-import { useRouter, usePathname } from "../../navigation.js";
+import { useState, useEffect, Fragment } from "react";
+import useSWR from "swr";
 import { Dialog, Transition } from "@headlessui/react";
-import { LiaGlobeEuropeSolid } from "react-icons/lia";
 
-export default function LanguageSwitcher({ text }) {
-  let [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+export default function Notification() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [notificationText, setNotificationText] = useState("");
+
+  const { data, isLoading, error } = useSWR(
+    "http://localhost:3001/banner/fetch",
+    fetcher
+  );
+
+  useEffect(() => {
+    if (!isLoading && !error && data.length > 0) {
+      const lastNotification = data[data.length - 1];
+      setNotificationText(lastNotification.text);
+      if (!lastNotification.ordersActive) {
+        openModal();
+      }
+    }
+  }, [data, isLoading, error]);
 
   function closeModal() {
     setIsOpen(false);
@@ -18,15 +33,11 @@ export default function LanguageSwitcher({ text }) {
     setIsOpen(true);
   }
 
+  if (isLoading) return null;
+  if (error) return null;
+
   return (
-    <div
-      className="border border-gallery-200 rounded-md cursor-pointer center transition hover:text-blueviolet-700 h-10 w-10 sm:border-0 sm:h-full sm:w-full"
-      onClick={openModal}
-    >
-      <div className="flex flex-col items-center">
-        <LiaGlobeEuropeSolid className="h-6 w-6" />
-        <p className="hidden lg:block">{text}</p>
-      </div>
+    <div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -56,28 +67,17 @@ export default function LanguageSwitcher({ text }) {
                     as="h3"
                     className="text-lg text-center font-medium text-gray-900"
                   >
-                    Выберите язык
+                    {notificationText}
                   </Dialog.Title>
                   <div className="flex flex-row gap-2 mt-4">
                     <button
                       type="button"
-                      className="button-outline px-4"
+                      className="button-primary center px-4 w-full"
                       onClick={() => {
-                        router.push(pathname, { locale: "ru" });
                         closeModal();
                       }}
                     >
-                      Русский
-                    </button>
-                    <button
-                      type="button"
-                      className="button-outline px-4"
-                      onClick={() => {
-                        router.push(pathname, { locale: "tm" });
-                        closeModal();
-                      }}
-                    >
-                      Türkmen
+                      ОК
                     </button>
                   </div>
                 </Dialog.Panel>

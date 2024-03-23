@@ -6,6 +6,7 @@ import { useRouter } from "../../navigation.js";
 import { RadioGroup } from "@headlessui/react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation.js";
 
 export default function PostOrder({ customerData, shoppingCartData }) {
   const [selectedDeliveryType, setSelectedDeliveryType] = useState(null);
@@ -15,6 +16,11 @@ export default function PostOrder({ customerData, shoppingCartData }) {
   const commentRef = useRef();
   const router = useRouter();
   const t = useTranslations("Order");
+  const pathname = usePathname();
+
+  const { data: ordersAreActive } = UseFetcher(
+    "http://localhost:3001/banner/fetch"
+  );
 
   const { data: paymentTypes } = UseFetcher(
     "http://localhost:3001/manage/payment_types/all"
@@ -113,6 +119,8 @@ export default function PostOrder({ customerData, shoppingCartData }) {
     }
   };
 
+  const useTmTitles = pathname.includes("/tm");
+
   return (
     <div className="bg-gallery rounded-md flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
       <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
@@ -154,7 +162,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         <input
           name="address"
           type="text"
-          placeholder="Адрес"
+          placeholder={t("addressInput")}
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           className={`${
@@ -170,7 +178,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
           ref={commentRef}
           name="comment"
           type="text"
-          placeholder="Коментарий"
+          placeholder={t("commentInput")}
           className="input-primary px-4 sm:flex-[50%] sm:max-w-[50%]"
         ></input>
       </div>
@@ -191,7 +199,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
                         : "button-outline center px-4 w-full sm:w-auto"
                     }
                   >
-                    {item.titleRu}
+                    {useTmTitles ? item.titleTm : item.titleRu}
                   </button>
                 )}
               </RadioGroup.Option>
@@ -216,7 +224,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
                         : "button-outline center px-4 w-full sm:w-auto"
                     }
                   >
-                    {item.titleRu}
+                    {useTmTitles ? item.titleTm : item.titleRu}
                   </button>
                 )}
               </RadioGroup.Option>
@@ -224,27 +232,34 @@ export default function PostOrder({ customerData, shoppingCartData }) {
           </RadioGroup>
         </div>
       </div>
-      <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
-        {t("makeOrder")}
-        <button
-          onClick={() => {
-            handleOrderRequest({
-              customerId: customerData.id,
-              phoneNumber: phoneNumber,
-              address: address,
-              comment: commentRef.current.value,
-              sum: totalSum,
-              productsList: products,
-              paymentTypeId: selectedPaymentType,
-              deliveryTypeId: selectedDeliveryType,
-              shoppingCartId: shoppingCartData.id,
-            });
-          }}
-          className="button-primary center px-4"
-        >
-          {t("postOrder")}
-        </button>
-      </div>
+
+      {ordersAreActive.ordersActive === true ? (
+        <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
+          {t("makeOrder")}
+          <button
+            onClick={() => {
+              handleOrderRequest({
+                customerId: customerData.id,
+                phoneNumber: phoneNumber,
+                address: address,
+                comment: commentRef.current.value,
+                sum: totalSum,
+                productsList: products,
+                paymentTypeId: selectedPaymentType,
+                deliveryTypeId: selectedDeliveryType,
+                shoppingCartId: shoppingCartData.id,
+              });
+            }}
+            className="button-primary center px-4"
+          >
+            {t("postOrder")}
+          </button>
+        </div>
+      ) : (
+        <p className="border-b border-gallery-200 flex-row-center justify-end gap-4 font-bold p-2">
+          {t("ordersUnAvailable")}
+        </p>
+      )}
     </div>
   );
 }

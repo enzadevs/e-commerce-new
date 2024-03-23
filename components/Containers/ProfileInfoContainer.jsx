@@ -196,7 +196,7 @@ export default function ProfileInfoContainer() {
                       ref={phoneNumberRef}
                       name="phoneNumber"
                       type="text"
-                      placeholder={phoneNumber.slice(3)}
+                      placeholder={phoneNumber?.slice(3)}
                       minLength={8}
                       className="input-primary pl-12 text-gallery-800"
                     ></input>

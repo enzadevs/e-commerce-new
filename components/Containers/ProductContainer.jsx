@@ -11,6 +11,7 @@ import {
 } from "components/Functions/PostRequests";
 import { AiFillHeart } from "react-icons/ai";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation.js";
 
 export default function ProductContainer({ productData }) {
   const { status, id, titleRu, sellPrice, wishlist } = productData;
@@ -18,6 +19,7 @@ export default function ProductContainer({ productData }) {
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
   const [isWished, setIsWished] = useState(false);
   const t = useTranslations("Product");
+  const pathname = usePathname();
 
   useEffect(() => {
     if (wishlist) {
@@ -29,13 +31,15 @@ export default function ProductContainer({ productData }) {
     }
   }, [wishlist, currentUserObject]);
 
+  const useTmTitles = pathname.includes("/tm");
+
   return (
     <div className="product-container">
       <div className="border-b border-gallery-200 relative">
         <div className="rounded-t-md flex-row-center absolute top-1 right-1 z-[4] w-full">
           {status.id !== 1 && (
             <p className="bg-green-600 rounded-md center text-white text-xs ml-2 px-2 h-8 sm:h-10 w-fit">
-              {status.titleRu}
+              {useTmTitles ? status.titleTm : status.titleRu}
             </p>
           )}
           <button

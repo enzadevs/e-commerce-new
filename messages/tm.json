@@ -58,7 +58,10 @@
     "deliveryType": "Eltip bermek görnüşi:",
     "paymentType": "Töleg görnüşi:",
     "makeOrder": "Sargyt et :",
-    "postOrder": "Sarga"
+    "postOrder": "Sarga",
+    "addressInput": "Adres",
+    "commentInput": "Teswir",
+    "ordersUnAvailable": "Sargyt alynanok."
   },
   "SignedUserOrderPage": {
     "profileHeader": "Profil",
