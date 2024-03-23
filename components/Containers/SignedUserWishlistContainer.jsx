@@ -22,8 +22,8 @@ export default function SignedUserWishlistContainer() {
 
   return (
     <div className="flex flex-col gap-4">
-      {wishlist === null ? (
-        <p>{t("signedUserWishlistText")}</p>
+      {wishlist || wishlist === null ? (
+        <>{t("signedUserWishlistText")}</>
       ) : (
         <>
           <div className="products-grid">
