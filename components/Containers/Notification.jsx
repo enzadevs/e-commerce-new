@@ -17,9 +17,8 @@ export default function Notification() {
 
   useEffect(() => {
     if (!isLoading && !error && data.length > 0) {
-      const lastNotification = data[data.length - 1];
-      setNotificationText(lastNotification.text);
-      if (!lastNotification.ordersActive) {
+      setNotificationText(data.text);
+      if (!data.ordersActive) {
         openModal();
       }
     }

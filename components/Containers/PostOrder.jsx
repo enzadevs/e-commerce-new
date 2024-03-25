@@ -122,12 +122,12 @@ export default function PostOrder({ customerData, shoppingCartData }) {
   const useTmTitles = pathname.includes("/tm");
 
   return (
-    <div className="bg-gallery rounded-md flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
+    <div className="bg-gallery border border-gallery-200 rounded-md flex flex-col gap-2 shadow-md p-4 h-full w-full">
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
         {t("phoneNumber")}
         <input
           name="phoneNumber"
-          type="number"
+          type="text"
           placeholder={customerData.phoneNumber}
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
@@ -224,7 +224,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
           </RadioGroup>
         </div>
       </div>
-      {ordersAreActive.ordersActive === true ? (
+      {ordersAreActive?.ordersActive === true ? (
         <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
           {t("makeOrder")}
           <button

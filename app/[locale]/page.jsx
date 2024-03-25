@@ -9,8 +9,8 @@ export default function HomePage() {
 
   return (
     <div className="mt-4 flex flex-col gap-4">
-      <Notification />
-      <VisitorRequest />
+      {/* <Notification /> */}
+      {/* <VisitorRequest /> */}
       <AdsSwiper />
       <div className="max-width">
         <AsyncProductsFromCategories text={t("showAllProductsLink")} />
