@@ -22,16 +22,14 @@ export default function SignedUserWishlistContainer() {
 
   return (
     <div className="flex flex-col gap-4">
-      {wishlist || wishlist === null ? (
-        <>{t("signedUserWishlistText")}</>
+      {wishlist?.productsArray?.length > 0 ? (
+        <div className="products-grid">
+          {wishlist.productsArray.map((item) => (
+            <ProductContainer key={item.id} productData={item} />
+          ))}
+        </div>
       ) : (
-        <>
-          <div className="products-grid">
-            {wishlist?.productsArray?.map((item) => {
-              return <ProductContainer key={item.id} productData={item} />;
-            })}
-          </div>
-        </>
+        <>{t("signedUserWishlistText")}</>
       )}
     </div>
   );

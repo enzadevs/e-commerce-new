@@ -100,7 +100,7 @@
     "logIn": "Войти"
   },
   "UsersOrderPage": {
-    "orderNumber": "Заказ номер: ",
+    "orderNumber": "Номер заказа: ",
     "address": "Адрес доставки:",
     "comment": "Комментарий:",
     "paymentType": "Способ оплаты:",
@@ -112,7 +112,7 @@
     "products": "Продукты :",
     "productName": "Имя",
     "productSellPrice": "Цена",
-    "productQuantity": "Количество",
+    "productQuantity": "Кол.",
     "productSum": "Сумма"
   }
 }

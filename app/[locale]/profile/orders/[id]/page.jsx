@@ -29,7 +29,7 @@ export default function OrdersPage({ params }) {
     productsList,
   } = data;
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <div className="flex-row-center justify-between h-10">
         <h2 className="text-lg font-bold">
           {t("orderNumber")} {params.id}
@@ -66,58 +66,60 @@ export default function OrdersPage({ params }) {
             <p className="font-bold">{sum}М</p>
           </div>
         </div>
-        <div className="bg-gallery rounded-md shadow-md flex flex-col gap-2 w-full">
-          <div className="border-b border-gallery-200 flex-row-center justify-between text-base px-2 h-10">
+        <div className="bg-gallery rounded-md shadow-md flex flex-col pb-2 w-full">
+          <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
             {t("orderStatus")}
-            <p>{orderStatus?.titleRu}</p>
+            <p className="font-bold">{orderStatus?.titleRu}</p>
           </div>
-          <div className="border-gallery-200 flex-row-center justify-between px-2 h-10">
+          <div className="flex-row-center justify-between px-2 h-10">
             {t("products")}
           </div>
-          {productsList.map((item) => {
-            let sum = item.quantity * item.product?.sellPrice;
-            return (
-              <div
-                key={item.id}
-                className="bg-white border border-gallery-200 rounded-md flex-row-center gap-2 p-2"
-              >
-                <div className="relative h-10 w-10">
+          <div className="flex flex-col gap-2 px-2">
+            {productsList.map((item) => {
+              let sum = item.quantity * item.product?.sellPrice;
+              return (
+                <div
+                  key={item.id}
+                  className="bg-white border border-gallery-200 rounded-md flex-row-center gap-2 p-2"
+                >
                   <Image
                     src={
                       `http://localhost:3001/images/` + item.product?.images[0]
                     }
                     alt="image"
                     className="object-contain"
-                    sizes="20vw"
-                    fill
+                    height={40}
+                    width={40}
                   ></Image>
-                </div>
-                <div className="flex flex-col">
-                  {t("productName")}
-                  <Link
-                    href={`/product/` + item.product?.id}
-                    className="nav-link font-bold"
-                  >
-                    {item.product?.titleRu}
-                  </Link>
-                </div>
-                <div className="ml-auto flex-row-center gap-4">
-                  <div className="flex flex-col">
-                    {t("productSellPrice")}
-                    <p className="font-bold">{item.product?.sellPrice}М</p>
+                  <div className="flex flex-col grow">
+                    {t("productName")}
+                    <div>
+                      <Link
+                        href={`/product/` + item.product?.id}
+                        className="nav-link font-bold line-clamp-1"
+                      >
+                        {item.product?.titleRu}
+                      </Link>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    {t("productQuantity")}
-                    <p className="font-bold">{item.quantity} шт.</p>
-                  </div>
-                  <div className="flex flex-col">
-                    {t("productSum")}
-                    <p className="font-bold">{sum}М</p>
+                  <div className="flex-row-center gap-2 md:gap-4 ml-auto">
+                    <div className="flex flex-col items-center w-10">
+                      <p>{t("productSellPrice")}</p>
+                      <p className="font-bold">{item.product?.sellPrice}М</p>
+                    </div>
+                    <div className="flex flex-col items-center w-10">
+                      <p>{t("productQuantity")}</p>
+                      <p className="font-bold">{item.quantity} шт.</p>
+                    </div>
+                    <div className="flex flex-col items-center w-10">
+                      <p>{t("productSum")}</p>
+                      <p className="font-bold">{sum}М</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

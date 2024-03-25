@@ -73,12 +73,14 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         SuccessToast({ successText: "Пожалуйста, укажите адрес доставки." });
         return;
       }
-      if (!paymentTypeId) {
-        SuccessToast({ successText: "Пожалуйста, выберите способ оплаты." });
-        return;
-      }
+
       if (!deliveryTypeId) {
         SuccessToast({ successText: "Пожалуйста, выберите способ доставки." });
+        return;
+      }
+
+      if (!paymentTypeId) {
+        SuccessToast({ successText: "Пожалуйста, выберите способ оплаты." });
         return;
       }
 
@@ -167,15 +169,6 @@ export default function PostOrder({ customerData, shoppingCartData }) {
       </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
         {t("deliveryType")}
-        <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
-          {totalSum >= 250 ? (
-            <>{t("orderIsFree")}</>
-          ) : (
-            <div className="flex-row-center justify-end gap-4 p-2">
-              {t("orderPrice")}
-            </div>
-          )}
-        </p>
         <div className="sm:flex-[50%] sm:max-w-[50%]">
           <RadioGroup className="flex flex-col sm:flex-row justify-end gap-2 w-full">
             {deliveryTypes?.map((item) => (
@@ -223,6 +216,17 @@ export default function PostOrder({ customerData, shoppingCartData }) {
             ))}
           </RadioGroup>
         </div>
+      </div>
+      <div className="border-b border-gallery-200 flex-row-center justify-end p-2 w-full">
+        <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10 w-fit">
+          {totalSum >= 250 ? (
+            <>{t("orderIsFree")}</>
+          ) : (
+            <div className="flex-row-center justify-end gap-4 p-2">
+              {t("orderPrice")}
+            </div>
+          )}
+        </p>
       </div>
       {ordersAreActive?.ordersActive === true ? (
         <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">

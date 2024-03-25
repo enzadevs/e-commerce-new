@@ -49,7 +49,7 @@ export default function ProductViewSwiper({ images }) {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="thumbs mt-2 h-20 lg:h-32 w-full"
+        className="thumbs mt-2 h-20 lg:h-24 w-full"
       >
         {images.map((item) => (
           <SwiperSlide style={{ marginRight: "0px" }} key={undefined}>
@@ -57,7 +57,7 @@ export default function ProductViewSwiper({ images }) {
               <Image
                 src={"http://localhost:3001/images/" + item}
                 alt="thumbnail of currently selected image"
-                className="block border border-gallery-200 rounded-md object-cover h-full w-full"
+                className="block border border-gallery-200 rounded-md object-contain h-full w-full"
                 sizes="(max-width: 768px) 100vw,50vw"
                 width={100}
                 height={500}

@@ -42,11 +42,11 @@ export default function CartProductContainer({
         </Link>
       </div>
       <div className="flex-row-center justify-between md:flex-start gap-2 md:gap-4 ml-auto w-full md:w-auto">
-        <div className="bg-white rounded-md shadow-md flex flex-col md:flex-row items-center justify-center font-bold px-2 h-12 w-20 md:w-24">
-          <p className="block md:hidden font-normal">Baha</p>
+        <div className="bg-white rounded-md shadow-md flex flex-col md:flex-row items-center justify-center font-bold px-2 h-10 w-20 md:w-24">
+          <p className="block md:hidden text-xs font-normal">Baha</p>
           {sellPrice} m.
         </div>
-        <div className="bg-white rounded-md shadow-md flex-row-center justify-between px-1 h-12 w-24">
+        <div className="bg-white rounded-md shadow-md flex-row-center justify-between px-1 h-10 w-24">
           <button
             onClick={() => {
               handleQuantityChange({
@@ -73,8 +73,8 @@ export default function CartProductContainer({
             <FiPlus className="icons nav-link" />
           </button>
         </div>
-        <p className="bg-white rounded-md shadow-md flex flex-col md:flex-row items-center justify-center font-bold px-2 h-12 w-20 md:w-24">
-          <p className="block md:hidden font-normal">Jemi</p>
+        <p className="bg-white rounded-md shadow-md flex flex-col md:flex-row items-center justify-center font-bold px-2 h-10 w-20 md:w-24">
+          <p className="block md:hidden text-xs font-normal">Jemi</p>
           {sum} m.
         </p>
         <button
@@ -84,7 +84,7 @@ export default function CartProductContainer({
               userId: userId,
             });
           }}
-          className="bg-white rounded-md shadow-md center transition hover:text-red-500 h-12 w-12"
+          className="bg-white rounded-md shadow-md center transition hover:text-red-500 h-10 w-12"
         >
           <RiDeleteBin6Line className="h-5 w-5" />
         </button>

@@ -5,6 +5,7 @@ import ProfileBoard from "./ProfileBoard";
 import CategoriesDropdown from "./CategoriesDropdown";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { Link } from "../../navigation.js";
+import SendVisitorRequest from "components/Functions/SendVisitorRequest";
 import { useTranslations } from "next-intl";
 import { TbHome } from "react-icons/tb";
 import { TbCategory2 } from "react-icons/tb";
@@ -15,14 +16,10 @@ export default function NavBar() {
   return (
     <nav className="flex flex-col gap-2 md:flex-row items-center px-3 md:gap-4 md:px-0 p-2 md:h-20 max-width">
       <div className="hidden md:block">
-        <Link href="/" className="button-primary px-4">
-          <h1>Super Market</h1>
-        </Link>
+        <SendVisitorRequest />
       </div>
       <div className="flex-row-center justify-between h-10 w-full md:hidden">
-        <Link href="/" className="button-primary center px-4 w-36">
-          Super Market
-        </Link>
+        <SendVisitorRequest />
         <div className="center ml-auto h-10 w-10">
           <LanguageSwitcher text={t("lang")} />
         </div>

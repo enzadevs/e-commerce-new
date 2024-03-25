@@ -49,7 +49,7 @@ export default function SignedUserCartContainer() {
                 <p className="text-center w-24">{tt("productQuantity")}</p>
                 <p className="text-center w-24">{tt("productsSum")}</p>
               </div>
-              <div className="text-center ml-auto md:ml-0 w-12">X</div>
+              <div className="text-center ml-auto md:ml-0 w-10">X</div>
             </div>
             {shoppingCart?.productsList?.map((cartItem) => (
               <CartProductContainer
@@ -62,7 +62,7 @@ export default function SignedUserCartContainer() {
               />
             ))}
           </div>
-          <div className="bg-gallery border rounded-md shadow-md center text-lg ml-auto px-4 h-14 w-fit">
+          <div className="bg-gallery border rounded-md shadow-md center ml-auto px-4 h-12 w-fit">
             {tt("productsSum")} :<p className="font-bold ml-2">{totalSum} m.</p>
           </div>
           <PostOrder
