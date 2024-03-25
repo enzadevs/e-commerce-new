@@ -123,23 +123,6 @@ export default function PostOrder({ customerData, shoppingCartData }) {
 
   return (
     <div className="bg-gallery rounded-md flex flex-col gap-2 shadow-sm transition hover:shadow-md p-4 h-full w-full">
-      <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
-        {t("orderSum")}
-        <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
-          {totalSum} М
-        </p>
-      </div>
-      <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
-        <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
-          {totalSum >= 250 ? (
-            <>{t("orderIsFree")}</>
-          ) : (
-            <div className="flex-row-center justify-end gap-4 p-2">
-              {t("orderPrice")}
-            </div>
-          )}
-        </p>
-      </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
         {t("phoneNumber")}
         <input
@@ -184,6 +167,15 @@ export default function PostOrder({ customerData, shoppingCartData }) {
       </div>
       <div className="border-b border-gallery-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-16 p-2 w-full">
         {t("deliveryType")}
+        <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
+          {totalSum >= 250 ? (
+            <>{t("orderIsFree")}</>
+          ) : (
+            <div className="flex-row-center justify-end gap-4 p-2">
+              {t("orderPrice")}
+            </div>
+          )}
+        </p>
         <div className="sm:flex-[50%] sm:max-w-[50%]">
           <RadioGroup className="flex flex-col sm:flex-row justify-end gap-2 w-full">
             {deliveryTypes?.map((item) => (
@@ -232,7 +224,6 @@ export default function PostOrder({ customerData, shoppingCartData }) {
           </RadioGroup>
         </div>
       </div>
-
       {ordersAreActive.ordersActive === true ? (
         <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
           {t("makeOrder")}
@@ -257,9 +248,20 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         </div>
       ) : (
         <p className="border-b border-gallery-200 flex-row-center justify-end gap-4 font-bold p-2">
-          {t("ordersUnAvailable")}
+          <button className="button-outline px-4">
+            {t("ordersUnAvailable")}
+          </button>
         </p>
       )}
     </div>
   );
+}
+
+{
+  /* <div className="flex-row-center justify-end gap-4 p-2">
+  {t("orderSum")}
+  <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
+    {totalSum} М
+  </p>
+</div>; */
 }

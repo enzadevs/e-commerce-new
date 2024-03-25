@@ -27,6 +27,15 @@ export default function SignedUserCartContainer() {
         <p className="mt-4">{t("signedUserShoppingCartText")}</p>
       ) : (
         <>
+          <div className="bg-yellow-400 flex gap-2 p-2">
+            <p className="bg-red-400 center w-16"></p>
+            <p>Name</p>
+            <div className="flex ml-auto">
+              <p>Price</p>
+              <p>Quantity</p>
+              <p>Sum</p>
+            </div>
+          </div>
           {shoppingCart?.productsList?.map((cartItem) => (
             <CartProductContainer
               key={cartItem.id}
@@ -37,10 +46,10 @@ export default function SignedUserCartContainer() {
               quantity={cartItem.quantity}
             />
           ))}
-          <PostOrder
+          {/* <PostOrder
             customerData={currentUserObject?.user}
             shoppingCartData={shoppingCart}
-          />
+          /> */}
         </>
       )}
     </div>
