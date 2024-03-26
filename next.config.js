@@ -1,7 +1,11 @@
+const withPlugins = require("next-compose-plugins");
 const createNextIntlPlugin = require("next-intl/plugin");
 const withNextIntl = createNextIntlPlugin();
-/** @type {import('next').NextConfig} */
-module.exports = withNextIntl({
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+const nextConfig = {
   images: {
     remotePatterns: [
       {
@@ -12,4 +16,7 @@ module.exports = withNextIntl({
     ],
     domains: ["localhost"],
   },
-});
+  reactStrictMode: false,
+};
+
+module.exports = withPlugins([[withBundleAnalyzer], withNextIntl], nextConfig);

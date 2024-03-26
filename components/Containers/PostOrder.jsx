@@ -1,3 +1,5 @@
+"use client";
+
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import { SuccessToast, ErrorToast } from "components/Functions/Toaster.jsx";
@@ -259,13 +261,4 @@ export default function PostOrder({ customerData, shoppingCartData }) {
       )}
     </div>
   );
-}
-
-{
-  /* <div className="flex-row-center justify-end gap-4 p-2">
-  {t("orderSum")}
-  <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10">
-    {totalSum} М
-  </p>
-</div>; */
 }

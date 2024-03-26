@@ -3,7 +3,7 @@ import { useLocale } from "next-intl";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import NavBar from "components/Nav/NavBar";
 import Footer from "components/Nav/Footer";
-import "./globals.css";
+import "../globals.css";
 
 export const metadata = {
   title: "Super Market",
