@@ -10,7 +10,7 @@ export default function SearchResultsPage({ params }) {
   const decodedQuery = decodeURIComponent(params.query);
   const t = useTranslations("Pages");
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/manage/utils/search/` + params.query
+    `http://localhost:4001/api/shop/products/search/` + params.query
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;

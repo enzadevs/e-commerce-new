@@ -13,8 +13,12 @@ const nextConfig = {
         hostname: "localhost",
         port: "",
       },
+      {
+        protocol: "http",
+        hostname: "tazemarket.com.tm",
+        port: "",
+      },
     ],
-    domains: ["localhost"],
   },
   reactStrictMode: false,
 };

@@ -3,14 +3,24 @@ import ProductContainer from "./ProductContainer";
 
 export default async function AsyncProductsFromCategories({ text }) {
   const response = await fetch(
-    "http://localhost:3001/manage/categories/withproducts",
-    { cache: "no-cache" }
+    "http://localhost:4001/api/shop/products/fetch/",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        page: 1,
+        limit: 40,
+      }),
+      cache: "no-store",
+    }
   );
-  const products = await response.json();
+  const data = await response.json();
 
   return (
     <div className="flex flex-col gap-4 mb-4">
-      {products?.map((item) => {
+      {/* {data.products?.map((item) => {
         if (item.products && item.products.length > 0) {
           return (
             <div
@@ -36,7 +46,12 @@ export default async function AsyncProductsFromCategories({ text }) {
         } else {
           return null;
         }
-      })}
+      })} */}
+      <div className="products-grid">
+        {data.products?.map((item) => {
+          return <ProductContainer key={item.id} productData={item} />;
+        })}
+      </div>
     </div>
   );
 }

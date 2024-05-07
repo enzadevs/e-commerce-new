@@ -4,6 +4,7 @@ import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import ProductViewSwiper from "components/Containers/ProductViewSwiper";
 import { Link } from "../../../../navigation.js";
+import Image from "next/image";
 import { useState } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { SuccessToast } from "components/Functions/Toaster";
@@ -19,7 +20,7 @@ export default function ProductViewPage({ params }) {
   const t = useTranslations("Product");
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/products/fetch/` + params.id
+    `http://localhost:4001/api/shop/products/fetch/` + params.id
   );
 
   if (isLoading) return <LoadingBlock height={"h-72"} width="w-full" />;
@@ -27,36 +28,44 @@ export default function ProductViewPage({ params }) {
 
   const {
     id,
-    titleRu,
+    nameRu,
     sellPrice,
-    description,
+    descriptionRu,
     images,
-    brand,
+    manufacturer,
     stock,
-    unitType,
+    unit,
     category,
     subCategory,
   } = data;
 
   return (
     <div className="flex flex-col gap-4 md:flex-row">
-      <div className="rounded-md md:flex-[50%] md:max-w-[50%] w-full">
-        <ProductViewSwiper images={images} />
+      <div className="rounded-md h-72 md:h-96 md:flex-[50%] md:max-w-[50%] w-full">
+        {/* <ProductViewSwiper image={id} /> */}
+        <Image
+          src={`http://tazemarket.com.tm/tazemarket2/img/products/${id}.jpg`}
+          alt="image of product"
+          className="block h-full w-full object-contain "
+          sizes="(max-width: 768px) 100vw,50vw"
+          width={500}
+          height={500}
+        />
       </div>
       <div className="flex flex-col gap-2 md:text-base md:flex-[50%] md:max-w-[50%] w-full">
-        <h2 className="text-lg font-bold">{titleRu}</h2>
-        <p>{description}</p>
+        <h2 className="text-lg font-bold">{nameRu}</h2>
+        <p>{descriptionRu}</p>
         <div className="flex flex-col gap-2">
           <div className="info-holder">
-            {t("brandName")}
+            {t("manufacturerName")}
             <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
-              {brand.title}
+              {/* {manufacturer.nameRu} */}
             </p>
           </div>
           <div className="info-holder">
-            {t("unitType")}
+            {t("unit")}
             <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
-              {unitType.titleRu}
+              {/* {unit.nameRu} */}
             </p>
           </div>
           <div className="info-holder">
@@ -67,21 +76,21 @@ export default function ProductViewPage({ params }) {
           </div>
           <div className="info-holder">
             {t("category")}
-            <Link
+            {/* <Link
               href={`/categories/` + category.id}
               className="nav-link bg-gallery rounded-md center px-4 h-8"
             >
-              {category.titleRu}
-            </Link>
+              {category.nameRu}
+            </Link> */}
           </div>
           <div className="info-holder">
             {t("subCategory")}
-            <Link
+            {/* <Link
               href={`/subcategories/` + subCategory.id}
               className="bg-gallery rounded-md center px-4 h-8"
             >
-              {subCategory.titleRu}
-            </Link>
+              {subCategory.nameRu}
+            </Link> */}
           </div>
         </div>
         <div className="flex flex-row justify-between gap-2 sm:text-base mt-4">

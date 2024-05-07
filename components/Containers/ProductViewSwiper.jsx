@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import "styles/product_swiper.css";
 
-export default function ProductViewSwiper({ images }) {
+export default function ProductViewSwiper({ image }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
@@ -26,11 +26,12 @@ export default function ProductViewSwiper({ images }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="h-72 md:h-96 w-full"
       >
-        {images.map((item) => (
+        {image.map((item) => (
           <SwiperSlide key={undefined}>
             <div className="border border-gallery-200 rounded-md center h-full w-full">
               <Image
-                src={"http://localhost:3001/images/" + item}
+                // src={"http://localhost:3001/images/" + item}
+                src={`http://tazemarket.com.tm/tazemarket2/img/products/${image}.jpg`}
                 alt="image of product"
                 className="block h-full w-full object-contain "
                 sizes="(max-width: 768px) 100vw,50vw"
@@ -51,11 +52,12 @@ export default function ProductViewSwiper({ images }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="thumbs mt-2 h-20 lg:h-24 w-full"
       >
-        {images.map((item) => (
+        {image.map((item) => (
           <SwiperSlide style={{ marginRight: "0px" }} key={undefined}>
             <div className="center h-full w-full">
               <Image
-                src={"http://localhost:3001/images/" + item}
+                // src={"http://localhost:3001/images/" + item}
+                src={`http://tazemarket.com.tm/tazemarket2/img/products/${image}.jpg`}
                 alt="thumbnail of currently selected image"
                 className="block border border-gallery-200 rounded-md object-contain h-full w-full"
                 sizes="(max-width: 768px) 100vw,50vw"

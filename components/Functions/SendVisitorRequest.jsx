@@ -25,7 +25,6 @@ export default function SendVisitorRequest() {
     <button
       onClick={() => {
         router.push("/");
-        sendPostRequest();
       }}
       className="button-primary px-4"
     >

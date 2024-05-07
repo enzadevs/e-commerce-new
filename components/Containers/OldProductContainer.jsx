@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation.js";
 
 export default function ProductContainer({ productData }) {
-  const { id, nameRu, sellPrice, wishlist } = productData;
+  const { status, id, titleRu, sellPrice, wishlist } = productData;
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
   const [isWished, setIsWished] = useState(false);
@@ -37,6 +37,11 @@ export default function ProductContainer({ productData }) {
     <div className="product-container">
       <div className="border-b border-gallery-200 relative">
         <div className="rounded-t-md flex-row-center absolute top-1 right-1 z-[4] w-full">
+          {status.id !== 1 && (
+            <p className="bg-green-600 rounded-md center text-white text-xs ml-2 px-2 h-8 sm:h-10 w-fit">
+              {useTmTitles ? status.titleTm : status.titleRu}
+            </p>
+          )}
           <button
             onClick={() => {
               if (isSignedIn === false) {
@@ -60,7 +65,7 @@ export default function ProductContainer({ productData }) {
         </div>
         <div className="relative rounded-t-md h-40 sm:h-56">
           <Image
-            src={`http://tazemarket.com.tm/tazemarket2/img/products/${productData.id}.jpg`}
+            src={`http://tazemarket.com.tm/tazemarket2/img/products/${productData.id}`}
             alt="image"
             className="rounded-t-md object-contain"
             sizes="33vw"
@@ -73,7 +78,7 @@ export default function ProductContainer({ productData }) {
           href={"/product/" + id}
           className="nav-link sm:text-base text-start line-clamp-2"
         >
-          {nameRu}
+          {titleRu}
         </Link>
         <p className="sm:text-base font-bold mt-auto">{sellPrice} М</p>
         <button
