@@ -44,7 +44,7 @@ export default function ProductViewPage({ params }) {
       <div className="rounded-md h-72 md:h-96 md:flex-[50%] md:max-w-[50%] w-full">
         {/* <ProductViewSwiper image={id} /> */}
         <Image
-          src={`http://tazemarket.com.tm/tazemarket2/img/products/${id}.jpg`}
+          src={`http://localhost:4001/api/images/products/${id}.jpg`}
           alt="image of product"
           className="block h-full w-full object-contain "
           sizes="(max-width: 768px) 100vw,50vw"

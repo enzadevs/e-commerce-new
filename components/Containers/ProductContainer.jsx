@@ -60,7 +60,7 @@ export default function ProductContainer({ productData }) {
         </div>
         <div className="relative rounded-t-md h-40 sm:h-56">
           <Image
-            src={`http://tazemarket.com.tm/tazemarket2/img/products/${productData.id}.jpg`}
+            src={`http://localhost:4001/api/images/products/${productData.id}.jpg`}
             alt="image"
             className="rounded-t-md object-contain"
             sizes="33vw"
