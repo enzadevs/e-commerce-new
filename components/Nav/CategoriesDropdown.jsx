@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorBlock from "components/Functions/ErrorBlock";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { Link } from "../../navigation.js";
 import { Fragment } from "react";
 import { UseFetcher } from "components/Functions/UseFetcher";
@@ -11,11 +12,9 @@ import { MdFormatListBulleted } from "react-icons/md";
 export default function CategoriesDropdown({ title }) {
   const pathname = usePathname();
 
-  const {
-    data: categories,
-    isLoading,
-    error,
-  } = UseFetcher("http://localhost:3001/manage/categories/all");
+  const { data, isLoading, error } = UseFetcher(
+    `${baseUrlApi}/management/categories/fetch/all`
+  );
 
   if (isLoading) {
     return (
@@ -46,7 +45,7 @@ export default function CategoriesDropdown({ title }) {
       >
         <Menu.Items className="absolute outline-none origin-top-right mt-2">
           <div className="bg-white border border-gallery-200 rounded-md shadow-sm flex flex-row gap-2 p-2 w-fit">
-            {categories?.map((category) => (
+            {data?.categories?.map((category) => (
               <div key={category.id}>
                 <Menu.Item className="flex-row items-center">
                   {({ active }) => (
@@ -56,21 +55,19 @@ export default function CategoriesDropdown({ title }) {
                         active ? "bg-blueviolet-700 text-white" : ""
                       } flex items-center text-start font-bold transition rounded-md p-2`}
                     >
-                      {useTmTitles ? category.titleTm : category.titleRu}
+                      {useTmTitles ? category.nameTm : category.nameRu}
                     </Link>
                   )}
                 </Menu.Item>
-                {category.subCategories?.length > 0 && (
+                {category?.SubCategories?.length > 0 && (
                   <ul className="flex flex-col">
-                    {category.subCategories.map((subCategory) => (
+                    {category?.SubCategories?.map((subCategory) => (
                       <Link
                         href={"/subcategories/" + subCategory.id}
                         key={subCategory.id}
                         className="text-gray-700 hover:text-blueviolet-700 p-2"
                       >
-                        {useTmTitles
-                          ? subCategory.titleTm
-                          : subCategory.titleRu}
+                        {useTmTitles ? subCategory.nameTm : subCategory.nameRu}
                       </Link>
                     ))}
                   </ul>

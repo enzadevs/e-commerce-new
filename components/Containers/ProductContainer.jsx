@@ -12,9 +12,10 @@ import {
 import { AiFillHeart } from "react-icons/ai";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation.js";
+import { baseUrlApi } from "utils/Utils.jsx";
 
 export default function ProductContainer({ productData }) {
-  const { id, nameRu, sellPrice, wishlist } = productData;
+  const { id, barcode, nameRu, sellPrice, wishlist } = productData;
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
   const [isWished, setIsWished] = useState(false);
@@ -60,9 +61,11 @@ export default function ProductContainer({ productData }) {
         </div>
         <div className="relative rounded-t-md h-40 sm:h-56">
           <Image
-            src={`http://localhost:4001/api/images/products/${productData.id}.jpg`}
+            src={baseUrlApi + "/images/products/" + id + ".jpg"}
+            // src={baseUrlApi + images[0]}
             alt="image"
             className="rounded-t-md object-contain"
+            quality={60}
             sizes="33vw"
             fill
           ></Image>
@@ -70,7 +73,7 @@ export default function ProductContainer({ productData }) {
       </div>
       <div className="flex flex-col items-start gap-2 px-2 h-full">
         <Link
-          href={"/product/" + id}
+          href={"/product/" + barcode}
           className="nav-link sm:text-base text-start line-clamp-2"
         >
           {nameRu}

@@ -3,9 +3,10 @@
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import ProductViewSwiper from "components/Containers/ProductViewSwiper";
-import { Link } from "../../../../navigation.js";
 import Image from "next/image";
 import { useState } from "react";
+import { Link } from "../../../../navigation.js";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { SuccessToast } from "components/Functions/Toaster";
 import { handleAddToCart } from "components/Functions/PostRequests";
@@ -20,7 +21,7 @@ export default function ProductViewPage({ params }) {
   const t = useTranslations("Product");
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:4001/api/shop/products/fetch/` + params.id
+    `${baseUrlApi}/shop/products/fetch/` + params.id
   );
 
   if (isLoading) return <LoadingBlock height={"h-72"} width="w-full" />;
@@ -32,19 +33,19 @@ export default function ProductViewPage({ params }) {
     sellPrice,
     descriptionRu,
     images,
-    manufacturer,
+    Manufacturer,
     stock,
-    unit,
-    category,
-    subCategory,
+    Unit,
+    Category,
+    SubCategory,
   } = data;
 
   return (
     <div className="flex flex-col gap-4 md:flex-row">
       <div className="rounded-md h-72 md:h-96 md:flex-[50%] md:max-w-[50%] w-full">
-        {/* <ProductViewSwiper image={id} /> */}
+        {/* <ProductViewSwiper image={images} /> */}
         <Image
-          src={`http://localhost:4001/api/images/products/${id}.jpg`}
+          src={`${baseUrlApi}/images/products/${id}.jpg`}
           alt="image of product"
           className="block h-full w-full object-contain "
           sizes="(max-width: 768px) 100vw,50vw"
@@ -59,13 +60,13 @@ export default function ProductViewPage({ params }) {
           <div className="info-holder">
             {t("manufacturerName")}
             <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
-              {/* {manufacturer.nameRu} */}
+              {Manufacturer?.nameRu}
             </p>
           </div>
           <div className="info-holder">
             {t("unit")}
             <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
-              {/* {unit.nameRu} */}
+              {Unit?.nameRu}
             </p>
           </div>
           <div className="info-holder">
@@ -76,21 +77,21 @@ export default function ProductViewPage({ params }) {
           </div>
           <div className="info-holder">
             {t("category")}
-            {/* <Link
-              href={`/categories/` + category.id}
+            <Link
+              href={`/categories/` + Category?.id}
               className="nav-link bg-gallery rounded-md center px-4 h-8"
             >
-              {category.nameRu}
-            </Link> */}
+              {Category?.nameRu}
+            </Link>
           </div>
           <div className="info-holder">
             {t("subCategory")}
-            {/* <Link
-              href={`/subcategories/` + subCategory.id}
+            <Link
+              href={`/subcategories/` + SubCategory?.id}
               className="bg-gallery rounded-md center px-4 h-8"
             >
-              {subCategory.nameRu}
-            </Link> */}
+              {SubCategory?.nameRu}
+            </Link>
           </div>
         </div>
         <div className="flex flex-row justify-between gap-2 sm:text-base mt-4">

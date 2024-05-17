@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorBlock from "components/Functions/ErrorBlock";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { HiOutlineShoppingCart } from "react-icons/hi";
@@ -9,7 +10,7 @@ export default function ShoppingCart() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
+    `${baseUrlApi}/user/fetch/details/` + currentUserObject?.user?.id
   );
 
   if (isLoading) {
@@ -21,11 +22,11 @@ export default function ShoppingCart() {
   }
   if (error) return <ErrorBlock height={"h-6"} width="w-6" />;
 
-  const { shoppingCart } = data;
+  const { ShoppingCart } = data;
 
   let totalSum = 0;
 
-  shoppingCart?.productsList?.forEach((product) => {
+  ShoppingCart?.ProductsList?.forEach((product) => {
     const quantity = parseFloat(product.quantity);
     const sellPrice = parseFloat(product.product.sellPrice);
     const productTotal = quantity * sellPrice;

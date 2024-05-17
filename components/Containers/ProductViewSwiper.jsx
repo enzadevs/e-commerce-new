@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode, Thumbs } from "swiper/modules";
@@ -30,8 +31,7 @@ export default function ProductViewSwiper({ image }) {
           <SwiperSlide key={undefined}>
             <div className="border border-gallery-200 rounded-md center h-full w-full">
               <Image
-                // src={"http://localhost:3001/images/" + item}
-                src={`http://tazemarket.com.tm/tazemarket2/img/products/${image}.jpg`}
+                src={`${baseUrlApi}/${item}`}
                 alt="image of product"
                 className="block h-full w-full object-contain "
                 sizes="(max-width: 768px) 100vw,50vw"
@@ -56,8 +56,7 @@ export default function ProductViewSwiper({ image }) {
           <SwiperSlide style={{ marginRight: "0px" }} key={undefined}>
             <div className="center h-full w-full">
               <Image
-                // src={"http://localhost:3001/images/" + item}
-                src={`http://tazemarket.com.tm/tazemarket2/img/products/${image}.jpg`}
+                src={`${baseUrlApi}/${item}`}
                 alt="thumbnail of currently selected image"
                 className="block border border-gallery-200 rounded-md object-contain h-full w-full"
                 sizes="(max-width: 768px) 100vw,50vw"

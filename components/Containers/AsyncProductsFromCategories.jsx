@@ -1,21 +1,18 @@
+import { baseUrlApi } from "utils/Utils.jsx";
 import { Link } from "../../navigation.js";
 import ProductContainer from "./ProductContainer";
 
 export default async function AsyncProductsFromCategories({ text }) {
-  const response = await fetch(
-    "http://localhost:4001/api/shop/products/fetch/",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        page: 1,
-        limit: 40,
-      }),
-      cache: "no-store",
-    }
-  );
+  const response = await fetch(`${baseUrlApi}/shop/products/fetch/client`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      limit: 40,
+    }),
+    cache: "no-store",
+  });
   const data = await response.json();
 
   return (

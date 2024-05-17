@@ -1,5 +1,6 @@
 "use client";
 
+import { baseUrlApi } from "utils/Utils.jsx";
 import { useRouter } from "../../navigation.js";
 import { IsSignedInStore } from "utils/IsSignedIn";
 
@@ -8,22 +9,17 @@ export default function SendVisitorRequest() {
   const router = useRouter();
 
   const sendPostRequest = async () => {
-    const url = isSignedIn
-      ? `http://localhost:3001/visitor/new/true`
-      : `http://localhost:3001/visitor/new/false`;
-
-    const body = { boolean: isSignedIn };
-
-    await fetch(url, {
+    await fetch(`${baseUrlApi}/user/visitors/new/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ boolean: isSignedIn }),
     });
   };
 
   return (
     <button
       onClick={() => {
+        sendPostRequest();
         router.push("/");
       }}
       className="button-primary px-4"
