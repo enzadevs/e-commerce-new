@@ -42,7 +42,7 @@ export default function ProductViewSwiper({ image }) {
           </SwiperSlide>
         ))}
       </Swiper>
-      <Swiper
+      {/* <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}
         spaceBetween={10}
@@ -61,12 +61,12 @@ export default function ProductViewSwiper({ image }) {
                 className="block border border-gallery-200 rounded-md object-contain h-full w-full"
                 sizes="(max-width: 768px) 100vw,50vw"
                 width={100}
-                height={500}
+                height={100}
               />
             </div>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper> */}
     </div>
   );
 }

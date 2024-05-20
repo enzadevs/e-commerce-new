@@ -4,14 +4,18 @@ import Image from "next/image";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import { Link } from "../../../../../navigation.js";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { UseFetcher } from "components/Functions/UseFetcher";
+import { usePathname } from "next/navigation.js";
 import { useTranslations } from "next-intl";
 
 export default function OrdersPage({ params }) {
+  const pathname = usePathname();
+  const useTmTitles = pathname.includes("/tm");
   const t = useTranslations("UsersOrderPage");
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/orders/fetch/` + params.id
+    `${baseUrlApi}/actions/admin/orders/fetch/` + params.id
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -21,13 +25,13 @@ export default function OrdersPage({ params }) {
     address,
     comment,
     sum,
-    paymentType,
-    deliveryType,
-    orderStatus,
+    PaymentType,
+    DeliveryType,
+    OrderStatus,
+    OrderItems,
     createdAt,
     updatedAt,
-    productsList,
-  } = data;
+  } = data?.order;
   return (
     <div className="flex flex-col gap-2">
       <div className="flex-row-center justify-between h-10">
@@ -41,17 +45,23 @@ export default function OrdersPage({ params }) {
             {t("address")}
             <p className="font-bold">{address}</p>
           </div>
-          <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
+          <div className="border-b border-gallery-200 flex-row-center justify-between gap-8 px-2 h-10">
             {t("comment")}
-            <p className="font-bold">{comment ? comment : "Нет"}</p>
+            <p className="font-bold line-clamp-1">
+              {comment ? comment : "Нет"}
+            </p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
             {t("paymentType")}
-            <p className="font-bold">{paymentType?.titleRu}</p>
+            <p className="font-bold">
+              {useTmTitles ? PaymentType?.nameTm : PaymentType?.nameRu}
+            </p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
             {t("deliveryType")}
-            <p className="font-bold">{deliveryType?.titleRu}</p>
+            <p className="font-bold">
+              {useTmTitles ? DeliveryType?.nameTm : DeliveryType?.nameRu}
+            </p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
             {t("createdAt")}
@@ -69,23 +79,23 @@ export default function OrdersPage({ params }) {
         <div className="bg-gallery rounded-md shadow-md flex flex-col pb-2 w-full">
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
             {t("orderStatus")}
-            <p className="font-bold">{orderStatus?.titleRu}</p>
+            <p className="font-bold">
+              {useTmTitles ? OrderStatus?.nameTm : OrderStatus?.nameRu}
+            </p>
           </div>
           <div className="flex-row-center justify-between px-2 h-10">
             {t("products")}
           </div>
           <div className="flex flex-col gap-2 px-2">
-            {productsList.map((item) => {
-              let sum = item.quantity * item.product?.sellPrice;
+            {OrderItems.map((item) => {
+              let sum = item.quantity * item.Product?.sellPrice;
               return (
                 <div
                   key={item.id}
                   className="bg-white border border-gallery-200 rounded-md flex-row-center gap-2 p-2"
                 >
                   <Image
-                    src={
-                      `http://localhost:3001/images/` + item.product?.images[0]
-                    }
+                    src={`${baseUrlApi}/${item?.Product?.images[0]}`}
                     alt="image"
                     className="object-contain"
                     height={40}
@@ -95,21 +105,23 @@ export default function OrdersPage({ params }) {
                     {t("productName")}
                     <div>
                       <Link
-                        href={`/product/` + item.product?.id}
+                        href={`/product/` + item.Product?.barcode}
                         className="nav-link font-bold line-clamp-1"
                       >
-                        {item.product?.titleRu}
+                        {useTmTitles
+                          ? item.Product?.nameTm
+                          : item.Product?.nameRu}
                       </Link>
                     </div>
                   </div>
                   <div className="flex-row-center gap-2 md:gap-4 ml-auto">
                     <div className="flex flex-col items-center w-10">
                       <p>{t("productSellPrice")}</p>
-                      <p className="font-bold">{item.product?.sellPrice}М</p>
+                      <p className="font-bold">{item.Product?.sellPrice}М</p>
                     </div>
                     <div className="flex flex-col items-center w-10">
                       <p>{t("productQuantity")}</p>
-                      <p className="font-bold">{item.quantity} шт.</p>
+                      <p className="font-bold">{item.quantity}</p>
                     </div>
                     <div className="flex flex-col items-center w-10">
                       <p>{t("productSum")}</p>

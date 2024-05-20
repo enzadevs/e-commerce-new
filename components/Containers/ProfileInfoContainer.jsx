@@ -1,14 +1,17 @@
+import useSWR from "swr";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import { Link } from "../../navigation.js";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { SuccessToast, ErrorToast } from "components/Functions/Toaster";
 import { useState, Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { UseFetcher } from "components/Functions/UseFetcher";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { useTranslations } from "next-intl";
 import { SlPencil } from "react-icons/sl";
 import { BiExit } from "react-icons/bi";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function ProfileInfoContainer() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +34,7 @@ export default function ProfileInfoContainer() {
     setIsOpen(true);
   }
 
-  const handleSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
     const userFormData = {
@@ -46,7 +49,7 @@ export default function ProfileInfoContainer() {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/users/update/${currentUserObject.user.id}`,
+        `${baseUrlApi}/user/update/${currentUserObject.user.id}`,
         {
           method: "PATCH",
           headers: {
@@ -57,25 +60,28 @@ export default function ProfileInfoContainer() {
       );
 
       if (response.ok) {
-        const user = await response.json();
+        const data = await response.json();
+        const user = data?.user;
         updateCurrentUserObject({ user });
         SuccessToast({ successText: t("successFullUpdate") });
-      } else {
-        console.error("Failed to update user");
       }
-    } catch (error) {
+    } catch (err) {
       ErrorToast({ errorText: "Вышла Ошибка. Проверьте ваши данные." });
     }
   };
 
-  const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
+  const { data, isLoading, error } = useSWR(
+    `${baseUrlApi}/user/fetch/details/` + currentUserObject?.user?.id,
+    fetcher,
+    {
+      refreshInterval: 5000,
+    }
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
   if (error) return <ErrorBlock height={"h-20"} width="" />;
 
-  const { firstName, phoneNumber, address, wishlist, shoppingCart, orders } =
+  const { firstName, phoneNumber, address, wishlist, ShoppingCart, Orders } =
     data;
 
   return (
@@ -115,22 +121,22 @@ export default function ProfileInfoContainer() {
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>{t("wishlist")}</>
-            <p className="font-bold">{wishlist?.productsArray?.length || 0}</p>
+            <p className="font-bold">{wishlist?.length || 0}</p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>{t("shoppingCart")}</>
             <p className="font-bold">
-              {shoppingCart?.productsList?.length || 0}
+              {ShoppingCart?.ProductsList?.length || 0}
             </p>
           </div>
           <div className="border-b flex-row-center justify-between gap-2 h-8">
             <>{t("ordersCount")}</>
-            <p className="font-bold">{orders?.length}</p>
+            <p className="font-bold">{Orders?.length}</p>
           </div>
         </div>
         <div className="border rounded-md shadow-md flex flex-col gap-2 p-4 w-full md:w-[50%]">
           <h2 className="font-bold flex-row-center px-2 h-8">{t("orders")}</h2>
-          {orders?.map((item) => {
+          {Orders?.map((item) => {
             return (
               <Link
                 href={`/profile/orders/` + item.id}
@@ -142,7 +148,7 @@ export default function ProfileInfoContainer() {
                   <p className="font-bold">{item.id}</p>
                 </div>
                 <div className="border-r center flex-[50%] max-w-[50%] px-2 h-full">
-                  <p className="font-bold">{item.orderStatus?.titleRu}</p>
+                  <p className="font-bold">{item.OrderStatus?.nameRu}</p>
                 </div>
                 <div className="flex-row-center justify-between flex-[50%] max-w-[50%] px-2">
                   {t("orderSum")}
@@ -219,7 +225,7 @@ export default function ProfileInfoContainer() {
                   <button
                     className="button-primary center w-full"
                     onClick={(e) => {
-                      handleSubmit(e);
+                      handleUpdate(e);
                       closeModal();
                     }}
                   >

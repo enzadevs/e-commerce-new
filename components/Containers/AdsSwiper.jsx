@@ -3,6 +3,7 @@
 import Image from "next/image";
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
+import { baseUrlApi } from "utils/Utils";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -14,10 +15,10 @@ import "styles/ads_swiper.css";
 
 export default function AdsSwiper() {
   const {
-    data: ads = [],
+    data: response = [],
     error,
     isLoading,
-  } = UseFetcher(`http://localhost:3001/ads/frontend`);
+  } = UseFetcher(`${baseUrlApi}/shop/ads/active`);
 
   if (isLoading)
     return (
@@ -51,12 +52,12 @@ export default function AdsSwiper() {
           disableOnInteraction: false,
         }}
       >
-        {ads?.map((item) => {
+        {response?.ads?.map((item) => {
           return (
             <SwiperSlide key={item.id}>
               <Image
                 className="rounded-md"
-                src={`http://localhost:3001/images/${item.posterImage}`}
+                src={`${baseUrlApi}/${item.posterImage}`}
                 alt="image of current ad"
                 height={0}
                 width={0}

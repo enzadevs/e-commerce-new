@@ -1,16 +1,22 @@
 "use client";
 
+import useSWR from "swr";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import { baseUrlApi } from "utils/Utils.jsx";
 import { IsSignedInStore } from "utils/IsSignedIn";
-import { UseFetcher } from "components/Functions/UseFetcher";
 import { HiOutlineShoppingCart } from "react-icons/hi";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function ShoppingCart() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
 
-  const { data, isLoading, error } = UseFetcher(
-    `${baseUrlApi}/user/fetch/details/` + currentUserObject?.user?.id
+  const { data, isLoading, error } = useSWR(
+    `${baseUrlApi}/user/fetch/details/` + currentUserObject?.user?.id,
+    fetcher,
+    {
+      refreshInterval: 1250,
+    }
   );
 
   if (isLoading) {
@@ -28,7 +34,7 @@ export default function ShoppingCart() {
 
   ShoppingCart?.ProductsList?.forEach((product) => {
     const quantity = parseFloat(product.quantity);
-    const sellPrice = parseFloat(product.product.sellPrice);
+    const sellPrice = parseFloat(product.Product.sellPrice);
     const productTotal = quantity * sellPrice;
     totalSum += productTotal;
   });

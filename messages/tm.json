@@ -109,8 +109,12 @@
     "orderStatus": "Sargydyň ýagdaýy:",
     "products": "Harytlar :",
     "productName": "Ady",
-    "productSellPrice": "Bahasys",
+    "productSellPrice": "Bahasy",
     "productQuantity": "Sany",
     "productSum": "Jemi"
+  },
+  "ShoppingCart": {
+    "price": "Baha",
+    "sum": "Jemi"
   }
 }

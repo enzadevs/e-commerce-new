@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-haze-200 bg-white mt-auto px-3 pb-4 md:px-0">
-      <div className="flex flex-col gap-4 sm:flex-row sm:justify-between pt-6 pb-16 max-width">
+      <div className="flex flex-col gap-4 sm:flex-row sm:justify-between pt-4 pb-16 md:pb-0 max-width">
         <div className="flex flex-col items-center sm:items-start gap-4">
           <Link href="/" className="text-fancy-700 text-xl font-bold">
             Super Market

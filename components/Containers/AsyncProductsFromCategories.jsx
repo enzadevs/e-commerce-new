@@ -1,41 +1,50 @@
-import { baseUrlApi } from "utils/Utils.jsx";
 import { Link } from "../../navigation.js";
+import { baseUrlApi } from "utils/Utils.jsx";
+import CategoryName from "./CategoryName.jsx";
 import ProductContainer from "./ProductContainer";
 
 export default async function AsyncProductsFromCategories({ text }) {
-  const response = await fetch(`${baseUrlApi}/shop/products/fetch/client`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      limit: 40,
-    }),
-    cache: "no-store",
-  });
+  const response = await fetch(
+    `${baseUrlApi}/management/categories/fetch/withproducts`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        page: 1,
+        limit: 30,
+      }),
+      cache: "no-cache",
+    }
+  );
   const data = await response.json();
+  const categories = data?.categories;
 
   return (
     <div className="flex flex-col gap-4 mb-4">
-      {/* {data.products?.map((item) => {
-        if (item.products && item.products.length > 0) {
+      {categories.map((category) => {
+        if (category.Products.length > 0) {
           return (
             <div
-              key={item.id}
+              key={category.id}
               className="bg-white rounded-md shadow-md flex flex-col gap-4 p-2"
             >
               <div className="flex-row-center justify-between">
-                <h2 className="text-lg font-bold">{item.titleRu}</h2>
+                <CategoryName
+                  nameTm={category.nameTm}
+                  nameRu={category.nameRu}
+                />
                 <Link
-                  href={"/categories/" + item.id}
+                  href={"/categories/" + category.id}
                   className="nav-link w-fit"
                 >
                   {text}
                 </Link>
               </div>
               <div className="products-grid">
-                {item.products.slice(0, 5).map((item) => (
-                  <ProductContainer key={item.id} productData={item} />
+                {category.Products?.slice(0, 5).map((product) => (
+                  <ProductContainer key={product.id} productData={product} />
                 ))}
               </div>
             </div>
@@ -43,12 +52,7 @@ export default async function AsyncProductsFromCategories({ text }) {
         } else {
           return null;
         }
-      })} */}
-      <div className="products-grid">
-        {data.products?.map((item) => {
-          return <ProductContainer key={item.id} productData={item} />;
-        })}
-      </div>
+      })}
     </div>
   );
 }

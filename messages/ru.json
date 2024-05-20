@@ -114,5 +114,9 @@
     "productSellPrice": "Цена",
     "productQuantity": "Кол.",
     "productSum": "Сумма"
+  },
+  "ShoppingCart": {
+    "price": "Цена",
+    "sum": "Сумма"
   }
 }

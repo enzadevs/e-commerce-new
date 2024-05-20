@@ -3,16 +3,19 @@
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import ProductContainer from "components/Containers/ProductContainer";
-import { UseFetcher } from "components/Functions/UseFetcher";
-import { IsSignedInStore } from "utils/IsSignedIn";
+import { baseUrlApi } from "utils/Utils";
 import { useTranslations } from "next-intl";
+import { IsSignedInStore } from "utils/IsSignedIn";
+import { UseFetcher } from "components/Functions/UseFetcher";
 
 export default function SignedUserWishlistContainer() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const t = useTranslations("Pages");
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
+    `${baseUrlApi}/user/fetch/details/` +
+      currentUserObject?.user?.id +
+      "/wishlist"
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -22,9 +25,9 @@ export default function SignedUserWishlistContainer() {
 
   return (
     <div className="flex flex-col gap-4">
-      {wishlist?.productsArray?.length > 0 ? (
+      {wishlist?.length > 0 ? (
         <div className="products-grid">
-          {wishlist.productsArray.map((item) => (
+          {wishlist?.map((item) => (
             <ProductContainer key={item.id} productData={item} />
           ))}
         </div>

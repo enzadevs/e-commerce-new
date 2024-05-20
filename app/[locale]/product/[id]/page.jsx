@@ -3,7 +3,6 @@
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import ProductViewSwiper from "components/Containers/ProductViewSwiper";
-import Image from "next/image";
 import { useState } from "react";
 import { Link } from "../../../../navigation.js";
 import { baseUrlApi } from "utils/Utils.jsx";
@@ -12,13 +11,17 @@ import { SuccessToast } from "components/Functions/Toaster";
 import { handleAddToCart } from "components/Functions/PostRequests";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { FiPlus, FiMinus } from "react-icons/fi";
+import { usePathname } from "next/navigation.js";
 import { useTranslations } from "next-intl";
 
 export default function ProductViewPage({ params }) {
   const [count, setCount] = useState(0);
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
+  const pathname = usePathname();
   const t = useTranslations("Product");
+
+  const useTmTitles = pathname.includes("/tm");
 
   const { data, isLoading, error } = UseFetcher(
     `${baseUrlApi}/shop/products/fetch/` + params.id
@@ -29,6 +32,7 @@ export default function ProductViewPage({ params }) {
 
   const {
     id,
+    nameTm,
     nameRu,
     sellPrice,
     descriptionRu,
@@ -41,32 +45,24 @@ export default function ProductViewPage({ params }) {
   } = data;
 
   return (
-    <div className="flex flex-col gap-4 md:flex-row">
+    <div className="flex flex-col gap-4 md:flex-row h-auto">
       <div className="rounded-md h-72 md:h-96 md:flex-[50%] md:max-w-[50%] w-full">
-        {/* <ProductViewSwiper image={images} /> */}
-        <Image
-          src={`${baseUrlApi}/images/products/${id}.jpg`}
-          alt="image of product"
-          className="block h-full w-full object-contain "
-          sizes="(max-width: 768px) 100vw,50vw"
-          width={500}
-          height={500}
-        />
+        <ProductViewSwiper image={images} />
       </div>
       <div className="flex flex-col gap-2 md:text-base md:flex-[50%] md:max-w-[50%] w-full">
-        <h2 className="text-lg font-bold">{nameRu}</h2>
+        <h2 className="text-lg font-bold">{useTmTitles ? nameTm : nameRu}</h2>
         <p>{descriptionRu}</p>
         <div className="flex flex-col gap-2">
           <div className="info-holder">
             {t("manufacturerName")}
             <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
-              {Manufacturer?.nameRu}
+              {Manufacturer?.name}
             </p>
           </div>
           <div className="info-holder">
             {t("unit")}
             <p className="bg-gallery rounded-md flex-row-center px-4 h-8">
-              {Unit?.nameRu}
+              {useTmTitles ? Unit?.nameTm : Unit?.nameRu}
             </p>
           </div>
           <div className="info-holder">
@@ -81,7 +77,7 @@ export default function ProductViewPage({ params }) {
               href={`/categories/` + Category?.id}
               className="nav-link bg-gallery rounded-md center px-4 h-8"
             >
-              {Category?.nameRu}
+              {useTmTitles ? Category?.nameTm : Category?.nameRu}
             </Link>
           </div>
           <div className="info-holder">
@@ -90,7 +86,7 @@ export default function ProductViewPage({ params }) {
               href={`/subcategories/` + SubCategory?.id}
               className="bg-gallery rounded-md center px-4 h-8"
             >
-              {SubCategory?.nameRu}
+              {useTmTitles ? SubCategory?.nameTm : SubCategory?.nameRu}
             </Link>
           </div>
         </div>

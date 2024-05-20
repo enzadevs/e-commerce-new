@@ -4,37 +4,44 @@ import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import PostOrder from "components/Containers/PostOrder";
 import CartProductContainer from "components/Containers/CartProductContainer";
-import { UseFetcher } from "components/Functions/UseFetcher";
+import useSWR from "swr";
+import { baseUrlApi } from "utils/Utils";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { CiImageOn } from "react-icons/ci";
 import { useTranslations } from "next-intl";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function SignedUserCartContainer() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const t = useTranslations("Pages");
   const tt = useTranslations("Product");
 
-  const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/users/fetch/` + currentUserObject?.user?.id
+  const { data, isLoading, error } = useSWR(
+    `${baseUrlApi}/user/fetch/details/` + currentUserObject?.user?.id,
+    fetcher,
+    {
+      refreshInterval: 1250,
+    }
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
   if (error) return <ErrorBlock height={"h-20"} width="w-full" />;
 
-  const { shoppingCart } = data;
+  const { ShoppingCart } = data;
 
   let totalSum = 0;
 
-  shoppingCart?.productsList?.forEach((product) => {
+  ShoppingCart?.ProductsList?.forEach((product) => {
     const quantity = parseFloat(product.quantity);
-    const sellPrice = parseFloat(product.product.sellPrice);
+    const sellPrice = parseFloat(product.Product.sellPrice);
     const productTotal = quantity * sellPrice;
     totalSum += productTotal;
   });
 
   return (
     <div className="flex flex-col gap-2">
-      {shoppingCart?.productsList.length <= 0 ? (
+      {ShoppingCart?.ProductsList.length <= 0 ? (
         <p className="mt-4">{t("signedUserShoppingCartText")}</p>
       ) : (
         <>
@@ -51,13 +58,13 @@ export default function SignedUserCartContainer() {
               </div>
               <div className="text-center ml-auto md:ml-0 w-10">X</div>
             </div>
-            {shoppingCart?.productsList?.map((cartItem) => (
+            {ShoppingCart?.ProductsList?.map((cartItem) => (
               <CartProductContainer
                 key={cartItem.id}
                 userId={currentUserObject?.user?.id}
                 shoppingCartItemId={cartItem.id}
-                shoppingCartId={shoppingCart.id}
-                productData={cartItem.product}
+                shoppingCartId={ShoppingCart.id}
+                productData={cartItem.Product}
                 quantity={cartItem.quantity}
               />
             ))}
@@ -67,7 +74,7 @@ export default function SignedUserCartContainer() {
           </div>
           <PostOrder
             customerData={currentUserObject?.user}
-            shoppingCartData={shoppingCart}
+            shoppingCartData={ShoppingCart}
           />
         </>
       )}

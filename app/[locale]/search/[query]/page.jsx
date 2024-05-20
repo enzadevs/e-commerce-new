@@ -19,28 +19,24 @@ export default function SearchResultsPage({ params }) {
 
   return (
     <div className="flex flex-col gap-4">
-      {data?.results ? (
-        data?.results.length > 0 ? (
-          <>
-            <h2 className="text-lg font-bold">
-              {t("searchResults") + " "}
-              {decodedQuery}
-            </h2>
-            {data.message && <p>{data.message}</p>}
-            <div className="products-grid">
-              {data?.results?.map((item) => (
-                <ProductContainer key={item.id} productData={item} />
-              ))}
-            </div>
-          </>
-        ) : (
+      {data?.results?.length > 0 ? (
+        <>
           <h2 className="text-lg font-bold">
-            {t("noResults")}
+            {t("searchResults") + " "}
             {decodedQuery}
           </h2>
-        )
+          {data.message && <p>{data.message}</p>}
+          <div className="products-grid">
+            {data?.results?.map((item) => (
+              <ProductContainer key={item.id} productData={item} />
+            ))}
+          </div>
+        </>
       ) : (
-        <p>{t("loadingResults")}</p>
+        <h2 className="text-lg font-bold">
+          {t("noResults")}
+          {decodedQuery}
+        </h2>
       )}
     </div>
   );

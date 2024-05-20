@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { Link } from "../../navigation.js";
 import { SuccessToast } from "components/Functions/Toaster";
 import { IsSignedInStore } from "utils/IsSignedIn";
@@ -12,27 +13,36 @@ import {
 import { AiFillHeart } from "react-icons/ai";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation.js";
-import { baseUrlApi } from "utils/Utils.jsx";
 
 export default function ProductContainer({ productData }) {
-  const { id, barcode, nameRu, sellPrice, wishlist } = productData;
+  const { barcode, nameTm, nameRu, sellPrice, images } = productData;
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
   const [isWished, setIsWished] = useState(false);
   const t = useTranslations("Product");
   const pathname = usePathname();
 
+  const useTmTitles = pathname.includes("/tm");
+  const isProductWished =
+    currentUserObject.user && currentUserObject.user.wishlist.includes(barcode);
+
   useEffect(() => {
-    if (wishlist) {
-      setIsWished(
-        wishlist.some((item) => item.user?.id === currentUserObject.user?.id)
-      );
+    if (isProductWished) {
+      setIsWished(true);
     } else {
       setIsWished(false);
     }
-  }, [wishlist, currentUserObject]);
+  }, [isProductWished]);
 
-  const useTmTitles = pathname.includes("/tm");
+  // useEffect(() => {
+  //   if (wishlist) {
+  //     setIsWished(
+  //       wishlist.some((item) => item.user?.id === currentUserObject.user?.id)
+  //     );
+  //   } else {
+  //     setIsWished(false);
+  //   }
+  // }, [wishlist, currentUserObject]);
 
   return (
     <div className="product-container">
@@ -45,13 +55,13 @@ export default function ProductContainer({ productData }) {
                 return;
               }
               handleAddToWishlist({
-                userId: currentUserObject.user.id,
-                productId: id,
+                phoneNumber: currentUserObject.user.phoneNumber,
+                barcode: barcode,
               });
-              setIsWished(!isWished);
+              setIsWished(true);
             }}
             className={
-              isWished
+              isProductWished
                 ? "icons-wrapper text-red-500 ml-auto"
                 : "icons-wrapper text-gallery-200 hover:text-red-500 ml-auto"
             }
@@ -61,8 +71,7 @@ export default function ProductContainer({ productData }) {
         </div>
         <div className="relative rounded-t-md h-40 sm:h-56">
           <Image
-            src={baseUrlApi + "/images/products/" + id + ".jpg"}
-            // src={baseUrlApi + images[0]}
+            src={baseUrlApi + "/" + images[0]}
             alt="image"
             className="rounded-t-md object-contain"
             quality={60}
@@ -76,7 +85,7 @@ export default function ProductContainer({ productData }) {
           href={"/product/" + barcode}
           className="nav-link sm:text-base text-start line-clamp-2"
         >
-          {nameRu}
+          {useTmTitles ? nameTm : nameRu}
         </Link>
         <p className="sm:text-base font-bold mt-auto">{sellPrice} М</p>
         <button
@@ -86,8 +95,8 @@ export default function ProductContainer({ productData }) {
               return;
             }
             handleAddToCart({
-              customerId: currentUserObject.user.id,
-              productId: id,
+              phoneNumber: currentUserObject.user.phoneNumber,
+              barcode: barcode,
             });
           }}
           className="button-primary center gap-2 px-8 w-full"

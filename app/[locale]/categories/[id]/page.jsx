@@ -3,8 +3,9 @@
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
 import ProductContainer from "components/Containers/ProductContainer";
-import { Link } from "../../../../navigation.js";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { useState } from "react";
+import { Link } from "../../../../navigation.js";
 import { UseFetcher } from "components/Functions/UseFetcher";
 import { usePathname } from "next/navigation.js";
 
@@ -12,7 +13,7 @@ export default function CategoryProductsPage({ params }) {
   const pathname = usePathname();
 
   const { data, isLoading, error } = UseFetcher(
-    `http://localhost:3001/manage/categories/fetch/` + params.id
+    `${baseUrlApi}/management/categories/fetch/single/` + params.id
   );
   const [selectedSubcategory, setSelectedSubcategory] = useState();
 
@@ -21,27 +22,27 @@ export default function CategoryProductsPage({ params }) {
 
   const filteredProducts =
     selectedSubcategory && selectedSubcategory !== 0
-      ? data.products?.filter(
+      ? data.Products?.filter(
           (product) => product.categoryId === selectedSubcategory
         )
-      : data.products;
+      : data.Products;
 
   const useTmTitles = pathname.includes("/tm");
 
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-lg font-bold">
-        {useTmTitles ? data.titleTm : data.titleRu}
+        {useTmTitles ? data.nameTm : data.nameRu}
       </h2>
       <div className="flex-row-center gap-4">
-        {data.subCategories?.map((item) => (
+        {data.SubCategories?.map((item) => (
           <Link
             href={`/subcategories/` + item.id}
             key={item.id}
             onClick={() => setSelectedSubcategory(item.id)}
             className="button-outline px-4"
           >
-            {useTmTitles ? item.titleTm : item.titleRu}
+            {useTmTitles ? item.nameTm : item.nameRu}
           </Link>
         ))}
       </div>

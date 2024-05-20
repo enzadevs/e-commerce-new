@@ -11,6 +11,7 @@ import { MdFormatListBulleted } from "react-icons/md";
 
 export default function CategoriesDropdown({ title }) {
   const pathname = usePathname();
+  const useTmTitles = pathname.includes("/tm");
 
   const { data, isLoading, error } = UseFetcher(
     `${baseUrlApi}/management/categories/fetch/all`
@@ -25,8 +26,6 @@ export default function CategoriesDropdown({ title }) {
     );
   }
   if (error) return <ErrorBlock height={"h-20 lg:h-[280px]"} width="w-48" />;
-
-  const useTmTitles = pathname.includes("/tm");
 
   return (
     <Menu as="div" className="inline-block">
@@ -43,8 +42,8 @@ export default function CategoriesDropdown({ title }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute outline-none origin-top-right mt-2">
-          <div className="bg-white border border-gallery-200 rounded-md shadow-sm flex flex-row gap-2 p-2 w-fit">
+        <Menu.Items className="absolute outline-none mt-2">
+          <div className="bg-white border border-gallery-200 rounded-md shadow-sm flex flex-row flex-wrap gap-2 p-2 w-fit max-w-5xl">
             {data?.categories?.map((category) => (
               <div key={category.id}>
                 <Menu.Item className="flex-row items-center">

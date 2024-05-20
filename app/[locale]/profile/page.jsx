@@ -1,8 +1,8 @@
 "use client";
 
-import { IsSignedInStore } from "utils/IsSignedIn";
 import SignUp from "components/Containers/SignUp";
 import ProfileInfoContainer from "components/Containers/ProfileInfoContainer";
+import { IsSignedInStore } from "utils/IsSignedIn";
 
 export default function ProfilePage() {
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);

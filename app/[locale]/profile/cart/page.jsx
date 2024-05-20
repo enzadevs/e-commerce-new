@@ -1,8 +1,8 @@
 "use client";
 
-import SignedUserCartContainer from "components/Containers/SignedUserCartContainer";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { useTranslations } from "next-intl";
+import SignedUserCartContainer from "components/Containers/SignedUserCartContainer";
 
 export default function ShoppingCartPage() {
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);

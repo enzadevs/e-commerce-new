@@ -14,7 +14,7 @@ export const metadata = {
 
 const globalFont = Nunito_Sans({
   subsets: ["latin", "cyrillic"],
-  display: "swap",
+  adjustFontFallback: false,
 });
 
 export default function RootLayout({ children }) {
@@ -32,7 +32,9 @@ export default function RootLayout({ children }) {
           <div className="bg-white shadow-md sticky top-0 z-20">
             <NavBar />
           </div>
-          <div className="bg-gallery min-h-[768px] w-full">{children}</div>
+          <div className="bg-gallery min-h-[360px] sm:min-h-[700px] w-full">
+            {children}
+          </div>
           <Footer />
         </NextIntlClientProvider>
       </body>

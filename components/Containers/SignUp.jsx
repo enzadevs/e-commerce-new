@@ -1,3 +1,4 @@
+import { baseUrlApi } from "utils/Utils";
 import { Tab } from "@headlessui/react";
 import { SuccessToast, ErrorToast } from "components/Functions/Toaster";
 import { IsSignedInStore } from "utils/IsSignedIn";
@@ -59,7 +60,7 @@ export default function SignUp() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/auth/signup", {
+      const response = await fetch(`${baseUrlApi}/user/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +76,7 @@ export default function SignUp() {
       } else {
         ErrorToast({ errorText: "Вышла Ошибка. Проверьте ваши данные." });
       }
-    } catch (error) {
+    } catch (err) {
       ErrorToast({ errorText: "Ошибка сервера." });
     }
   };
@@ -88,7 +89,7 @@ export default function SignUp() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/auth/signin", {
+      const response = await fetch(`${baseUrlApi}/user/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,8 +104,8 @@ export default function SignUp() {
       } else {
         alert(t("badCredentials"));
       }
-    } catch (error) {
-      console.error("Error signing in :", error);
+    } catch (err) {
+      ErrorToast({ errorText: "Ошибка сервера." });
     }
   };
 

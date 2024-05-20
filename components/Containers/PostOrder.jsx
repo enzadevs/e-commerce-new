@@ -2,13 +2,14 @@
 
 import LoadingBlock from "components/Functions/LoadingBlock";
 import ErrorBlock from "components/Functions/ErrorBlock";
-import { SuccessToast, ErrorToast } from "components/Functions/Toaster.jsx";
+import { baseUrlApi } from "utils/Utils.jsx";
 import { useState, useRef } from "react";
 import { useRouter } from "../../navigation.js";
 import { RadioGroup } from "@headlessui/react";
-import { UseFetcher } from "components/Functions/UseFetcher";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation.js";
+import { UseFetcher } from "components/Functions/UseFetcher";
+import { SuccessToast, ErrorToast } from "components/Functions/Toaster.jsx";
 
 export default function PostOrder({ customerData, shoppingCartData }) {
   const [selectedDeliveryType, setSelectedDeliveryType] = useState(null);
@@ -20,34 +21,30 @@ export default function PostOrder({ customerData, shoppingCartData }) {
   const t = useTranslations("Order");
   const pathname = usePathname();
 
-  const { data: ordersAreActive } = UseFetcher(
-    "http://localhost:3001/banner/fetch"
-  );
-
-  const { data: paymentTypes } = UseFetcher(
-    "http://localhost:3001/manage/payment_types/all"
+  const { data: payment_response } = UseFetcher(
+    `${baseUrlApi}/management/paymenttypes/fetch/all`
   );
 
   const {
-    data: deliveryTypes,
+    data: delivery_response,
     isLoading,
     error,
-  } = UseFetcher("http://localhost:3001/manage/delivery_types/all");
+  } = UseFetcher(`${baseUrlApi}/management/deliverytypes/fetch/all`);
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
   if (error) return <ErrorBlock height={"h-20"} width="" />;
 
   let totalSum = 0;
 
-  shoppingCartData?.productsList?.forEach((product) => {
+  shoppingCartData?.ProductsList?.forEach((product) => {
     const quantity = parseFloat(product.quantity);
-    const sellPrice = parseFloat(product.product.sellPrice);
+    const sellPrice = parseFloat(product.Product.sellPrice);
     const productTotal = quantity * sellPrice;
     totalSum += productTotal;
   });
 
-  const products = shoppingCartData?.productsList?.map((item) => ({
-    productId: item?.product?.id,
+  const products = shoppingCartData?.ProductsList?.map((item) => ({
+    barcode: item?.Product?.barcode,
     quantity: parseFloat(item.quantity),
   }));
 
@@ -65,7 +62,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
     address,
     comment,
     sum,
-    productsList,
+    orderItems,
     paymentTypeId,
     deliveryTypeId,
     shoppingCartId,
@@ -86,37 +83,38 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         return;
       }
 
-      const response = await fetch(`http://localhost:3001/orders/new/`, {
+      const response = await fetch(`${baseUrlApi}/actions/admin/orders/new`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           customerId,
-          productsList,
           phoneNumber,
           address,
-          sum,
           comment,
-          deliveryTypeId,
+          sum,
+          orderItems,
           paymentTypeId,
-          shoppingCartId,
+          deliveryTypeId,
           orderStatusId: 1,
+          shoppingCartId,
         }),
       });
 
       if (response.ok) {
         const responseData = await response.json();
         SuccessToast({ successText: responseData.message });
-        router.push("/profile/orders/" + responseData.order?.id);
+        setTimeout(() => {
+          router.push("/profile/orders/" + responseData.order?.id);
+        }, 1250);
       } else {
         const errorData = await response.json();
         ErrorToast({
           errorText: errorData.message || "Вышла Ошибка. Попробуйте снова.",
         });
       }
-    } catch (error) {
-      console.error("Ошибка добавления продукта в избранное:", error);
+    } catch (err) {
       ErrorToast({
         errorText: "Ошибка сетевого соединения. Попробуйте снова позже.",
       });
@@ -173,7 +171,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         {t("deliveryType")}
         <div className="sm:flex-[50%] sm:max-w-[50%]">
           <RadioGroup className="flex flex-col sm:flex-row justify-end gap-2 w-full">
-            {deliveryTypes?.map((item) => (
+            {delivery_response?.deliveryTypes?.map((item) => (
               <RadioGroup.Option value={item.id} key={item.id}>
                 {({ checked }) => (
                   <button
@@ -186,7 +184,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
                         : "button-outline center px-4 w-full sm:w-auto"
                     }
                   >
-                    {useTmTitles ? item.titleTm : item.titleRu}
+                    {useTmTitles ? item.nameTm : item.nameRu}
                   </button>
                 )}
               </RadioGroup.Option>
@@ -198,7 +196,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         {t("paymentType")}
         <div className="sm:flex-[50%] sm:max-w-[50%]">
           <RadioGroup className="flex flex-col sm:flex-row justify-end gap-2 w-full">
-            {paymentTypes?.map((item) => (
+            {payment_response?.paymentTypes?.map((item) => (
               <RadioGroup.Option value={item.id} key={item.id}>
                 {({ checked }) => (
                   <button
@@ -211,7 +209,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
                         : "button-outline center px-4 w-full sm:w-auto"
                     }
                   >
-                    {useTmTitles ? item.titleTm : item.titleRu}
+                    {useTmTitles ? item.nameTm : item.nameRu}
                   </button>
                 )}
               </RadioGroup.Option>
@@ -230,35 +228,27 @@ export default function PostOrder({ customerData, shoppingCartData }) {
           )}
         </p>
       </div>
-      {ordersAreActive?.ordersActive === true ? (
-        <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
-          {t("makeOrder")}
-          <button
-            onClick={() => {
-              handleOrderRequest({
-                customerId: customerData.id,
-                phoneNumber: phoneNumber,
-                address: address,
-                comment: commentRef.current.value,
-                sum: totalSum,
-                productsList: products,
-                paymentTypeId: selectedPaymentType,
-                deliveryTypeId: selectedDeliveryType,
-                shoppingCartId: shoppingCartData.id,
-              });
-            }}
-            className="button-primary center px-4"
-          >
-            {t("postOrder")}
-          </button>
-        </div>
-      ) : (
-        <p className="border-b border-gallery-200 flex-row-center justify-end gap-4 font-bold p-2">
-          <button className="button-outline px-4">
-            {t("ordersUnAvailable")}
-          </button>
-        </p>
-      )}
+      <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
+        {t("makeOrder")}
+        <button
+          onClick={() => {
+            handleOrderRequest({
+              customerId: customerData.id,
+              phoneNumber: phoneNumber,
+              address: address,
+              comment: commentRef.current.value,
+              sum: totalSum,
+              orderItems: products,
+              paymentTypeId: selectedPaymentType,
+              deliveryTypeId: selectedDeliveryType,
+              shoppingCartId: shoppingCartData.id,
+            });
+          }}
+          className="button-primary center px-4"
+        >
+          {t("postOrder")}
+        </button>
+      </div>
     </div>
   );
 }

@@ -15,7 +15,7 @@ const nextConfig = {
       },
       {
         protocol: "http",
-        hostname: "tazemarket.com.tm",
+        hostname: "ecommerce.alemtilsimat.com",
         port: "",
       },
     ],
