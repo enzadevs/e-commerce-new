@@ -15,7 +15,7 @@ export default function ShoppingCart() {
     `${baseUrlApi}/user/fetch/details/` + currentUserObject?.user?.id,
     fetcher,
     {
-      refreshInterval: 1250,
+      refreshInterval: 5000,
     }
   );
 

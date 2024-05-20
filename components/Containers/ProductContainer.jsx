@@ -7,7 +7,7 @@ import { SuccessToast } from "components/Functions/Toaster";
 import { IsSignedInStore } from "utils/IsSignedIn";
 import { useState, useEffect } from "react";
 import {
-  handleAddToWishlist,
+  addToWishlistRequest,
   handleAddToCart,
 } from "components/Functions/PostRequests";
 import { AiFillHeart } from "react-icons/ai";
@@ -17,32 +17,51 @@ import { usePathname } from "next/navigation.js";
 export default function ProductContainer({ productData }) {
   const { barcode, nameTm, nameRu, sellPrice, images } = productData;
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
+  const updateCurrentUserObject = IsSignedInStore(
+    (state) => state.updateCurrentUserObject
+  );
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
   const [isWished, setIsWished] = useState(false);
   const t = useTranslations("Product");
   const pathname = usePathname();
-
   const useTmTitles = pathname.includes("/tm");
-  const isProductWished =
-    currentUserObject.user && currentUserObject.user.wishlist.includes(barcode);
 
   useEffect(() => {
-    if (isProductWished) {
-      setIsWished(true);
-    } else {
-      setIsWished(false);
-    }
-  }, [isProductWished]);
+    const checkWishlist = () => {
+      if (isSignedIn && currentUserObject.user?.wishlist) {
+        const isInWishlist = currentUserObject.user.wishlist.includes(barcode);
+        setIsWished(isInWishlist);
+      }
+    };
 
-  // useEffect(() => {
-  //   if (wishlist) {
-  //     setIsWished(
-  //       wishlist.some((item) => item.user?.id === currentUserObject.user?.id)
-  //     );
-  //   } else {
-  //     setIsWished(false);
-  //   }
-  // }, [wishlist, currentUserObject]);
+    checkWishlist();
+  }, [isSignedIn, currentUserObject.user?.wishlist, barcode]);
+
+  const handleAddToWishlist = () => {
+    if (isSignedIn === false) {
+      SuccessToast({ successText: t("signupAlert") });
+      return;
+    }
+    addToWishlistRequest({
+      phoneNumber: currentUserObject.user.phoneNumber,
+      barcode: barcode,
+    });
+
+    const updatedWishlist = isWished
+      ? currentUserObject.user.wishlist.filter((item) => item !== barcode)
+      : [...currentUserObject.user.wishlist, barcode];
+
+    const updatedUserObject = {
+      ...currentUserObject,
+      user: {
+        ...currentUserObject.user,
+        wishlist: updatedWishlist,
+      },
+    };
+
+    updateCurrentUserObject(updatedUserObject);
+    setIsWished(!isWished);
+  };
 
   return (
     <div className="product-container">
@@ -54,14 +73,11 @@ export default function ProductContainer({ productData }) {
                 SuccessToast({ successText: t("signupAlert") });
                 return;
               }
-              handleAddToWishlist({
-                phoneNumber: currentUserObject.user.phoneNumber,
-                barcode: barcode,
-              });
+              handleAddToWishlist();
               setIsWished(true);
             }}
             className={
-              isProductWished
+              isWished
                 ? "icons-wrapper text-red-500 ml-auto"
                 : "icons-wrapper text-gallery-200 hover:text-red-500 ml-auto"
             }

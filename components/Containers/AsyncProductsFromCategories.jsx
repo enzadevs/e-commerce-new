@@ -13,7 +13,7 @@ export default async function AsyncProductsFromCategories({ text }) {
       },
       body: JSON.stringify({
         page: 1,
-        limit: 30,
+        limit: 20,
       }),
       cache: "no-cache",
     }

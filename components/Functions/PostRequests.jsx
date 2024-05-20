@@ -1,7 +1,7 @@
 import { baseUrlApi } from "utils/Utils";
 import { SuccessToast, ErrorToast } from "./Toaster";
 
-export const handleAddToWishlist = async ({ phoneNumber, barcode }) => {
+export const addToWishlistRequest = async ({ phoneNumber, barcode }) => {
   try {
     const response = await fetch(`${baseUrlApi}/actions/shop/addtowishlist`, {
       method: "POST",
