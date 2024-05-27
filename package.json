@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start -p 7000",
     "lint": "next lint",
-    "test": "jest",
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
