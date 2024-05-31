@@ -32,9 +32,7 @@ export default function RootLayout({ children }) {
           <div className="bg-white shadow-md sticky top-0 z-20">
             <NavBar />
           </div>
-          <div className="bg-gallery min-h-[360px] sm:min-h-[700px] w-full">
-            {children}
-          </div>
+          <div className="bg-gallery w-full">{children}</div>
           <Footer />
         </NextIntlClientProvider>
       </body>

@@ -19,7 +19,6 @@ const nextConfig = {
         port: "",
       },
     ],
-    domains: ["localhost"],
   },
   reactStrictMode: false,
 };
