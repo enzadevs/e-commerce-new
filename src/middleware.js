@@ -1,10 +1,15 @@
-import createMiddleware from "next-intl/middleware";
+import { createI18nMiddleware } from "next-international/middleware";
 
-export default createMiddleware({
-  locales: ["ru", "tm"],
-  defaultLocale: "ru",
+const I18nMiddleware = createI18nMiddleware({
+  locales: ["tm", "ru"],
+  defaultLocale: "tm",
+  // urlMappingStrategy: "rewrite",
 });
 
+export function middleware(request) {
+  return I18nMiddleware(request);
+}
+
 export const config = {
-  matcher: ["/((?!api|_next|.*\\..*).*)"],
+  matcher: ["/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)"],
 };

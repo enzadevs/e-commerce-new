@@ -1,19 +1,17 @@
 {
-  "name": "next-js",
+  "name": "client-side",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start -p 7000",
-    "lint": "next lint",
-    "analyze": "cross-env ANALYZE=true next build"
+    "dev": "next dev -p 8765",
+    "build": "next build && builder.exe",
+    "start": "next start -p 8765"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
     "next": "14.2.3",
     "next-compose-plugins": "^2.2.1",
-    "next-intl": "^3.14.0",
+    "next-international": "^1.2.4",
     "nextjs-toploader": "^1.6.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -25,11 +23,6 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^14.2.3",
-    "autoprefixer": "^10.4.19",
-    "cross-env": "^7.0.3",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.0.4",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3"
   }

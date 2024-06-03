@@ -1,16 +1,19 @@
 "use client";
 
-import LoadingBlock from "components/Functions/LoadingBlock";
-import ErrorBlock from "components/Functions/ErrorBlock";
-import ProductContainer from "components/Containers/ProductContainer";
-import { baseUrlApi } from "utils/Utils.jsx";
+import Link from "next/link";
+import ErrorBlock from "@/components/Functions/ErrorBlock";
+import LoadingBlock from "@/components/Functions/LoadingBlock";
+import ProductContainer from "@/components/Containers/ProductContainer";
+import { baseUrlApi } from "@/utils/Utils";
 import { useState } from "react";
-import { Link } from "../../../../navigation.js";
-import { UseFetcher } from "components/Functions/UseFetcher";
-import { usePathname } from "next/navigation.js";
+import { usePathname } from "next/navigation";
+import { UseFetcher } from "@/components/Functions/UseFetcher";
+import { useScopedI18n } from "@/locales/client";
 
 export default function CategoryProductsPage({ params }) {
   const pathname = usePathname();
+  const useTmTitles = pathname.includes("/tm");
+  const scopedT = useScopedI18n("Product");
 
   const { data, isLoading, error } = UseFetcher(
     `${baseUrlApi}/management/categories/fetch/single/` + params.id
@@ -26,8 +29,6 @@ export default function CategoryProductsPage({ params }) {
           (product) => product.categoryId === selectedSubcategory
         )
       : data.Products;
-
-  const useTmTitles = pathname.includes("/tm");
 
   return (
     <div className="flex flex-col gap-4">
@@ -50,7 +51,11 @@ export default function CategoryProductsPage({ params }) {
         {filteredProducts?.length > 0 && (
           <div className="products-grid">
             {filteredProducts?.map((item) => (
-              <ProductContainer key={item.id} productData={item} />
+              <ProductContainer
+                key={item.id}
+                productData={item}
+                addToCart={scopedT("addToCart")}
+              />
             ))}
           </div>
         )}

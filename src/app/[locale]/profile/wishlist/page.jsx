@@ -1,21 +1,17 @@
 "use client";
 
-import SignedUserWishlistContainer from "components/Containers/SignedUserWishlistContainer";
-import { IsSignedInStore } from "utils/IsSignedIn";
-import { useTranslations } from "next-intl";
+import WishlistContainer from "@/components/Containers/WishListContainer";
+import { IsSignedInStore } from "@/utils/IsSignedIn";
+import { useScopedI18n } from "@/locales/client";
 
 export default function WishListPage() {
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
-  const t = useTranslations("Pages");
+  const scopedT = useScopedI18n("Pages");
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-bold">{t("wishlistTitle")}</h2>
-      {isSignedIn ? (
-        <SignedUserWishlistContainer />
-      ) : (
-        <p>{t("wishlistText")}</p>
-      )}
+      <h2 className="text-lg font-bold">{scopedT("wishlistTitle")}</h2>
+      {isSignedIn ? <WishlistContainer /> : <p>{scopedT("wishlistText")}</p>}
     </div>
   );
 }

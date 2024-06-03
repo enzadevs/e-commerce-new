@@ -1,15 +1,15 @@
-import AdsSwiper from "components/Containers/AdsSwiper";
-import AsyncProductsFromCategories from "components/Containers/AsyncProductsFromCategories";
-import { useTranslations } from "next-intl";
+import AdsSwiper from "@/components/Containers/AdsSwiper";
+import ProductsList from "@/components/Containers/ProductsList";
+import { getScopedI18n } from "@/locales/server";
 
-export default function HomePage() {
-  const t = useTranslations("Pages");
+export default async function HomePage() {
+  const scopedT = await getScopedI18n("Pages");
 
   return (
-    <div className="mt-4 flex flex-col gap-4 h-full">
+    <div className="flex flex-col gap-4 mt-4 h-full">
       <AdsSwiper />
       <div className="max-width">
-        <AsyncProductsFromCategories text={t("showAllProductsLink")} />
+        <ProductsList text={scopedT("showAllProductsLink")} />
       </div>
     </div>
   );

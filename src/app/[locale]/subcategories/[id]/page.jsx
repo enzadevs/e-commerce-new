@@ -1,14 +1,16 @@
 "use client";
 
-import LoadingBlock from "components/Functions/LoadingBlock";
-import ErrorBlock from "components/Functions/ErrorBlock";
-import ProductContainer from "components/Containers/ProductContainer";
-import { baseUrlApi } from "utils/Utils";
-import { UseFetcher } from "components/Functions/UseFetcher";
-import { usePathname } from "next/navigation.js";
+import ErrorBlock from "@/components/Functions/ErrorBlock";
+import LoadingBlock from "@/components/Functions/LoadingBlock";
+import ProductContainer from "@/components/Containers/ProductContainer";
+import { baseUrlApi } from "@/utils/Utils";
+import { usePathname } from "next/navigation";
+import { UseFetcher } from "@/components/Functions/UseFetcher";
+import { useScopedI18n } from "@/locales/client";
 
 export default function CategoryProductsPage({ params }) {
   const pathname = usePathname();
+  const scopedT = useScopedI18n("Product");
 
   const { data, isLoading, error } = UseFetcher(
     `${baseUrlApi}/management/subcategories/fetch/single/` + params.id
@@ -26,7 +28,11 @@ export default function CategoryProductsPage({ params }) {
       </h2>
       <div className="products-grid">
         {data?.result?.Products?.map((item) => (
-          <ProductContainer key={item.id} productData={item} />
+          <ProductContainer
+            key={item.id}
+            productData={item}
+            addToCart={scopedT("addToCart")}
+          />
         ))}
       </div>
     </div>

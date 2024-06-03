@@ -1,18 +1,18 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
-import LoadingBlock from "components/Functions/LoadingBlock";
-import ErrorBlock from "components/Functions/ErrorBlock";
-import { Link } from "../../../../../navigation.js";
-import { baseUrlApi } from "utils/Utils.jsx";
-import { UseFetcher } from "components/Functions/UseFetcher";
-import { usePathname } from "next/navigation.js";
-import { useTranslations } from "next-intl";
+import LoadingBlock from "@/components/Functions/LoadingBlock";
+import ErrorBlock from "@/components/Functions/ErrorBlock";
+import { baseUrlApi } from "@/utils/Utils";
+import { usePathname } from "next/navigation";
+import { useScopedI18n } from "@/locales/client";
+import { UseFetcher } from "@/components/Functions/UseFetcher";
 
 export default function OrdersPage({ params }) {
   const pathname = usePathname();
   const useTmTitles = pathname.includes("/tm");
-  const t = useTranslations("UsersOrderPage");
+  const scopedT = useScopedI18n("UsersOrderPage");
 
   const { data, isLoading, error } = UseFetcher(
     `${baseUrlApi}/actions/admin/orders/fetch/` + params.id
@@ -36,55 +36,55 @@ export default function OrdersPage({ params }) {
     <div className="flex flex-col gap-2">
       <div className="flex-row-center justify-between h-10">
         <h2 className="text-lg font-bold">
-          {t("orderNumber")} {params.id}
+          {scopedT("orderNumber")} {params.id}
         </h2>
       </div>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="bg-gallery rounded-md shadow-md flex flex-col gap-2 w-full">
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            {t("address")}
+            {scopedT("address")}
             <p className="font-bold">{address}</p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between gap-8 px-2 h-10">
-            {t("comment")}
+            {scopedT("comment")}
             <p className="font-bold line-clamp-1">
               {comment ? comment : "Нет"}
             </p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            {t("paymentType")}
+            {scopedT("paymentType")}
             <p className="font-bold">
               {useTmTitles ? PaymentType?.nameTm : PaymentType?.nameRu}
             </p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            {t("deliveryType")}
+            {scopedT("deliveryType")}
             <p className="font-bold">
               {useTmTitles ? DeliveryType?.nameTm : DeliveryType?.nameRu}
             </p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            {t("createdAt")}
+            {scopedT("createdAt")}
             <p className="font-bold">{createdAt}</p>
           </div>
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            {t("updatedAt")}
+            {scopedT("updatedAt")}
             <p className="font-bold">{updatedAt}</p>
           </div>
           <div className="flex-row-center justify-between px-2 h-10">
-            {t("orderSum")}
+            {scopedT("orderSum")}
             <p className="font-bold">{sum}М</p>
           </div>
         </div>
         <div className="bg-gallery rounded-md shadow-md flex flex-col pb-2 w-full">
           <div className="border-b border-gallery-200 flex-row-center justify-between px-2 h-10">
-            {t("orderStatus")}
+            {scopedT("orderStatus")}
             <p className="font-bold">
               {useTmTitles ? OrderStatus?.nameTm : OrderStatus?.nameRu}
             </p>
           </div>
           <div className="flex-row-center justify-between px-2 h-10">
-            {t("products")}
+            {scopedT("products")}
           </div>
           <div className="flex flex-col gap-2 px-2">
             {OrderItems.map((item) => {
@@ -102,7 +102,7 @@ export default function OrdersPage({ params }) {
                     width={40}
                   ></Image>
                   <div className="flex flex-col grow">
-                    {t("productName")}
+                    {scopedT("productName")}
                     <div>
                       <Link
                         href={`/product/` + item.Product?.barcode}
@@ -116,15 +116,15 @@ export default function OrdersPage({ params }) {
                   </div>
                   <div className="flex-row-center gap-2 md:gap-4 ml-auto">
                     <div className="flex flex-col items-center w-10">
-                      <p>{t("productSellPrice")}</p>
+                      <p>{scopedT("productSellPrice")}</p>
                       <p className="font-bold">{item.Product?.sellPrice}М</p>
                     </div>
                     <div className="flex flex-col items-center w-10">
-                      <p>{t("productQuantity")}</p>
+                      <p>{scopedT("productQuantity")}</p>
                       <p className="font-bold">{item.quantity}</p>
                     </div>
                     <div className="flex flex-col items-center w-10">
-                      <p>{t("productSum")}</p>
+                      <p>{scopedT("productSum")}</p>
                       <p className="font-bold">{sum}М</p>
                     </div>
                   </div>

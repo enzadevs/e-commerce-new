@@ -1,9 +1,7 @@
+import "@/styles/global.css";
 import { Nunito_Sans } from "next/font/google";
-import { useLocale } from "next-intl";
-import { NextIntlClientProvider, useMessages } from "next-intl";
-import NavBar from "components/Nav/NavBar";
-import Footer from "components/Nav/Footer";
-import "../globals.css";
+import NavBar from "@/components/Nav/NavBar";
+import Footer from "@/components/Nav/Footer";
 
 export const metadata = {
   title: "Super Market",
@@ -17,24 +15,19 @@ const globalFont = Nunito_Sans({
   adjustFontFallback: false,
 });
 
-export default function RootLayout({ children }) {
-  const locale = useLocale();
-  const messages = useMessages();
-
+export default function RootLayout({ children, params }) {
   return (
     <html
-      lang={locale}
+      lang={params.locale}
       className={globalFont.className}
       suppressHydrationWarning
     >
       <body className="flex flex-col text-sm min-h-screen w-full">
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <div className="bg-white shadow-md sticky top-0 z-20">
-            <NavBar />
-          </div>
-          <div className="bg-gallery w-full">{children}</div>
-          <Footer />
-        </NextIntlClientProvider>
+        <div className="bg-white shadow-md sticky top-0 z-20">
+          <NavBar />
+        </div>
+        <div className="bg-gallery grow min-h-[65vh] w-full">{children}</div>
+        <Footer />
       </body>
     </html>
   );
