@@ -10,6 +10,8 @@ import { useScopedI18n } from "@/locales/client";
 export default function SearchResultsPage({ params }) {
   const decodedQuery = decodeURIComponent(params.query);
   const scopedT = useScopedI18n("Pages");
+  const scopedTT = useScopedI18n("Product");
+
   const { data, isLoading, error } = UseFetcher(
     `${baseUrlApi}/shop/products/search/` + params.query
   );
@@ -28,7 +30,12 @@ export default function SearchResultsPage({ params }) {
           {data.message && <p>{data.message}</p>}
           <div className="products-grid">
             {data?.results?.map((item) => (
-              <ProductContainer key={item.id} productData={item} />
+              <ProductContainer
+                key={item.id}
+                productData={item}
+                addToCart={scopedTT("addToCart")}
+                signupAlert={scopedTT("signupAlert")}
+              />
             ))}
           </div>
         </>
