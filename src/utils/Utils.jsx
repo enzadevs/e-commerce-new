@@ -1,1 +1,1 @@
-export const baseUrlApi = "http://ecommerce.alemtilsimat.com/backend/api";
+export const baseUrlApi = "https://ecommerce.alemtilsimat.com/backend/api";

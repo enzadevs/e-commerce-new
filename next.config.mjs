@@ -8,7 +8,7 @@ const nextConfig = {
         port: "",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "ecommerce.alemtilsimat.com",
         port: "",
       },
@@ -19,8 +19,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/admin",
-        destination: "http://ecommerce.alemtilsimat.com:8989/",
+        source: "/admin/:path*",
+        destination: "http://localhost:8989/admin/",
         permanent: true,
       },
     ];
