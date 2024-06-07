@@ -5,7 +5,7 @@ import Image from "next/image";
 import { baseUrlApi } from "@/utils/Utils";
 import { SuccessToast } from "@/components/Functions/Toaster";
 import { IsSignedInStore } from "@/utils/IsSignedIn";
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect } from "react";
 import { addToWishlistRequest } from "@/components/Functions/PostRequests";
 import { usePathname } from "next/navigation";
 import { AiFillHeart } from "react-icons/ai";
@@ -15,7 +15,6 @@ export default function ProductContainer({
   productData,
   addToCart,
   signupAlert,
-  wishlistMutate,
 }) {
   const pathname = usePathname();
   const useTmTitles = pathname.includes("/tm");
@@ -46,25 +45,22 @@ export default function ProductContainer({
     addToWishlistRequest({
       phoneNumber: currentUserObject.user.phoneNumber,
       barcode: barcode,
-    })
-      .then(() => {
-        const updatedWishlist = isWished
-          ? currentUserObject.user.wishlist.filter((item) => item !== barcode)
-          : [...currentUserObject.user.wishlist, barcode];
-        const updatedUserObject = {
-          ...currentUserObject,
-          user: {
-            ...currentUserObject.user,
-            wishlist: updatedWishlist,
-          },
-        };
-        updateCurrentUserObject(updatedUserObject);
-        setIsWished(!isWished);
-        wishlistMutate();
-      })
-      .catch((error) => {
-        console.error("Error adding to wishlist:", error);
-      });
+    });
+
+    const updatedWishlist = isWished
+      ? currentUserObject.user.wishlist.filter((item) => item !== barcode)
+      : [...currentUserObject.user.wishlist, barcode];
+
+    const updatedUserObject = {
+      ...currentUserObject,
+      user: {
+        ...currentUserObject.user,
+        wishlist: updatedWishlist,
+      },
+    };
+
+    updateCurrentUserObject(updatedUserObject);
+    setIsWished(!isWished);
   };
 
   return (

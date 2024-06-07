@@ -61,7 +61,7 @@ export default function AdsSwiper() {
                 alt="image of current ad"
                 height={0}
                 width={0}
-                priority
+                priority="true"
                 style={{ height: "auto", width: "100%" }}
                 quality={100}
                 sizes="100v"

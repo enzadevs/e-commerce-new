@@ -1,5 +1,6 @@
 import "@/styles/global.css";
 import { Nunito_Sans } from "next/font/google";
+import ProgressBar from "@/components/Nav/ProgressBar";
 import NavBar from "@/components/Nav/NavBar";
 import Footer from "@/components/Nav/Footer";
 
@@ -23,6 +24,7 @@ export default function RootLayout({ children, params }) {
       suppressHydrationWarning
     >
       <body className="flex flex-col text-sm min-h-screen w-full">
+        <ProgressBar />
         <div className="bg-white shadow-md sticky top-0 z-20">
           <NavBar />
         </div>

@@ -17,6 +17,7 @@ export default function WishlistContainer() {
     data: response,
     isLoading,
     error,
+    mutate,
   } = UseFetcher(
     `${baseUrlApi}/user/fetch/wishlist/` + currentUserObject?.user?.id
   );
@@ -30,9 +31,10 @@ export default function WishlistContainer() {
         <div className="products-grid">
           {response?.wishlistProducts?.map((item) => (
             <ProductContainer
-              key={Math.random()}
+              key={item.barcode}
               productData={item}
               addToCart={scopedTT("addToCart")}
+              wishlistMutate={mutate}
             />
           ))}
         </div>

@@ -19,7 +19,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/admin/:path*",
+        source: "/tm/admin/:path*",
+        destination: "http://localhost:8989/admin/",
+        permanent: true,
+      },
+      {
+        source: "/ru/admin/:path*",
         destination: "http://localhost:8989/admin/",
         permanent: true,
       },

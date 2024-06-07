@@ -1,7 +1,6 @@
 "use client";
 
 import useSWR from "swr";
-import ErrorBlock from "@/components/Functions/ErrorBlock";
 import { baseUrlApi } from "@/utils/Utils";
 import { IsSignedInStore } from "@/utils/IsSignedIn";
 import { HiOutlineShoppingCart } from "react-icons/hi";
@@ -13,10 +12,7 @@ export default function ShoppingCart() {
 
   const { data, isLoading, error } = useSWR(
     `${baseUrlApi}/user/fetch/details/` + currentUserObject?.user?.id,
-    fetcher,
-    {
-      refreshInterval: 5000,
-    }
+    fetcher
   );
 
   if (isLoading) {

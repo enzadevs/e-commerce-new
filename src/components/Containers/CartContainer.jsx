@@ -41,7 +41,7 @@ export default function CartContainer() {
 
   return (
     <div className="flex flex-col gap-2">
-      {ShoppingCart?.ProductsList.length <= 0 ? (
+      {ShoppingCart?.ProductsList?.length <= 0 ? (
         <p className="mt-4">{scopedT("signedUserShoppingCartText")}</p>
       ) : (
         <>

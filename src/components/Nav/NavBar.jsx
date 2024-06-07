@@ -38,15 +38,15 @@ export default async function NavBar() {
         <Link href="/profile/wishlist" className="nav-button">
           <WishList text={scopedT("wishlist")} />
         </Link>
-        <Link href="/profile/cart" className="nav-button">
-          <ShoppingCartPlaceholder text={scopedT("shoppingcart")} />
-        </Link>
         <Link href="/profile" className="nav-button">
           <ProfileBoard text={scopedT("profile")} />
         </Link>
         <div className="hidden md:block md:nav-button">
           <LanguageSwitcher text={scopedT("lang")} />
         </div>
+        <Link href="/profile/cart" className="nav-button">
+          <ShoppingCartPlaceholder text={scopedT("shoppingcart")} />
+        </Link>
       </div>
     </nav>
   );
