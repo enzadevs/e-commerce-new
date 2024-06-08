@@ -1,21 +1,62 @@
 "use client";
 
+import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
-import LoadingBlock from "@/components/Functions/LoadingBlock";
 import ErrorBlock from "@/components/Functions/ErrorBlock";
+import LoadingBlock from "@/components/Functions/LoadingBlock";
 import { baseUrlApi } from "@/utils/Utils";
 import { usePathname } from "next/navigation";
 import { useScopedI18n } from "@/locales/client";
 import { UseFetcher } from "@/components/Functions/UseFetcher";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function OrdersPage({ params }) {
   const pathname = usePathname();
   const useTmTitles = pathname.includes("/tm");
   const scopedT = useScopedI18n("UsersOrderPage");
 
-  const { data, isLoading, error } = UseFetcher(
-    `${baseUrlApi}/actions/admin/orders/fetch/` + params.id
+  const handleStatusUpdate = async (id) => {
+    try {
+      const response = await fetch(
+        `${baseUrlApi}/actions/admin/orders/status/${params.id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            orderStatusId: id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        SuccessToast({ successText: "Заказ был успешно изменен." });
+      } else {
+        ErrorToast({ errorText: "Произошла непредвиденная ошибка.." });
+      }
+    } catch (err) {
+      return <ErrorBlock height={"h-20 lg:h-32"} width="w-full" />;
+    }
+  };
+
+  function confirmOrderRestoration(id) {
+    if (window.confirm(scopedT("restoreOrderAlert"))) {
+      handleStatusUpdate(id).then(() => mutate());
+    }
+  }
+
+  function confirmOrderCancelation(id) {
+    if (window.confirm(scopedT("cancelOrderAlert"))) {
+      handleStatusUpdate(id).then(() => mutate());
+    }
+  }
+
+  const { data, error, isLoading, mutate } = useSWR(
+    `${baseUrlApi}/actions/admin/orders/fetch/` + params.id,
+    fetcher
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -32,6 +73,7 @@ export default function OrdersPage({ params }) {
     createdAt,
     updatedAt,
   } = data?.order;
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex-row-center justify-between h-10">
@@ -131,6 +173,25 @@ export default function OrdersPage({ params }) {
                 </div>
               );
             })}
+            <div className="flex flex-col justify-end sm:flex-row gap-2">
+              {OrderStatus?.id === 1 ? (
+                <button
+                  onClick={() => confirmOrderCancelation(4)}
+                  className="button-primary center gap-2 px-4"
+                >
+                  {scopedT("cancelOrder")}
+                </button>
+              ) : OrderStatus?.id === 4 ? (
+                <button
+                  onClick={() => confirmOrderRestoration(1)}
+                  className="button-primary center gap-2 px-4"
+                >
+                  {scopedT("restoreOrder")}
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
         </div>
       </div>

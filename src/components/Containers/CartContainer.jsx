@@ -16,13 +16,11 @@ export default function CartContainer() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const scopedT = useScopedI18n("Pages");
   const scopedTT = useScopedI18n("Product");
+  const scopedTTT = useScopedI18n("Order");
 
-  const { data, isLoading, error } = useSWR(
+  const { data, isLoading, error, mutate } = useSWR(
     `${baseUrlApi}/user/fetch/details/` + currentUserObject?.user?.id,
-    fetcher,
-    {
-      refreshInterval: 1250,
-    }
+    fetcher
   );
 
   if (isLoading) return <LoadingBlock height={"h-20"} width="w-full" />;
@@ -38,6 +36,9 @@ export default function CartContainer() {
     const productTotal = quantity * sellPrice;
     totalSum += productTotal;
   });
+  const sortedProductsList = ShoppingCart?.ProductsList?.slice().sort(
+    (a, b) => a.id - b.id
+  );
 
   return (
     <div className="flex flex-col gap-2">
@@ -62,20 +63,29 @@ export default function CartContainer() {
               </div>
               <div className="text-center ml-auto md:ml-0 w-10">X</div>
             </div>
-            {ShoppingCart?.ProductsList?.map((cartItem) => (
+            {sortedProductsList.map((cartItem) => (
               <CartProductContainer
-                key={cartItem.id}
+                key={cartItem?.id}
                 userId={currentUserObject?.user?.id}
                 shoppingCartItemId={cartItem.id}
-                shoppingCartId={ShoppingCart.id}
-                productData={cartItem.Product}
-                quantity={cartItem.quantity}
+                shoppingCartId={ShoppingCart?.id}
+                productData={cartItem?.Product}
+                quantity={cartItem?.quantity}
+                mutate={mutate}
               />
             ))}
           </div>
-          <div className="bg-gallery border rounded-md shadow-md center ml-auto px-4 h-12 w-fit">
-            {scopedTT("productsSum")} :
-            <p className="font-bold ml-2">{totalSum} m.</p>
+          <div className="bg-gallery border rounded-md shadow-md flex flex-col ml-auto px-4 h-fit w-fit">
+            <p className="flex items-center justify-end font-bold h-10">
+              {scopedTT("productsSum")} : {totalSum} m.
+            </p>
+            <p className="flex items-center justify-end font-bold ml-2 h-10">
+              {totalSum >= 250 ? (
+                <>{scopedTTT("orderIsFree")}</>
+              ) : (
+                <>{scopedTTT("orderPrice")}</>
+              )}
+            </p>
           </div>
           <PostOrder
             customerData={currentUserObject?.user}

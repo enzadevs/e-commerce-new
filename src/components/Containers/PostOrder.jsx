@@ -113,7 +113,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
         const responseData = await response.json();
         SuccessToast({ successText: responseData.message });
         setTimeouscopedT(() => {
-          window.location.href("/profile/orders/" + responseData.order?.id);
+          router.push("/profile/orders/" + responseData.order?.id);
         }, 1250);
       } else {
         const errorData = await response.json();
@@ -221,17 +221,6 @@ export default function PostOrder({ customerData, shoppingCartData }) {
             ))}
           </RadioGroup>
         </div>
-      </div>
-      <div className="border-b border-gallery-200 flex-row-center justify-end p-2 w-full">
-        <p className="bg-white border border-gallery-200 rounded-md shadow-sm center font-bold px-4 h-10 w-fit">
-          {totalSum >= 250 ? (
-            <>{scopedT("orderIsFree")}</>
-          ) : (
-            <div className="flex-row-center justify-end gap-4 p-2">
-              {scopedT("orderPrice")}
-            </div>
-          )}
-        </p>
       </div>
       <div className="border-b border-gallery-200 flex-row-center justify-end gap-4 p-2">
         {scopedT("makeOrder")}

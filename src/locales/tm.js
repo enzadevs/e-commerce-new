@@ -114,6 +114,10 @@ export default {
     productSellPrice: "Bahasy",
     productQuantity: "Sany",
     productSum: "Jemi",
+    cancelOrder: "Sargydy ýatyr",
+    restoreOrder: "Sargydy dikelt",
+    cancelOrderAlert: "Siz hakykatdanam sargydy ýatyrmakçymy?",
+    restoreOrderAlert: "Siz hakykatdanam sargydy dikeltmekçimi?",
   },
   ShoppingCart: {
     price: "Baha",

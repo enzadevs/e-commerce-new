@@ -52,7 +52,7 @@ export default function AdsSwiper() {
           disableOnInteraction: false,
         }}
       >
-        {response?.ads?.map((item) => {
+        {response?.ads?.slice(0, 5).map((item) => {
           return (
             <SwiperSlide key={item.id}>
               <Image

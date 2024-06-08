@@ -117,6 +117,10 @@ export default {
     productSellPrice: "Цена",
     productQuantity: "Кол.",
     productSum: "Сумма",
+    cancelOrder: "Отменить заказ",
+    restoreOrder: "Восстановить заказ",
+    cancelOrderAlert: "Вы уверены, что хотите отменить заказ?",
+    restoreOrderAlert: "Вы уверены, что хотите восстановить заказ?",
   },
   ShoppingCart: {
     price: "Цена",
