@@ -20,12 +20,12 @@ const nextConfig = {
     return [
       {
         source: "/tm/admin/:path*",
-        destination: "http://localhost:8989/admin/",
+        destination: "http://ecommerce.alemtilsimat.com/admin",
         permanent: true,
       },
       {
         source: "/ru/admin/:path*",
-        destination: "http://localhost:8989/admin/",
+        destination: "http://ecommerce.alemtilsimat.com/admin",
         permanent: true,
       },
     ];
