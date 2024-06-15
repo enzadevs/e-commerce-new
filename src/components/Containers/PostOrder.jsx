@@ -112,7 +112,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
       if (response.ok) {
         const responseData = await response.json();
         SuccessToast({ successText: responseData.message });
-        setTimeouscopedT(() => {
+        setTimeout(() => {
           router.push("/profile/orders/" + responseData.order?.id);
         }, 1250);
       } else {

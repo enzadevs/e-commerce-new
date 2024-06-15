@@ -19,12 +19,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/tm/admin/:path*",
+        source: "/admin/:path*",
         destination: "http://ecommerce.alemtilsimat.com/admin",
         permanent: true,
       },
       {
-        source: "/ru/admin/:path*",
+        source: "/admin/:path*",
         destination: "http://ecommerce.alemtilsimat.com/admin",
         permanent: true,
       },
