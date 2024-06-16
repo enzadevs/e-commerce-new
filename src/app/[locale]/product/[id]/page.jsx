@@ -19,6 +19,7 @@ export default function ProductViewPage({ params }) {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const isSignedIn = IsSignedInStore((state) => state.isSignedIn);
   const scopedT = useScopedI18n("Product");
+  const scopedTT = useScopedI18n("ShoppingCart");
   const pathname = usePathname();
   const useTmTitles = pathname.includes("/tm");
 
@@ -126,6 +127,7 @@ export default function ProductViewPage({ params }) {
                 phoneNumber: currentUserObject?.user?.phoneNumber,
                 barcode: barcode,
                 quantity: count,
+                addToCartText: scopedTT("addedToCart"),
               });
             }}
             className="button-primary justify-center px-2 w-48"
