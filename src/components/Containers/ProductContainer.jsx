@@ -2,20 +2,21 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import AddToCart from "../Functions/AddToCart";
 import { baseUrlApi } from "@/utils/Utils";
 import { SuccessToast } from "@/components/Functions/Toaster";
 import { IsSignedInStore } from "@/utils/IsSignedIn";
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect } from "react";
 import { addToWishlistRequest } from "@/components/Functions/PostRequests";
 import { usePathname } from "next/navigation";
 import { AiFillHeart } from "react-icons/ai";
-import AddToCart from "../Functions/AddToCart";
 
 export default function ProductContainer({
   productData,
   addToCart,
   signupAlert,
-  wishlistMutate,
+  addedToCartText,
+  quantityChangeText,
 }) {
   const pathname = usePathname();
   const useTmTitles = pathname.includes("/tm");
@@ -60,7 +61,6 @@ export default function ProductContainer({
         };
         updateCurrentUserObject(updatedUserObject);
         setIsWished(!isWished);
-        wishlistMutate();
       })
       .catch((error) => {
         console.error("Error adding to wishlist:", error);
@@ -114,6 +114,8 @@ export default function ProductContainer({
           addToCart={addToCart}
           isSignedIn={isSignedIn}
           signupAlert={signupAlert}
+          addToCartText={addedToCartText}
+          quantityChangeText={quantityChangeText}
         />
       </div>
     </div>

@@ -13,7 +13,7 @@ export const addToWishlistRequest = async ({ phoneNumber, barcode }) => {
 
     if (response.ok) {
       const responseData = await response.json();
-      SuccessToast({ successText: responseData.message });
+      console.log(responseData.message);
     } else {
       const errorData = await response.json();
       ErrorToast({
@@ -27,7 +27,12 @@ export const addToWishlistRequest = async ({ phoneNumber, barcode }) => {
   }
 };
 
-export const handleAddToCart = async ({ phoneNumber, barcode, quantity }) => {
+export const handleAddToCart = async ({
+  phoneNumber,
+  barcode,
+  quantity,
+  addToCartText,
+}) => {
   try {
     const response = await fetch(`${baseUrlApi}/actions/shop/addtocart`, {
       method: "POST",
@@ -38,8 +43,7 @@ export const handleAddToCart = async ({ phoneNumber, barcode, quantity }) => {
     });
 
     if (response.ok) {
-      const responseData = await response.json();
-      SuccessToast({ successText: responseData.message });
+      SuccessToast({ successText: addToCartText });
     } else {
       const errorData = await response.json();
       ErrorToast({
@@ -53,7 +57,10 @@ export const handleAddToCart = async ({ phoneNumber, barcode, quantity }) => {
   }
 };
 
-export const handleRemoveProductFromCart = async ({ shoppingCartItemId }) => {
+export const handleRemoveProductFromCart = async ({
+  shoppingCartItemId,
+  removedProductText,
+}) => {
   try {
     const response = await fetch(`${baseUrlApi}/actions/shop/deletefromcart`, {
       method: "DELETE",
@@ -64,8 +71,7 @@ export const handleRemoveProductFromCart = async ({ shoppingCartItemId }) => {
     });
 
     if (response.ok) {
-      const responseData = await response.json();
-      SuccessToast({ successText: responseData.message });
+      SuccessToast({ successText: removedProductText });
     } else {
       const errorData = await response.json();
       ErrorToast({
@@ -83,6 +89,7 @@ export const handleQuantityChange = async ({
   shoppingCartId,
   barcode,
   quantity,
+  quantityChangeText,
 }) => {
   try {
     const response = await fetch(`${baseUrlApi}/actions/shop/quantity`, {
@@ -94,8 +101,7 @@ export const handleQuantityChange = async ({
     });
 
     if (response.ok) {
-      const responseData = await response.json();
-      SuccessToast({ successText: responseData.message });
+      SuccessToast({ successText: quantityChangeText });
     } else {
       const errorData = await response.json();
       ErrorToast({

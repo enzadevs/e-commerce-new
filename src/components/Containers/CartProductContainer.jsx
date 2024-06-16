@@ -63,6 +63,7 @@ export default function CartProductContainer({
                 shoppingCartId: Number(shoppingCartId),
                 barcode: barcode,
                 quantity: Number(quantity) - Number(1),
+                quantityChangeText: scopedT("quantityChange"),
               }).then(() => mutate());
             }}
             className="rounded-full center transition hover:bg-gallery-100 h-8 w-8"
@@ -76,6 +77,7 @@ export default function CartProductContainer({
                 shoppingCartId: Number(shoppingCartId),
                 barcode: barcode,
                 quantity: Number(quantity) + Number(1),
+                quantityChangeText: scopedT("quantityChange"),
               }).then(() => mutate());
             }}
             className="rounded-full center transition hover:bg-gallery-100 h-8 w-8"
@@ -93,6 +95,7 @@ export default function CartProductContainer({
           onClick={() => {
             handleRemoveProductFromCart({
               shoppingCartItemId: shoppingCartItemId,
+              removedProductText: scopedT("removedProduct"),
             }).then(() => mutate());
           }}
           className="bg-white rounded-md shadow-md center transition hover:text-red-500 h-10 w-12"

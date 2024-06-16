@@ -12,12 +12,12 @@ export default function WishlistContainer() {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const scopedT = useScopedI18n("Pages");
   const scopedTT = useScopedI18n("Product");
+  const scopedTTT = useScopedI18n("ShoppingCart");
 
   const {
     data: response,
     isLoading,
     error,
-    mutate,
   } = UseFetcher(
     `${baseUrlApi}/user/fetch/wishlist/` + currentUserObject?.user?.id
   );
@@ -34,7 +34,8 @@ export default function WishlistContainer() {
               key={item.barcode}
               productData={item}
               addToCart={scopedTT("addToCart")}
-              wishlistMutate={mutate}
+              addedToCartText={scopedTTT("addedToCart")}
+              quantityChangeText={scopedTTT("quantityChange")}
             />
           ))}
         </div>

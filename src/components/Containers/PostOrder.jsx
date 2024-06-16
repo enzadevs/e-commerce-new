@@ -111,7 +111,7 @@ export default function PostOrder({ customerData, shoppingCartData }) {
 
       if (response.ok) {
         const responseData = await response.json();
-        SuccessToast({ successText: responseData.message });
+        SuccessToast({ successText: scopedT("orderIsDone") });
         setTimeout(() => {
           router.push("/profile/orders/" + responseData.order?.id);
         }, 1250);

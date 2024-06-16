@@ -64,6 +64,7 @@ export default {
     addressInput: "Adres",
     commentInput: "Teswir",
     ordersUnAvailable: "Sargyt alynanok.",
+    orderIsDone: "Sargyt edildi.",
   },
   SignedUserOrderPage: {
     profileHeader: "Profil",
@@ -122,5 +123,8 @@ export default {
   ShoppingCart: {
     price: "Baha",
     sum: "Jemi",
+    addedToCart: "Haryt sebede goşuldy",
+    quantityChange: "Mukdar üýtgedildi",
+    removedProduct: "Haryt aýryldy",
   },
 };

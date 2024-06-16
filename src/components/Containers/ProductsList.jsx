@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { baseUrlApi } from "@/utils/Utils";
-import { getScopedI18n } from "@/locales/server";
 import CategoryName from "./CategoryName";
 import ProductContainer from "./ProductContainer";
+import { baseUrlApi } from "@/utils/Utils";
+import { getScopedI18n } from "@/locales/server";
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -13,8 +13,9 @@ function shuffle(array) {
   return array;
 }
 
-export default async function ProductsList({ text, params }) {
+export default async function ProductsList({ text }) {
   const scopedT = await getScopedI18n("Product");
+  const scopedTT = await getScopedI18n("ShoppingCart");
 
   try {
     const categoriesResponse = await fetch(
@@ -82,6 +83,8 @@ export default async function ProductsList({ text, params }) {
                         productData={product}
                         addToCart={scopedT("addToCart")}
                         signupAlert={scopedT("signupAlert")}
+                        addedToCartText={scopedTT("addedToCart")}
+                        quantityChangeText={scopedTT("quantityChange")}
                       />
                     ))}
                   </div>
@@ -102,7 +105,6 @@ export default async function ProductsList({ text, params }) {
                                 width={0}
                                 priority
                                 style={{ height: "auto", width: "100%" }}
-                                // fill
                                 quality={80}
                                 sizes="50vw"
                               ></Image>

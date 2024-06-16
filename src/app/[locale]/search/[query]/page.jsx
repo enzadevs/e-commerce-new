@@ -11,6 +11,7 @@ export default function SearchResultsPage({ params }) {
   const decodedQuery = decodeURIComponent(params.query);
   const scopedT = useScopedI18n("Pages");
   const scopedTT = useScopedI18n("Product");
+  const scopedTTT = useScopedI18n("ShoppingCart");
 
   const { data, isLoading, error } = UseFetcher(
     `${baseUrlApi}/shop/products/search/` + params.query
@@ -35,6 +36,8 @@ export default function SearchResultsPage({ params }) {
                 productData={item}
                 addToCart={scopedTT("addToCart")}
                 signupAlert={scopedTT("signupAlert")}
+                addedToCartText={scopedTTT("addedToCart")}
+                quantityChangeText={scopedTTT("quantityChange")}
               />
             ))}
           </div>

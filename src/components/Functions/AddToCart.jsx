@@ -15,6 +15,8 @@ export default function AddToCart({
   addToCart,
   isSignedIn,
   signupAlert,
+  addToCartText,
+  quantityChangeText,
 }) {
   const currentUserObject = IsSignedInStore((state) => state.currentUserObject);
   const { data, isLoading, error, mutate } = useSWR(
@@ -44,6 +46,7 @@ export default function AddToCart({
                 shoppingCartId: Number(data?.ShoppingCart?.id),
                 barcode,
                 quantity: Number(quantity) - Number(1),
+                quantityChangeText,
               }).then(() => mutate());
             }}
             className="button-primary-full-rounded center h-8 w-8"
@@ -57,6 +60,7 @@ export default function AddToCart({
                 shoppingCartId: Number(data?.ShoppingCart?.id),
                 barcode,
                 quantity: Number(quantity) + Number(1),
+                quantityChangeText,
               }).then(() => mutate());
             }}
             className="button-primary-full-rounded center h-8 w-8"
@@ -74,6 +78,7 @@ export default function AddToCart({
             handleAddToCart({
               phoneNumber,
               barcode,
+              addToCartText,
             }).then(() => mutate());
           }}
           className="button-primary center gap-2 px-8 w-full"

@@ -67,6 +67,7 @@ export default {
     addressInput: "Адрес",
     commentInput: "Коментарий",
     ordersUnAvailable: "Заказы не принимаются.",
+    orderIsDone: "Заказ был сделан",
   },
   SignedUserOrderPage: {
     profileHeader: "Профиль",
@@ -125,5 +126,8 @@ export default {
   ShoppingCart: {
     price: "Цена",
     sum: "Сумма",
+    addedToCart: "Товар добавлен в корзину",
+    quantityChange: "Количество изменено",
+    removedProduct: "Товар удален",
   },
 };
